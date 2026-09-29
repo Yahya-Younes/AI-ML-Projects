@@ -1,11 +1,20 @@
-# Linear Regression – Predicting Olympic Medals
+# Linear Regression Project
+This project is an implementation of Linear Regression in Python using the normal equation to find the parameters
+and then using scikit-learn library to compare the results. The purpose of this project is to demonstrate how to build 
+a linear regression model and how to use it for making predictions.
 
-Implementation of multiple linear regression **from scratch with the normal equation**,
-validated against scikit-learn's `LinearRegression`.
+# Prerequisites
+Before running this project, you need to have the following software installed:
 
-## Dataset
+Python 3.6 or higher
+scikit-learn library
+NumPy library
+pandas library
+matplotlib library
 
-[`data/teams.csv`](data/teams.csv) – 2,014 rows, one per country per Olympic Games.
+
+# Dataset
+The dataset used in this project is given below: [`teams.csv`](teams.csv) – 2,014 rows, one per country per Olympic Games.
 
 | Column | Description |
 |---|---|
@@ -15,15 +24,24 @@ validated against scikit-learn's `LinearRegression`.
 | `prev_medals` | Medals won at the previous Games |
 | `medals` | Medals won (**target**) |
 
-## Method
+Features used: `athletes` and `prev_medals` (+ an intercept column).
 
-Features: `athletes` and `prev_medals` (+ an intercept column).
+# Running the project
+This project can run on a jupyter notebook
 
-1. Solve the normal equation  **B = (XᵀX)⁻¹ Xᵀy**.
-2. Predict **ŷ = XB** and compute **R² = 1 − SSR / SST**.
-3. Fit `sklearn.linear_model.LinearRegression` on the same features and compare.
+```bash
+pip install numpy pandas scikit-learn jupyter
+jupyter notebook linear_regression.ipynb
+```
 
-## Results
+Keep `teams.csv` in the same folder as the notebook. Two cells need a small fix before the
+scikit-learn comparison runs: `lr.fit(...)` is missing its closing parenthesis, and
+`lr.intercept` should be `lr.intercept_`.
+
+
+
+# Results
+Normal equation **B = (XᵀX)⁻¹ Xᵀy** vs. scikit-learn:
 
 | Parameter | Normal equation | scikit-learn |
 |---|---|---|
@@ -31,16 +49,17 @@ Features: `athletes` and `prev_medals` (+ an intercept column).
 | `athletes` | 0.0711 | 0.0711 |
 | `prev_medals` | 0.7341 | 0.7341 |
 
-**R² ≈ 0.872** — the two features explain about 87 % of the variance in medal counts.
-Both approaches give identical coefficients, confirming that scikit-learn's ordinary
-least squares solves the same problem as the normal equation.
+**R² = 1 − SSR/SST ≈ 0.872.**
 
-## Running
+The scikit-learn library provides a convenient way to implement linear regression in Python, using the Ordinary Least Squares (OLS) method.
+This method is equivalent to solving the normal equation, which is a mathematical formula that gives us the optimal values of the coefficients
+in the linear regression model. Implementing linear regression using the normal equation is also a common approach, and both methods should give
+the same results. The advantage of using the scikit-learn library is that it provides a simple interface for fitting linear regression models
+and making predictions, as well as tools for evaluating the model's performance. Additionally, scikit-learn also supports more advanced linear
+regression methods, such as Ridge Regression and Lasso Regression, which can be useful in certain scenarios where there is high multicollinearity
+between the independent variables or when there are too many features in the dataset.
 
-```bash
-pip install numpy pandas scikit-learn jupyter
-cd projects/linear-regression-olympic-medals
-jupyter notebook linear_regression.ipynb
-```
-
-The notebook reads `data/teams.csv` relative to its own folder.
+# Conclusion
+Linear Regression is a simple but powerful algorithm that can be used for making predictions. In this project, we demonstrated how to implement
+linear regression in Python using scikit-learn library. The results of the linear regression algorithm showed that it is able to make accurate predictions
+on the teams dataset.

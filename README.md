@@ -11,7 +11,8 @@ course assignments, mostly in Python (NumPy, pandas, scikit-learn, TensorFlow/Ke
 │   └── advanced-computer-vision-tensorflow/   # DeepLearning.AI TensorFlow course 3 assignments
 │       ├── week-1-object-localization/        # Bounding-box regression (Caltech Birds, MobileNetV2)
 │       ├── week-2-object-detection/           # Few-shot RetinaNet fine-tuning (TF Object Detection API)
-│       └── week-3-image-segmentation/         # FCN-8 segmentation of M2NIST digits
+│       ├── week-3-image-segmentation/         # FCN-8 segmentation of M2NIST digits
+│       └── week-4/                            # placeholder (not uploaded yet)
 ├── projects/
 │   ├── chest-disease-classification/          # Chest X-ray dataset (COVID-19 / normal / viral / bacterial pneumonia)
 │   └── linear-regression-olympic-medals/      # Linear regression from scratch vs. scikit-learn
@@ -45,4 +46,5 @@ Open them in Colab rather than running them locally — see each folder's README
 
 - Folder names are lowercase `kebab-case`.
 - Each project has its own `README.md` describing the goal, data, and how to run it.
-- Datasets live in a `data/` sub-folder next to the notebook that uses them.
+- Datasets live next to the notebook that uses them (chest X-rays in `data/`).
+- Files were only moved/renamed during the reorganisation; nothing was deleted or edited.
