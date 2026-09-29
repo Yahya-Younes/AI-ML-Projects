@@ -1,0 +1,11 @@
+# Core dependencies for running the notebooks locally.
+# Course notebooks (courses/) are meant for Google Colab and need extra packages
+# listed in their own README.
+jupyter
+numpy
+pandas
+matplotlib
+scikit-learn
+tensorflow
+tensorflow-datasets
+pillow

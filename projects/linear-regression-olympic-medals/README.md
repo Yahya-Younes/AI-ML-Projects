@@ -14,14 +14,43 @@ matplotlib library
 
 
 # Dataset
-The dataset used in this project is given below
+The dataset used in this project is given below: [`teams.csv`](teams.csv) – 2,014 rows, one per country per Olympic Games.
+
+| Column | Description |
+|---|---|
+| `team`, `year` | Country code and Games year |
+| `athletes`, `events` | Number of athletes sent / events entered |
+| `age`, `height`, `weight` | Average athlete characteristics |
+| `prev_medals` | Medals won at the previous Games |
+| `medals` | Medals won (**target**) |
+
+Features used: `athletes` and `prev_medals` (+ an intercept column).
 
 # Running the project
 This project can run on a jupyter notebook
 
+```bash
+pip install numpy pandas scikit-learn jupyter
+jupyter notebook linear_regression.ipynb
+```
+
+Keep `teams.csv` in the same folder as the notebook. Two cells need a small fix before the
+scikit-learn comparison runs: `lr.fit(...)` is missing its closing parenthesis, and
+`lr.intercept` should be `lr.intercept_`.
+
 
 
 # Results
+Normal equation **B = (XᵀX)⁻¹ Xᵀy** vs. scikit-learn:
+
+| Parameter | Normal equation | scikit-learn |
+|---|---|---|
+| Intercept | −1.962 | −1.962 |
+| `athletes` | 0.0711 | 0.0711 |
+| `prev_medals` | 0.7341 | 0.7341 |
+
+**R² = 1 − SSR/SST ≈ 0.872.**
+
 The scikit-learn library provides a convenient way to implement linear regression in Python, using the Ordinary Least Squares (OLS) method.
 This method is equivalent to solving the normal equation, which is a mathematical formula that gives us the optimal values of the coefficients
 in the linear regression model. Implementing linear regression using the normal equation is also a common approach, and both methods should give
