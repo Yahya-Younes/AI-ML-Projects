@@ -3,7 +3,7 @@
 > **Who this is for:** developers who want to build generative-AI apps, RAG systems and agents on Microsoft Foundry.
 > **Time budget:** **~55 hours** over 5 weeks (≈ 2 h on weekdays + 5 h on weekends), or **~70 h** if you are new to Python or Azure.
 > **Main tools in this folder:**
-> - 🎯 [**▶️ Open `AI-103-trainer.html` in your browser**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/microsoft-azure/AI-103/AI-103-trainer.html) — **190 exam-style questions** with explanations, 4 case studies, domain drills, weak-skill tracking and a timed **50-question exam simulation** scored out of 1000.
+> - 🎯 [**▶️ Open `AI-103-trainer.html` in your browser**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-103/AI-103-trainer.html) — **190 exam-style questions** with explanations, 4 case studies, domain drills, weak-skill tracking and a timed **50-question exam simulation** scored out of 1000.
 > - 📄 [`cheatsheet.md`](cheatsheet.md) — one page per domain: "if the scenario says X, choose Y".
 
 | Exam fact | Value |

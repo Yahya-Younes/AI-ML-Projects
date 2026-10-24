@@ -6,7 +6,7 @@
 
 > **Who this is for:** Python developers who want practical deep learning with TensorFlow/Keras.
 > **Time budget:** **~60 hours** over 5–6 weeks (the original recommendation was the 4-course DeepLearning.AI program plus practice).
-> **Interactive practice:** [**▶️ Open the TensorFlow trainer in your browser**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/tensorflow/developer-certificate/TensorFlow-trainer.html) (or download [`TensorFlow-trainer.html`](TensorFlow-trainer.html) to use it offline) — concept and code questions with explanations.
+> **Interactive practice:** [**▶️ Open the TensorFlow trainer in your browser**](https://yahya-younes.github.io/ai-cloud-certification-hub/tensorflow/developer-certificate/TensorFlow-trainer.html) (or download [`TensorFlow-trainer.html`](TensorFlow-trainer.html) to use it offline) — concept and code questions with explanations.
 
 | Exam fact (when it was open) | Value |
 |---|---|
