@@ -2,7 +2,7 @@
 
 > **Who this is for:** anyone who has never used the cloud. No coding, no Azure account needed to start.
 > **Time budget:** **~18 hours** over 2–3 weeks (about 1 hour a day + one longer weekend session).
-> **Interactive practice:** [`AZ-900-trainer.html`](AZ-900-trainer.html) — download it and open it in your browser.
+> **Interactive practice:** [**▶️ Open the AZ-900 trainer in your browser**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/microsoft-azure/AZ-900/AZ-900-trainer.html) (or download [`AZ-900-trainer.html`](AZ-900-trainer.html) to use it offline).
 
 | Exam fact | Value |
 |---|---|
