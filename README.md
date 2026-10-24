@@ -1,83 +1,73 @@
-# AI / ML Projects
+# 🎓 AI & Cloud Certification Study Hub
 
-> Machine-learning and deep-learning work in Python – from linear regression written from
-> scratch to TensorFlow object localization, detection and segmentation.
+**Free, complete, beginner-friendly guides to pass Microsoft Azure, Google Cloud and TensorFlow certifications** — each with a study plan in hours, a full course written for people starting from zero, a one-page cheatsheet, every official link, and an **interactive exam simulator** that runs in your browser.
 
-<p>
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter">
-  <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" alt="TensorFlow">
-  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white" alt="scikit--learn">
-  <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white" alt="NumPy">
-  <img src="https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="pandas">
-</p>
+> ⭐ If this helps you pass, star the repository so others can find it — and open an issue if you spot anything outdated.
 
-> ### 🎓 New: [Certification Study Hub](certifications/)
-> Free zero-to-certified guides with study plans in hours, cheatsheets and interactive exam simulators for **AZ-900**, **AI-900/AI-901**, **AI-103**, **Google Cloud Generative AI Leader** and the **TensorFlow Developer Certificate**.
+---
 
-A collection of machine-learning and deep-learning work: personal projects and graded
-course assignments, mostly in Python (NumPy, pandas, scikit-learn, TensorFlow/Keras).
+## Choose your certification
 
-### Highlights
-
-- **Normal equation vs. scikit-learn** – multiple linear regression implemented with linear algebra, matching scikit-learn's coefficients exactly (R² ≈ 0.87).
-- **Object localization** – bounding-box regression on Caltech Birds with a MobileNetV2 backbone, evaluated with IoU.
-- **Few-shot object detection** – RetinaNet fine-tuned from only 5 labelled images with the TF2 Object Detection API and a custom training loop.
-- **Semantic segmentation** – CNN encoder + FCN-8 decoder on M2NIST, evaluated with IoU and Dice score.
+| Certification | Level | Study time | Guide | Practice questions | Status (Oct 2026) |
+|---|---|---|---|---|---|
+| **AZ-900** · Microsoft Azure Fundamentals | Beginner | **~18 h** | [Guide](microsoft-azure/AZ-900/) | [40 + simulation](microsoft-azure/AZ-900/AZ-900-trainer.html) | ✅ Active (outline of 14 Jan 2026) |
+| **AI-900 → AI-901** · Azure AI Fundamentals | Beginner | **~16 h** (+ ~8 h Foundry hands-on for AI-901) | [Guide](microsoft-azure/AI-900/) | [38 + simulation](microsoft-azure/AI-900/AI-900-trainer.html) | ⚠️ AI-900 retired 30 Jun 2026 → exam is now **AI-901** |
+| **AI-103** · Azure AI Apps and Agents Developer Associate | Intermediate | **~55 h** | [Guide](microsoft-azure/AI-103/) · [Cheatsheet](microsoft-azure/AI-103/cheatsheet.md) | [**190** + 4 case studies + 50-q simulation](microsoft-azure/AI-103/AI-103-trainer.html) | ✅ Active (replaces AI-102) |
+| **Google Cloud Generative AI Leader** | Beginner (business) | **~15 h** | [Guide](google-cloud/generative-ai-leader/) | [51 + 50-q simulation](google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) | ✅ Active |
+| **TensorFlow Developer Certificate** | Intermediate (coding) | **~60 h** | [Guide + tested code templates](tensorflow/developer-certificate/) | [31 concept & code questions](tensorflow/developer-certificate/TensorFlow-trainer.html) | ⛔ Exam closed in 2024 — still the best structured deep-learning bootcamp |
 
 ## Repository layout
 
 ```
 .
-├── certifications/                             # Study hub: guides, cheatsheets, exam simulators
-│   ├── microsoft-azure/                       # AZ-900, AI-900/AI-901, AI-103
-│   ├── google-cloud/                          # Generative AI Leader
-│   └── tensorflow/                            # TensorFlow Developer Certificate
-├── courses/
-│   └── advanced-computer-vision-tensorflow/   # DeepLearning.AI TensorFlow course 3 assignments
-│       ├── week-1-object-localization/        # Bounding-box regression (Caltech Birds, MobileNetV2)
-│       ├── week-2-object-detection/           # Few-shot RetinaNet fine-tuning (TF Object Detection API)
-│       ├── week-3-image-segmentation/         # FCN-8 segmentation of M2NIST digits
-│       └── week-4/                            # placeholder (not uploaded yet)
-├── projects/
-│   ├── chest-disease-classification/          # Chest X-ray dataset (COVID-19 / normal / viral / bacterial pneumonia)
-│   └── linear-regression-olympic-medals/      # Linear regression from scratch vs. scikit-learn
-├── requirements.txt
-└── README.md
+├── microsoft-azure/
+│   ├── AZ-900/            guide · 40-question trainer
+│   ├── AI-900/            guide (AI-900 → AI-901) · 38-question trainer
+│   └── AI-103/            guide · cheatsheet · 190-question trainer with case studies
+├── google-cloud/
+│   └── generative-ai-leader/   guide · 51-question trainer
+└── tensorflow/
+    └── developer-certificate/  guide with tested code templates · 31-question trainer
 ```
 
-## Contents
+## Suggested roadmaps
 
-| Folder | Topic | Techniques | Status |
-|---|---|---|---|
-| [`projects/linear-regression-olympic-medals`](projects/linear-regression-olympic-medals) | Predict Olympic medal counts per team | Normal equation, R², scikit-learn `LinearRegression` | Complete |
-| [`projects/chest-disease-classification`](projects/chest-disease-classification) | Classify chest X-rays into 4 classes | Image classification (CNN / transfer learning) | Dataset only – notebook not yet added |
-| [`courses/advanced-computer-vision-tensorflow`](courses/advanced-computer-vision-tensorflow) | Localization, detection, segmentation | Transfer learning, RetinaNet, FCN-8, IoU / Dice | Weeks 1–3 complete |
-
-## Getting started
-
-```bash
-git clone https://github.com/Yahya-Younes/AI-ML-Projects.git
-cd AI-ML-Projects
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-jupyter notebook
+```
+Cloud & AI beginner      AZ-900 (18 h) ──► AI-901 (24 h) ──► AI-103 (55 h)
+AI engineer on Azure     AI-901 (24 h) ──► AI-103 (55 h)
+Business / product lead  Google Generative AI Leader (15 h) ──► AI-901 (24 h)
+Deep-learning developer  TensorFlow Developer (60 h) ──► AI-103 (55 h)
 ```
 
-The course notebooks were written for **Google Colab** (GPU runtime) and use
-`google.colab` helpers, the TensorFlow Object Detection API and Coursera-hosted data.
-Open them in Colab rather than running them locally — see each folder's README.
+## What every guide contains
 
-## Conventions
+1. **Exam facts** — format, duration, passing score, price, validity, current status.
+2. **A day-by-day study plan with hours**, and a "done when you can…" check for each day.
+3. **The full course**, domain by domain, written for beginners: analogies, tables, ⚠️ exam traps and ✅ self-checks.
+4. **A one-page cheatsheet**: *"if the question says X, the answer is Y"*.
+5. **Exam-day tactics.**
+6. **All the official resources** — study guides, free practice assessments, exam sandboxes, labs, documentation.
 
-- Folder names are lowercase `kebab-case`.
-- Each project has its own `README.md` describing the goal, data, and how to run it.
-- Datasets live next to the notebook that uses them (chest X-rays in `data/`).
-- Files were only moved/renamed during the reorganisation; nothing was deleted or edited.
+## How to use the interactive trainers
 
----
+The `*-trainer.html` files are self-contained web pages — no account, no install, no tracking.
 
-## Author
+1. Open the trainer file on GitHub, click **Download raw file**, then double-click the downloaded file to open it in your browser.
+2. **Domain cards** → practice one domain with instant feedback and an explanation for every option.
+3. **Exam simulation** → timed and weighted like the real exam, flag & review screen, scaled score out of 1000 (700 to pass).
+4. **Weak skills / Retry missed** → drill your mistakes until every domain is green.
+5. Your progress is saved **only in your browser**.
 
-**Yahya Younes** – AI & GenAI Engineer (LLM, RAG, model compression), Toulouse, France
-[Portfolio](https://yahyayounes.com) · [LinkedIn](https://www.linkedin.com/in/yahyayounes/) · [GitHub](https://github.com/Yahya-Younes)
+> Want one-click access instead of downloading? Repository owners can enable **GitHub Pages** (Settings → Pages → deploy from the `main` branch), and every trainer becomes a live web page.
+
+### How realistic are the questions?
+
+The questions are **original** and written from the official skills outlines and documentation, in the **same formats, weighting and difficulty** as the real exams: scenario-based single and multiple choice, drop-down code completion, yes/no statement sets, ordering, and case studies. Each explanation says *why* every wrong option is wrong, which is what actually prepares you for new questions.
+
+They are **not** copies of real exam questions: those are protected by the certification providers' non-disclosure agreements, and "dumps" are both a violation and a bad way to learn. For the closest thing to the real exam, combine these trainers with each provider's **free official practice assessment**, linked in every guide.
+
+## Contributing
+
+Certifications change every few months. If a service was renamed, a question is outdated or an explanation is unclear, please open an issue or a pull request with a link to the official documentation.
+
+<sub>Unofficial study material. Not affiliated with or endorsed by Microsoft, Google or the TensorFlow team. All trademarks belong to their owners.</sub>
