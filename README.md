@@ -1,7 +1,26 @@
 # AI / ML Projects
 
+> Machine-learning and deep-learning work in Python – from linear regression written from
+> scratch to TensorFlow object localization, detection and segmentation.
+
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter">
+  <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" alt="TensorFlow">
+  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white" alt="scikit--learn">
+  <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white" alt="NumPy">
+  <img src="https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="pandas">
+</p>
+
 A collection of machine-learning and deep-learning work: personal projects and graded
 course assignments, mostly in Python (NumPy, pandas, scikit-learn, TensorFlow/Keras).
+
+### Highlights
+
+- **Normal equation vs. scikit-learn** – multiple linear regression implemented with linear algebra, matching scikit-learn's coefficients exactly (R² ≈ 0.87).
+- **Object localization** – bounding-box regression on Caltech Birds with a MobileNetV2 backbone, evaluated with IoU.
+- **Few-shot object detection** – RetinaNet fine-tuned from only 5 labelled images with the TF2 Object Detection API and a custom training loop.
+- **Semantic segmentation** – CNN encoder + FCN-8 decoder on M2NIST, evaluated with IoU and Dice score.
 
 ## Repository layout
 
@@ -48,3 +67,10 @@ Open them in Colab rather than running them locally — see each folder's README
 - Each project has its own `README.md` describing the goal, data, and how to run it.
 - Datasets live next to the notebook that uses them (chest X-rays in `data/`).
 - Files were only moved/renamed during the reorganisation; nothing was deleted or edited.
+
+---
+
+## Author
+
+**Yahya Younes** – AI & GenAI Engineer (LLM, RAG, model compression), Toulouse, France
+[Portfolio](https://yahyayounes.com) · [LinkedIn](https://www.linkedin.com/in/yahyayounes/) · [GitHub](https://github.com/Yahya-Younes)
