@@ -2,7 +2,7 @@
 
 > **Who this is for:** managers, consultants, product owners and engineers who must *lead* generative-AI adoption. **No coding.**
 > **Time budget:** **~15 hours** over 2 weeks.
-> **Interactive practice:** [**▶️ Open the GenAI Leader trainer in your browser**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) (or download [`GenAI-Leader-trainer.html`](GenAI-Leader-trainer.html) to use it offline).
+> **Interactive practice:** [**▶️ Open the GenAI Leader trainer in your browser**](https://yahya-younes.github.io/ai-cloud-certification-hub/google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) (or download [`GenAI-Leader-trainer.html`](GenAI-Leader-trainer.html) to use it offline).
 
 | Exam fact | Value |
 |---|---|
