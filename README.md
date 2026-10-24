@@ -10,13 +10,13 @@
 
 ## Choose your certification
 
-| Certification | Level | Study time | Guide | Practice questions | Status (Oct 2026) |
-|---|---|---|---|---|---|
-| **AZ-900** · Microsoft Azure Fundamentals | Beginner | **~18 h** | [Guide](microsoft-azure/AZ-900/) | [40 + simulation](microsoft-azure/AZ-900/AZ-900-trainer.html) | ✅ Active (outline of 14 Jan 2026) |
-| **AI-900 → AI-901** · Azure AI Fundamentals | Beginner | **~16 h** (+ ~8 h Foundry hands-on for AI-901) | [Guide](microsoft-azure/AI-900/) | [38 + simulation](microsoft-azure/AI-900/AI-900-trainer.html) | ⚠️ AI-900 retired 30 Jun 2026 → exam is now **AI-901** |
-| **AI-103** · Azure AI Apps and Agents Developer Associate | Intermediate | **~55 h** | [Guide](microsoft-azure/AI-103/) · [Cheatsheet](microsoft-azure/AI-103/cheatsheet.md) | [**190** + 4 case studies + 50-q simulation](microsoft-azure/AI-103/AI-103-trainer.html) | ✅ Active (replaces AI-102) |
-| **Google Cloud Generative AI Leader** | Beginner (business) | **~15 h** | [Guide](google-cloud/generative-ai-leader/) | [51 + 50-q simulation](google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) | ✅ Active |
-| **TensorFlow Developer Certificate** | Intermediate (coding) | **~60 h** | [Guide + tested code templates](tensorflow/developer-certificate/) | [31 concept & code questions](tensorflow/developer-certificate/TensorFlow-trainer.html) | ⛔ Exam closed in 2024 — still the best structured deep-learning bootcamp |
+| Certification | Level | Study time | Guide | Practice questions | ▶️ Practice now | Status (Oct 2026) |
+|---|---|---|---|---|---|---|
+| **AZ-900** · Microsoft Azure Fundamentals | Beginner | **~18 h** | [Guide](microsoft-azure/AZ-900/) | [40 + simulation](microsoft-azure/AZ-900/AZ-900-trainer.html) | [**Open trainer**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/microsoft-azure/AZ-900/AZ-900-trainer.html) | ✅ Active (outline of 14 Jan 2026) |
+| **AI-900 → AI-901** · Azure AI Fundamentals | Beginner | **~16 h** (+ ~8 h Foundry hands-on for AI-901) | [Guide](microsoft-azure/AI-900/) | [38 + simulation](microsoft-azure/AI-900/AI-900-trainer.html) | [**Open trainer**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/microsoft-azure/AI-900/AI-900-trainer.html) | ⚠️ AI-900 retired 30 Jun 2026 → exam is now **AI-901** |
+| **AI-103** · Azure AI Apps and Agents Developer Associate | Intermediate | **~55 h** | [Guide](microsoft-azure/AI-103/) · [Cheatsheet](microsoft-azure/AI-103/cheatsheet.md) | [**190** + 4 case studies + 50-q simulation](microsoft-azure/AI-103/AI-103-trainer.html) | [**Open trainer**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/microsoft-azure/AI-103/AI-103-trainer.html) | ✅ Active (replaces AI-102) |
+| **Google Cloud Generative AI Leader** | Beginner (business) | **~15 h** | [Guide](google-cloud/generative-ai-leader/) | [51 + 50-q simulation](google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) | [**Open trainer**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) | ✅ Active |
+| **TensorFlow Developer Certificate** | Intermediate (coding) | **~60 h** | [Guide + tested code templates](tensorflow/developer-certificate/) | [31 concept & code questions](tensorflow/developer-certificate/TensorFlow-trainer.html) | [**Open trainer**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/tensorflow/developer-certificate/TensorFlow-trainer.html) | ⛔ Exam closed in 2024 — still the best structured deep-learning bootcamp |
 
 ## Repository layout
 
@@ -54,13 +54,12 @@ Deep-learning developer  TensorFlow Developer (60 h) ──► AI-103 (55 h)
 
 The `*-trainer.html` files are self-contained web pages — no account, no install, no tracking.
 
-1. Open the trainer file on GitHub, click **Download raw file**, then double-click the downloaded file to open it in your browser.
+1. Click **▶️ Open trainer** in the table above — it opens directly in your browser. (Offline? Open the trainer file on GitHub, click **Download raw file**, and double-click it.)
 2. **Domain cards** → practice one domain with instant feedback and an explanation for every option.
 3. **Exam simulation** → timed and weighted like the real exam, flag & review screen, scaled score out of 1000 (700 to pass).
 4. **Weak skills / Retry missed** → drill your mistakes until every domain is green.
 5. Your progress is saved **only in your browser**.
 
-> Want one-click access instead of downloading? Repository owners can enable **GitHub Pages** (Settings → Pages → deploy from the `main` branch), and every trainer becomes a live web page.
 
 ### How realistic are the questions?
 
@@ -70,7 +69,7 @@ They are **not** copies of real exam questions: those are protected by the certi
 
 ## Contributing
 
-Certifications change every few months. If a service was renamed, a question is outdated or an explanation is unclear, please open an issue or a pull request with a link to the official documentation.
+Certifications change every few months. If a service was renamed, a question is outdated or an explanation is unclear, [open an issue](https://github.com/Yahya-Younes/ai-cloud-certification-hub/issues/new/choose) or a pull request with a link to the official documentation — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

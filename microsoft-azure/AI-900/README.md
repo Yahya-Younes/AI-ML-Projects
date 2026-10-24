@@ -13,7 +13,7 @@
 
 > **Who this is for:** anyone curious about AI — students, managers, developers. No math and no coding required.
 > **Time budget:** **~16 hours** over 2 weeks (about 1 hour a day).
-> **Interactive practice:** [`AI-900-trainer.html`](AI-900-trainer.html) — download it and open it in your browser.
+> **Interactive practice:** [**▶️ Open the AI-900 trainer in your browser**](https://raw.githack.com/Yahya-Younes/ai-cloud-certification-hub/main/microsoft-azure/AI-900/AI-900-trainer.html) (or download [`AI-900-trainer.html`](AI-900-trainer.html) to use it offline).
 > **Recommended before:** nothing. **Recommended after:** [AI-103](../AI-103/) if you want to build AI apps and agents.
 
 | Exam fact | Value |
