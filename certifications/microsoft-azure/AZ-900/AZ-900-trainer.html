@@ -1,0 +1,1428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AZ-900 Practice Trainer</title>
+<meta name="description" content="Free, unofficial AZ-900 (Microsoft Azure Fundamentals) practice trainer: 40 questions with explanations, domain drills and a timed exam simulation.">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#eef1f4;--surface:#ffffff;--surface-2:#e3e8ed;--line:#c9d1d9;--text:#1b232c;--dim:#5b6a78;
+  --accent:#0891a5;--on-accent:#ffffff;--accent-ink:#04353d;
+  --amber:#a85f06;--amber-bg:#fbeee0;--green:#15803d;--green-bg:#e4f4e9;--red:#b91c1c;--red-bg:#fbe7e7;--grey-bg:#e7eaee;--code:#f3f5f7;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;--text:#e7edf1;--dim:#93a3af;
+  --accent:#2fc7d9;--on-accent:#04262b;--accent-ink:#c9f5fa;
+  --amber:#f0a94e;--amber-bg:#3a2c15;--green:#4ade80;--green-bg:#123321;--red:#f87171;--red-bg:#3a1616;--grey-bg:#232c33;--code:#10171c;}}
+:root[data-theme="dark"]{
+  --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;--text:#e7edf1;--dim:#93a3af;
+  --accent:#2fc7d9;--on-accent:#04262b;--accent-ink:#c9f5fa;
+  --amber:#f0a94e;--amber-bg:#3a2c15;--green:#4ade80;--green-bg:#123321;--red:#f87171;--red-bg:#3a1616;--grey-bg:#232c33;--code:#10171c;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--text);font:14.5px/1.5 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.mono,code,pre{font-family:"IBM Plex Mono",ui-monospace,monospace}
+code{background:var(--surface-2);padding:1px 5px;border-radius:4px;font-size:.9em}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 20px 80px;display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(155deg,var(--accent),#04353d);display:flex;align-items:center;justify-content:center;color:#fff;font:700 13px "IBM Plex Mono"}
+h1{font-size:20px;margin:0;font-weight:650}
+.sub{font-size:12.5px;color:var(--dim)}
+.kpis{display:flex;gap:10px;flex-wrap:wrap}
+.kpi{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 16px 8px 10px}
+.kpi .num{font:600 24px "IBM Plex Mono";line-height:1}
+.kpi .lbl{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.gauge{width:50px;height:50px}
+.domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.dcard:hover{border-color:var(--accent)}
+.dcard:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dcard .row{display:flex;justify-content:space-between;font:11px "IBM Plex Mono";color:var(--dim)}
+.dcard h3{font-size:14px;margin:5px 0 8px;font-weight:600;line-height:1.3}
+.bar{height:6px;border-radius:4px;background:var(--surface-2);overflow:hidden}.bar>span{display:block;height:100%}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font:600 10.5px "IBM Plex Mono"}
+.strong{background:var(--green-bg);color:var(--green)}.dev{background:var(--amber-bg);color:var(--amber)}.weak{background:var(--red-bg);color:var(--red)}.untested{background:var(--grey-bg);color:var(--dim)}
+.modebar{display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 15px;font:600 13.5px "IBM Plex Sans";cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn .n{font:500 11px "IBM Plex Mono";opacity:.8;margin-left:4px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;min-height:220px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font:11px "IBM Plex Mono";color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.stem{font-size:16.5px;line-height:1.55;margin:0 0 14px;font-weight:560}
+.hint{font:600 12px "IBM Plex Mono";color:var(--amber);margin:-6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:10px;padding:11px 13px;font:inherit;cursor:pointer;line-height:1.45}
+.opt:hover:not(.locked){border-color:var(--accent)}
+.opt .k{font:600 12px "IBM Plex Mono";color:var(--dim);flex:none;margin-top:1px;min-width:16px}
+.opt.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.opt.ok{background:var(--green-bg);border-color:var(--green)}.opt.bad{background:var(--red-bg);border-color:var(--red)}.opt.miss{border-style:dashed;border-color:var(--green)}
+.opt.locked{cursor:default}
+pre.codeq{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.7;margin:0}
+select{font:13px "IBM Plex Mono";background:var(--surface);color:var(--text);border:1px solid var(--accent);border-radius:6px;padding:3px 6px;max-width:100%}
+select.ok{border-color:var(--green);background:var(--green-bg)}select.bad{border-color:var(--red);background:var(--red-bg)}
+table.rows{width:100%;border-collapse:collapse}
+table.rows td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.rows td:first-child{width:58%}
+.tblwrap{overflow-x:auto}
+.yn label{margin-right:14px;cursor:pointer;white-space:nowrap}
+.fix{font:12px "IBM Plex Mono";color:var(--green);margin-top:3px}
+.orderlist{display:flex;flex-direction:column;gap:6px}
+.oitem{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.oitem .pos{font:600 12px "IBM Plex Mono";color:var(--dim);min-width:18px}
+.oitem .txt{flex:1}
+.oitem button{border:1px solid var(--line);background:var(--surface-2);color:var(--text);border-radius:6px;width:30px;height:28px;cursor:pointer;font-size:13px}
+.oitem.ok{border-color:var(--green);background:var(--green-bg)}.oitem.bad{border-color:var(--red);background:var(--red-bg)}
+.explain{margin-top:14px;padding:13px 15px;border-radius:10px;background:var(--surface-2);font-size:13.8px;line-height:1.55}
+.explain .res{font-weight:700}.explain .res.good{color:var(--green)}.explain .res.part{color:var(--amber)}.explain .res.poor{color:var(--red)}
+.explain .src{margin-top:7px;font:11.5px "IBM Plex Mono";color:var(--dim)}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+details.case{border:1px solid var(--amber);border-radius:10px;padding:10px 14px;margin-bottom:14px;background:var(--amber-bg)}
+details.case summary{cursor:pointer;font-weight:650;color:var(--amber)}
+details.case ul{margin:6px 0;padding-left:18px}details.case p{margin:6px 0}
+.exambar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.timer{font:700 18px "IBM Plex Mono"}.timer.low{color:var(--red)}
+.navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin:12px 0}
+.navgrid button{font:600 12px "IBM Plex Mono";padding:7px 0;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.navgrid button.ans{background:var(--surface-2)}.navgrid button.flag{border-color:var(--amber);color:var(--amber)}
+.score{font:700 44px "IBM Plex Mono";line-height:1}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.sumcard{background:var(--surface-2);border-radius:12px;padding:12px 14px}
+.sumcard .n{font:600 20px "IBM Plex Mono"}.sumcard .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.wrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.empty{color:var(--dim);padding:22px 0}
+.empty ul{margin:8px 0;padding-left:18px}
+footer{font-size:12px;color:var(--dim);line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="mark">900</div><div><h1>AZ-900 Trainer</h1><div class="sub">Microsoft Azure Fundamentals · practice questions with explanations</div></div></div>
+    <div class="kpis">
+      <div class="kpi"><svg class="gauge" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--surface-2)" stroke-width="6"/><circle id="arc" cx="28" cy="28" r="24" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" transform="rotate(-90 28 28)"/></svg><div><div class="num" id="ready">0%</div><div class="lbl">Weighted readiness</div></div></div>
+      <div class="kpi"><div><div class="num" id="lastExam">—</div><div class="lbl">Last exam sim (/1000)</div></div></div>
+    </div>
+  </header>
+
+  <div class="domains" id="domains"></div>
+
+  <div class="modebar">
+    <button class="btn primary" id="mExam">Exam simulation <span class="n">40 q · 45 min</span></button>
+    <button class="btn" id="mWeak">Weak skills <span class="n" id="nWeak"></span></button>
+    <button class="btn" id="mMissed">Retry missed <span class="n" id="nMissed"></span></button>
+    <button class="btn" id="mNew" hidden>New questions (set 2) <span class="n" id="nNew"></span></button>
+    <button class="btn" id="mAll">All questions, shuffled <span class="n" id="nAll"></span></button>
+    <button class="btn" id="mReset" style="margin-left:auto">Reset progress</button>
+  </div>
+
+  <div class="panel" id="panel"></div>
+
+  <footer>Written from the official AZ-900 exam guide and documentation. These are original practice questions in the exam's formats, not real exam content. Scoring works like the exam: partial credit per drop-down, statement or correct choice, and a scaled score out of 1000 with 700 to pass. Your progress is saved only in this browser (localStorage); nothing is sent anywhere. Unofficial study material, not affiliated with or endorsed by Microsoft. Microsoft services change often: when an explanation and Microsoft Learn disagree, trust Microsoft Learn.</footer>
+</div>
+
+<script>
+// ===== AI-103 hard question bank =====
+// types: single {o,a}, multi {o,a:[...]} , drop {tpl|rows, b:[{o,a}]}, yesno {st:[[text,bool]]}, order {items (correct order)}
+const CASES = {};
+
+const Q = [
+{
+"id": "c-01",
+"d": 1,
+"s": "Cloud models",
+"t": "single",
+"q": "A start-up wants to avoid buying servers and pay monthly only for the computing it actually uses. Which model describes this?",
+"o": [
+"Capital expenditure (CapEx)",
+"Consumption-based model (operational expenditure)",
+"Private cloud with reserved hardware",
+"Fixed-price hosting contract"
+],
+"a": 1,
+"x": "The cloud uses a consumption-based model: no upfront cost, you pay for what you use and stop paying when you stop. That spending is operational expenditure (OpEx). Buying servers is CapEx.",
+"r": "Describe cloud computing (Microsoft Learn)"
+},
+{
+"id": "c-02",
+"d": 1,
+"s": "Service models",
+"t": "drop",
+"q": "Select the cloud service model for each scenario.",
+"rows": [
+"Your team needs full control of the operating system to install legacy software.",
+"Developers deploy web code and don't want to patch servers.",
+"Employees use a hosted email and office suite."
+],
+"b": [
+{
+"o": [
+"IaaS",
+"PaaS",
+"SaaS"
+],
+"a": 0
+},
+{
+"o": [
+"IaaS",
+"PaaS",
+"SaaS"
+],
+"a": 1
+},
+{
+"o": [
+"IaaS",
+"PaaS",
+"SaaS"
+],
+"a": 2
+}
+],
+"x": "IaaS gives you virtual machines and you manage the OS. PaaS manages the platform so you focus on code (e.g. App Service). SaaS is a complete application you just use (e.g. Microsoft 365).",
+"r": "Describe cloud computing (Microsoft Learn)"
+},
+{
+"id": "c-03",
+"d": 1,
+"s": "Shared responsibility",
+"t": "yesno",
+"q": "For each statement about the shared responsibility model, select Yes if it is true.",
+"st": [
+[
+"In SaaS, the customer is still responsible for their data and user accounts.",
+true
+],
+[
+"In IaaS, Microsoft patches the guest operating system of your virtual machines.",
+false
+],
+[
+"The physical security of the data center is always Microsoft's responsibility in Azure.",
+true
+]
+],
+"x": "Information/data, devices, accounts and identities always stay with the customer. In IaaS the customer manages the OS. Physical hosts, network and data center are always Microsoft's in the cloud.",
+"r": "Describe cloud computing (Microsoft Learn)"
+},
+{
+"id": "c-04",
+"d": 1,
+"s": "Deployment models",
+"t": "drop",
+"q": "Select the deployment model for each description.",
+"rows": [
+"Resources are owned by a provider and shared by many customers over the internet.",
+"Sensitive data stays in the company's data center, while web front ends run in Azure.",
+"An organization uses Azure and another public cloud provider at the same time."
+],
+"b": [
+{
+"o": [
+"Public cloud",
+"Private cloud",
+"Hybrid cloud",
+"Multi-cloud"
+],
+"a": 0
+},
+{
+"o": [
+"Public cloud",
+"Private cloud",
+"Hybrid cloud",
+"Multi-cloud"
+],
+"a": 2
+},
+{
+"o": [
+"Public cloud",
+"Private cloud",
+"Hybrid cloud",
+"Multi-cloud"
+],
+"a": 3
+}
+],
+"x": "Public = provider-owned, shared. Hybrid = public + private connected. Multi-cloud = several public providers. Private = dedicated to one organization.",
+"r": "Describe cloud computing (Microsoft Learn)"
+},
+{
+"id": "c-05",
+"d": 1,
+"s": "Benefits",
+"t": "single",
+"q": "An online shop automatically adds web servers during Black Friday and removes them afterwards, without human action. Which cloud benefit is this?",
+"o": [
+"High availability",
+"Elasticity",
+"Governance",
+"Predictability of cost"
+],
+"a": 1,
+"x": "Elasticity = automatically scaling resources up and down to match demand. Scalability is the ability to add resources; elasticity is doing it automatically in both directions.",
+"r": "Describe the benefits of using cloud services"
+},
+{
+"id": "c-06",
+"d": 1,
+"s": "Benefits",
+"t": "drop",
+"q": "Select the benefit that matches each statement.",
+"rows": [
+"Adding more virtual machines to share the load",
+"Replacing a VM with a bigger one (more CPU and RAM)",
+"The service is up 99.95% of the time, as written in the SLA"
+],
+"b": [
+{
+"o": [
+"Horizontal scaling (scale out)",
+"Vertical scaling (scale up)",
+"High availability",
+"Elasticity"
+],
+"a": 0
+},
+{
+"o": [
+"Horizontal scaling (scale out)",
+"Vertical scaling (scale up)",
+"High availability",
+"Elasticity"
+],
+"a": 1
+},
+{
+"o": [
+"Horizontal scaling (scale out)",
+"Vertical scaling (scale up)",
+"High availability",
+"Elasticity"
+],
+"a": 2
+}
+],
+"x": "Scale out = more instances (horizontal). Scale up = bigger instance (vertical). High availability = the service stays up, measured by the SLA.",
+"r": "Describe the benefits of using cloud services"
+},
+{
+"id": "c-07",
+"d": 1,
+"s": "CapEx vs OpEx",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"Building your own data center is an example of capital expenditure.",
+true
+],
+[
+"Cloud computing usually moves IT spending from OpEx to CapEx.",
+false
+],
+[
+"With a consumption-based model, you can stop paying when you stop using a resource.",
+true
+]
+],
+"x": "Data centers are CapEx (upfront physical assets). The cloud moves spending to OpEx, not the other way. Consumption-based pricing stops when usage stops.",
+"r": "Describe cloud computing (Microsoft Learn)"
+},
+{
+"id": "c-08",
+"d": 1,
+"s": "Serverless",
+"t": "single",
+"q": "Which statement best describes serverless computing such as Azure Functions?",
+"o": [
+"You rent a dedicated physical server",
+"You manage the operating system but not the hardware",
+"Code runs in response to events, the platform scales automatically, and you pay only when code runs",
+"It runs only on-premises"
+],
+"a": 2,
+"x": "Serverless abstracts servers completely: event-driven, automatic scaling, billed per execution. Servers still exist, you just never manage them.",
+"r": "Describe cloud service types"
+},
+{
+"id": "c-09",
+"d": 1,
+"s": "Hybrid",
+"t": "single",
+"q": "You must manage on-premises Windows servers and servers in another cloud from the Azure portal, with Azure Policy applied to them. What should you use?",
+"o": [
+"Azure Arc",
+"Azure VMware Solution",
+"Azure Virtual Desktop",
+"Azure DNS"
+],
+"a": 0,
+"x": "Azure Arc projects non-Azure servers, Kubernetes clusters and databases into Azure so you can manage and govern them like Azure resources.",
+"r": "Describe features and tools for managing and deploying Azure resources"
+},
+{
+"id": "c-10",
+"d": 1,
+"s": "Benefits",
+"t": "single",
+"q": "Which benefit lets you estimate your monthly bill in advance with tools such as the pricing calculator and budgets?",
+"o": [
+"Cost predictability",
+"Elasticity",
+"Reliability",
+"Performance predictability"
+],
+"a": 0,
+"x": "Predictability has two sides: performance (autoscale, load balancing) and cost (pricing calculator, TCO calculator, budgets, Cost Management).",
+"r": "Describe the benefits of using cloud services"
+},
+{
+"id": "a-01",
+"d": 2,
+"s": "Core architecture",
+"t": "single",
+"q": "You need to protect an application from the failure of a single data center while staying in one Azure region. What should you use?",
+"o": [
+"Region pairs",
+"Availability zones",
+"Resource groups",
+"Management groups"
+],
+"a": 1,
+"x": "Availability zones are physically separate data centers inside one region, with independent power, cooling and networking. Region pairs protect against a whole-region outage.",
+"r": "Describe the core architectural components of Azure"
+},
+{
+"id": "a-02",
+"d": 2,
+"s": "Resource hierarchy",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"A resource can belong to more than one resource group at the same time.",
+false
+],
+[
+"Resource groups can be nested inside other resource groups.",
+false
+],
+[
+"Deleting a resource group deletes all the resources inside it.",
+true
+],
+[
+"A policy assigned to a management group is inherited by its subscriptions.",
+true
+]
+],
+"x": "Each resource lives in exactly one resource group, and groups can't be nested. Deleting a group deletes its content. Settings flow down: management group → subscriptions → resource groups → resources.",
+"r": "Describe the core architectural components of Azure"
+},
+{
+"id": "a-03",
+"d": 2,
+"s": "Resource hierarchy",
+"t": "drop",
+"q": "Complete the Azure hierarchy, from the top down.",
+"rows": [
+"Level 1 (top)",
+"Level 2",
+"Level 3",
+"Level 4 (bottom)"
+],
+"b": [
+{
+"o": [
+"Management groups",
+"Subscriptions",
+"Resource groups",
+"Resources"
+],
+"a": 0
+},
+{
+"o": [
+"Management groups",
+"Subscriptions",
+"Resource groups",
+"Resources"
+],
+"a": 1
+},
+{
+"o": [
+"Management groups",
+"Subscriptions",
+"Resource groups",
+"Resources"
+],
+"a": 2
+},
+{
+"o": [
+"Management groups",
+"Subscriptions",
+"Resource groups",
+"Resources"
+],
+"a": 3
+}
+],
+"x": "Management groups contain subscriptions, subscriptions contain resource groups, resource groups contain resources. (Above all of it sits the Microsoft Entra tenant.)",
+"r": "Describe the core architectural components of Azure"
+},
+{
+"id": "a-04",
+"d": 2,
+"s": "Compute",
+"t": "drop",
+"q": "Select the best compute service for each requirement.",
+"rows": [
+"Run a small function each time a file is uploaded, and pay only per execution.",
+"Host a web app and a REST API without managing servers.",
+"Orchestrate hundreds of containers for a microservices application.",
+"Move an existing server as-is from the data center ('lift and shift')."
+],
+"b": [
+{
+"o": [
+"Azure Functions",
+"Azure App Service",
+"Azure Kubernetes Service (AKS)",
+"Azure Virtual Machines"
+],
+"a": 0
+},
+{
+"o": [
+"Azure Functions",
+"Azure App Service",
+"Azure Kubernetes Service (AKS)",
+"Azure Virtual Machines"
+],
+"a": 1
+},
+{
+"o": [
+"Azure Functions",
+"Azure App Service",
+"Azure Kubernetes Service (AKS)",
+"Azure Virtual Machines"
+],
+"a": 2
+},
+{
+"o": [
+"Azure Functions",
+"Azure App Service",
+"Azure Kubernetes Service (AKS)",
+"Azure Virtual Machines"
+],
+"a": 3
+}
+],
+"x": "Event-driven + pay per execution → Functions. Web apps without servers → App Service (PaaS). Container orchestration → AKS. Lift and shift with OS control → Virtual Machines (IaaS).",
+"r": "Describe Azure compute and networking services"
+},
+{
+"id": "a-05",
+"d": 2,
+"s": "Compute",
+"t": "single",
+"q": "You need to run a single container for a short batch job, as quickly as possible, without managing any orchestrator. What should you use?",
+"o": [
+"Azure Kubernetes Service",
+"Azure Container Instances",
+"Virtual Machine Scale Sets",
+"Azure Virtual Desktop"
+],
+"a": 1,
+"x": "Azure Container Instances runs a container directly without servers or orchestration. AKS is for orchestrating many containers.",
+"r": "Describe Azure compute and networking services"
+},
+{
+"id": "a-06",
+"d": 2,
+"s": "Compute",
+"t": "single",
+"q": "Employees must access a full Windows desktop and their applications from any device, while the desktop runs in Azure. What should you use?",
+"o": [
+"Azure Virtual Desktop",
+"Azure App Service",
+"Azure Functions",
+"Azure Arc"
+],
+"a": 0,
+"x": "Azure Virtual Desktop delivers Windows desktops and applications virtualized in the cloud to any device.",
+"r": "Describe Azure compute and networking services"
+},
+{
+"id": "a-07",
+"d": 2,
+"s": "Compute",
+"t": "single",
+"q": "You need many identical, load-balanced VMs whose number increases and decreases automatically with demand. What should you use?",
+"o": [
+"Availability sets",
+"Virtual Machine Scale Sets",
+"Resource locks",
+"Azure Container Instances"
+],
+"a": 1,
+"x": "Virtual Machine Scale Sets create and manage a group of identical, load-balanced VMs and autoscale them. Availability sets spread VMs across fault/update domains but don't autoscale.",
+"r": "Describe Azure compute and networking services"
+},
+{
+"id": "a-08",
+"d": 2,
+"s": "Networking",
+"t": "drop",
+"q": "Select the networking service for each requirement.",
+"rows": [
+"A dedicated private connection to Azure that does not travel over the public internet",
+"An encrypted tunnel between the office network and Azure over the internet",
+"Connect two virtual networks in different regions privately",
+"Host the DNS records of your domain in Azure"
+],
+"b": [
+{
+"o": [
+"ExpressRoute",
+"VPN Gateway",
+"VNet peering",
+"Azure DNS"
+],
+"a": 0
+},
+{
+"o": [
+"ExpressRoute",
+"VPN Gateway",
+"VNet peering",
+"Azure DNS"
+],
+"a": 1
+},
+{
+"o": [
+"ExpressRoute",
+"VPN Gateway",
+"VNet peering",
+"Azure DNS"
+],
+"a": 2
+},
+{
+"o": [
+"ExpressRoute",
+"VPN Gateway",
+"VNet peering",
+"Azure DNS"
+],
+"a": 3
+}
+],
+"x": "ExpressRoute = private, not over the internet. VPN Gateway = encrypted over the internet. Peering connects VNets over the Microsoft backbone. Azure DNS hosts DNS zones.",
+"r": "Describe Azure compute and networking services"
+},
+{
+"id": "a-09",
+"d": 2,
+"s": "Networking",
+"t": "single",
+"q": "A storage account must be reachable only from your virtual network, through a private IP address. What should you configure?",
+"o": [
+"A public endpoint",
+"A private endpoint",
+"An ExpressRoute circuit",
+"Azure DNS"
+],
+"a": 1,
+"x": "A private endpoint gives an Azure service a private IP inside your VNet, so traffic stays private.",
+"r": "Describe Azure compute and networking services"
+},
+{
+"id": "a-10",
+"d": 2,
+"s": "Storage",
+"t": "drop",
+"q": "Select the storage service for each need.",
+"rows": [
+"Store millions of images and videos for a website",
+"Replace an on-premises file server with a shared drive mounted over SMB",
+"Pass messages between two parts of an application",
+"Disks attached to a virtual machine"
+],
+"b": [
+{
+"o": [
+"Blob storage",
+"Azure Files",
+"Queue storage",
+"Managed disks"
+],
+"a": 0
+},
+{
+"o": [
+"Blob storage",
+"Azure Files",
+"Queue storage",
+"Managed disks"
+],
+"a": 1
+},
+{
+"o": [
+"Blob storage",
+"Azure Files",
+"Queue storage",
+"Managed disks"
+],
+"a": 2
+},
+{
+"o": [
+"Blob storage",
+"Azure Files",
+"Queue storage",
+"Managed disks"
+],
+"a": 3
+}
+],
+"x": "Blobs = unstructured objects. Azure Files = SMB/NFS shares. Queues = messages between components. Managed disks = VM disks.",
+"r": "Describe Azure storage services"
+},
+{
+"id": "a-11",
+"d": 2,
+"s": "Storage tiers",
+"t": "drop",
+"q": "Select the most cost-effective blob access tier for each dataset.",
+"rows": [
+"Product images viewed thousands of times per day",
+"Monthly reports read a few times, kept at least 30 days",
+"Legal records kept 7 years, almost never read, retrieval can take hours"
+],
+"b": [
+{
+"o": [
+"Hot",
+"Cool",
+"Archive"
+],
+"a": 0
+},
+{
+"o": [
+"Hot",
+"Cool",
+"Archive"
+],
+"a": 1
+},
+{
+"o": [
+"Hot",
+"Cool",
+"Archive"
+],
+"a": 2
+}
+],
+"x": "Hot = frequent access. Cool = infrequent, ≥30 days (Cold ≥90 days). Archive = rarely accessed, ≥180 days, offline until rehydrated (hours).",
+"r": "Describe Azure storage services"
+},
+{
+"id": "a-12",
+"d": 2,
+"s": "Redundancy",
+"t": "drop",
+"q": "Select the cheapest redundancy option that meets each requirement.",
+"rows": [
+"Survive a disk or server failure only",
+"Survive the loss of one data center in the region",
+"Survive the loss of the entire primary region"
+],
+"b": [
+{
+"o": [
+"LRS",
+"ZRS",
+"GRS"
+],
+"a": 0
+},
+{
+"o": [
+"LRS",
+"ZRS",
+"GRS"
+],
+"a": 1
+},
+{
+"o": [
+"LRS",
+"ZRS",
+"GRS"
+],
+"a": 2
+}
+],
+"x": "LRS = 3 copies in one data center. ZRS = 3 copies across availability zones. GRS = LRS + 3 copies in the paired region.",
+"r": "Describe Azure storage services"
+},
+{
+"id": "a-13",
+"d": 2,
+"s": "Redundancy",
+"t": "single",
+"q": "During a regional outage, your application must still be able to READ data from the secondary region. Which option should you choose?",
+"o": [
+"LRS",
+"ZRS",
+"GRS",
+"RA-GRS"
+],
+"a": 3,
+"x": "GRS replicates to a secondary region but you can read it only after a failover. RA-GRS (read-access GRS) lets you read the secondary copy at any time.",
+"r": "Describe Azure storage services"
+},
+{
+"id": "a-14",
+"d": 2,
+"s": "Data migration",
+"t": "single",
+"q": "You must move 80 TB of data to Azure, and your internet connection would need weeks. What should you use?",
+"o": [
+"AzCopy",
+"Azure Storage Explorer",
+"Azure Data Box",
+"Azure File Sync"
+],
+"a": 2,
+"x": "Azure Data Box is a physical device shipped to you: copy the data, send it back, Microsoft uploads it. Ideal when the network is too slow for large volumes.",
+"r": "Describe Azure storage services"
+},
+{
+"id": "a-15",
+"d": 2,
+"s": "Identity",
+"t": "drop",
+"q": "Select the identity feature for each requirement.",
+"rows": [
+"Users sign in with a password AND a code from their phone",
+"Block sign-ins from unknown countries, require MFA outside the office",
+"One sign-in gives access to many applications",
+"Partners sign in with their own company accounts"
+],
+"b": [
+{
+"o": [
+"Multifactor authentication",
+"Conditional Access",
+"Single sign-on",
+"External identities (B2B)"
+],
+"a": 0
+},
+{
+"o": [
+"Multifactor authentication",
+"Conditional Access",
+"Single sign-on",
+"External identities (B2B)"
+],
+"a": 1
+},
+{
+"o": [
+"Multifactor authentication",
+"Conditional Access",
+"Single sign-on",
+"External identities (B2B)"
+],
+"a": 2
+},
+{
+"o": [
+"Multifactor authentication",
+"Conditional Access",
+"Single sign-on",
+"External identities (B2B)"
+],
+"a": 3
+}
+],
+"x": "MFA = several factors. Conditional Access = if/then policies based on signals (location, device, risk). SSO = one identity, many apps. B2B = external users with their own identities.",
+"r": "Describe Azure identity, access, and security"
+},
+{
+"id": "a-16",
+"d": 2,
+"s": "Security",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"Authentication verifies who a user is; authorization decides what they can do.",
+true
+],
+[
+"Zero Trust assumes everything inside the corporate network is safe.",
+false
+],
+[
+"Defense in depth uses several layers of protection so one failure doesn't expose the data.",
+true
+]
+],
+"x": "AuthN = identity, AuthZ = permissions. Zero Trust = never trust, always verify; assume breach. Defense in depth = layered security from physical to data.",
+"r": "Describe Azure identity, access, and security"
+},
+{
+"id": "a-17",
+"d": 2,
+"s": "Security",
+"t": "single",
+"q": "Which service assesses the security posture of your Azure, on-premises and multi-cloud resources and protects them against threats?",
+"o": [
+"Microsoft Defender for Cloud",
+"Azure Advisor",
+"Azure Service Health",
+"Microsoft Purview"
+],
+"a": 0,
+"x": "Defender for Cloud provides cloud security posture management (secure score, recommendations) and workload protection across Azure, hybrid and multi-cloud.",
+"r": "Describe Azure identity, access, and security"
+},
+{
+"id": "a-18",
+"d": 2,
+"s": "Identity",
+"t": "single",
+"q": "What is Microsoft Entra ID?",
+"o": [
+"A firewall for virtual networks",
+"Microsoft's cloud identity and access management service (formerly Azure Active Directory)",
+"A database service",
+"A backup tool"
+],
+"a": 1,
+"x": "Microsoft Entra ID (formerly Azure AD) manages users, groups, sign-in, SSO, MFA and Conditional Access.",
+"r": "Describe Azure identity, access, and security"
+},
+{
+"id": "g-01",
+"d": 3,
+"s": "Cost tools",
+"t": "drop",
+"q": "Select the tool that answers each question.",
+"rows": [
+"How much will this new architecture cost per month?",
+"How much will we save by moving our data center to Azure?",
+"How much did we spend last month, and alert us at 80% of the budget"
+],
+"b": [
+{
+"o": [
+"Pricing calculator",
+"TCO calculator",
+"Cost Management + Billing"
+],
+"a": 0
+},
+{
+"o": [
+"Pricing calculator",
+"TCO calculator",
+"Cost Management + Billing"
+],
+"a": 1
+},
+{
+"o": [
+"Pricing calculator",
+"TCO calculator",
+"Cost Management + Billing"
+],
+"a": 2
+}
+],
+"x": "Pricing calculator = estimate new Azure costs. TCO calculator = compare on-premises vs Azure. Cost Management = analyze actual spending, budgets and alerts.",
+"r": "Describe cost management in Azure"
+},
+{
+"id": "g-02",
+"d": 3,
+"s": "Cost factors",
+"t": "yesno",
+"q": "For each statement about Azure costs, select Yes if it is true.",
+"st": [
+[
+"Data transfer INTO Azure data centers (ingress) is generally free.",
+true
+],
+[
+"The same VM size always costs the same in every region.",
+false
+],
+[
+"Azure Hybrid Benefit lets you reuse existing Windows Server and SQL Server licenses to reduce cost.",
+true
+]
+],
+"x": "Ingress is generally free while egress is charged. Prices vary by region. Azure Hybrid Benefit reuses on-premises licenses with Software Assurance.",
+"r": "Describe cost management in Azure"
+},
+{
+"id": "g-03",
+"d": 3,
+"s": "Tags",
+"t": "single",
+"q": "Finance wants to see costs per department and per project. What should you apply to resources?",
+"o": [
+"Resource locks",
+"Tags",
+"Availability zones",
+"Management groups only"
+],
+"a": 1,
+"x": "Tags are name:value pairs (e.g. department:finance) that you can use to group and report costs in Cost Management.",
+"r": "Describe cost management in Azure"
+},
+{
+"id": "g-04",
+"d": 3,
+"s": "Governance",
+"t": "drop",
+"q": "Select the governance tool for each requirement.",
+"rows": [
+"Only allow resources to be created in EU regions, for everyone",
+"Give a developer permission to manage VMs in one resource group only",
+"Prevent anyone, including owners, from deleting a production database"
+],
+"b": [
+{
+"o": [
+"Azure Policy",
+"Azure role-based access control (RBAC)",
+"Resource lock"
+],
+"a": 0
+},
+{
+"o": [
+"Azure Policy",
+"Azure role-based access control (RBAC)",
+"Resource lock"
+],
+"a": 1
+},
+{
+"o": [
+"Azure Policy",
+"Azure role-based access control (RBAC)",
+"Resource lock"
+],
+"a": 2
+}
+],
+"x": "Policy enforces rules on resource properties. RBAC controls who can do what at a scope. A CanNotDelete lock blocks deletion even for owners.",
+"r": "Describe features and tools in Azure for governance and compliance"
+},
+{
+"id": "g-05",
+"d": 3,
+"s": "Locks",
+"t": "single",
+"q": "A lock must allow reading a resource but block ANY change to it. Which lock type should you use?",
+"o": [
+"CanNotDelete",
+"ReadOnly",
+"Delete",
+"Archive"
+],
+"a": 1,
+"x": "ReadOnly blocks modifications and deletion; CanNotDelete allows changes but blocks deletion.",
+"r": "Describe features and tools in Azure for governance and compliance"
+},
+{
+"id": "g-06",
+"d": 3,
+"s": "Compliance",
+"t": "single",
+"q": "An auditor asks for Microsoft's independent audit reports (ISO, SOC). Where do you find them?",
+"o": [
+"Azure Advisor",
+"Service Trust Portal",
+"Azure Monitor",
+"Azure Arc"
+],
+"a": 1,
+"x": "The Service Trust Portal publishes Microsoft's compliance reports, audits and trust documents.",
+"r": "Describe features and tools in Azure for governance and compliance"
+},
+{
+"id": "g-07",
+"d": 3,
+"s": "Data governance",
+"t": "single",
+"q": "You must discover, classify and map sensitive data across Azure, on-premises and SaaS sources. What should you use?",
+"o": [
+"Microsoft Purview",
+"Azure Policy",
+"Resource locks",
+"Azure DNS"
+],
+"a": 0,
+"x": "Microsoft Purview is the data governance, risk and compliance family: data map, catalog, classification.",
+"r": "Describe features and tools in Azure for governance and compliance"
+},
+{
+"id": "g-08",
+"d": 3,
+"s": "Management tools",
+"t": "drop",
+"q": "Select the tool for each need.",
+"rows": [
+"Run Azure CLI commands from a browser without installing anything",
+"Deploy the same infrastructure repeatedly from a declarative file",
+"Point-and-click management in a web interface"
+],
+"b": [
+{
+"o": [
+"Azure Cloud Shell",
+"ARM templates / Bicep",
+"Azure portal"
+],
+"a": 0
+},
+{
+"o": [
+"Azure Cloud Shell",
+"ARM templates / Bicep",
+"Azure portal"
+],
+"a": 1
+},
+{
+"o": [
+"Azure Cloud Shell",
+"ARM templates / Bicep",
+"Azure portal"
+],
+"a": 2
+}
+],
+"x": "Cloud Shell = browser shell (Bash or PowerShell). ARM templates and Bicep = Infrastructure as Code. The portal = web UI.",
+"r": "Describe features and tools for managing and deploying Azure resources"
+},
+{
+"id": "g-09",
+"d": 3,
+"s": "Monitoring",
+"t": "drop",
+"q": "Select the tool that answers each question.",
+"rows": [
+"How can we lower costs and improve security of our resources?",
+"Is there an Azure outage affecting our region right now?",
+"Collect metrics and logs from our resources and alert on high CPU",
+"Monitor the performance and failures of our web application code"
+],
+"b": [
+{
+"o": [
+"Azure Advisor",
+"Azure Service Health",
+"Azure Monitor",
+"Application Insights"
+],
+"a": 0
+},
+{
+"o": [
+"Azure Advisor",
+"Azure Service Health",
+"Azure Monitor",
+"Application Insights"
+],
+"a": 1
+},
+{
+"o": [
+"Azure Advisor",
+"Azure Service Health",
+"Azure Monitor",
+"Application Insights"
+],
+"a": 2
+},
+{
+"o": [
+"Azure Advisor",
+"Azure Service Health",
+"Azure Monitor",
+"Application Insights"
+],
+"a": 3
+}
+],
+"x": "Advisor = personalized recommendations (cost, security, reliability, performance, operations). Service Health = Azure platform issues. Monitor = metrics, logs, alerts. Application Insights = application performance monitoring.",
+"r": "Describe monitoring tools in Azure"
+},
+{
+"id": "g-10",
+"d": 3,
+"s": "Monitoring",
+"t": "single",
+"q": "Which language do you use to query logs in Log Analytics?",
+"o": [
+"SQL",
+"Kusto Query Language (KQL)",
+"Python",
+"JSON"
+],
+"a": 1,
+"x": "Log Analytics (part of Azure Monitor) uses KQL to query collected logs.",
+"r": "Describe monitoring tools in Azure"
+},
+{
+"id": "g-11",
+"d": 3,
+"s": "Cost",
+"t": "multi",
+"q": "Which TWO actions reduce the cost of a VM that runs 24/7 for the next three years?",
+"o": [
+"Buy a reserved instance or savings plan",
+"Apply Azure Hybrid Benefit if you own eligible licenses",
+"Move it to GRS storage",
+"Add more tags",
+"Use a larger VM size"
+],
+"a": [
+0,
+1
+],
+"x": "Reservations/savings plans discount committed usage; Azure Hybrid Benefit removes the license cost. Tags only help reporting; larger VMs cost more.",
+"r": "Describe cost management in Azure"
+},
+{
+"id": "g-12",
+"d": 3,
+"s": "SLA",
+"t": "yesno",
+"q": "For each statement about service-level agreements (SLAs), select Yes if it is true.",
+"st": [
+[
+"A higher SLA percentage means less allowed downtime.",
+true
+],
+[
+"Free services usually come with the same financial SLA as paid services.",
+false
+],
+[
+"Deploying VMs across availability zones can raise the SLA of your solution.",
+true
+]
+],
+"x": "99.99% allows less downtime than 99.9%. Free tiers typically have no financial SLA. Redundancy across zones increases availability and the published SLA.",
+"r": "Describe the benefits of using cloud services"
+}
+];
+
+const DOMAINS=[{"id": 1, "name": "Cloud concepts", "w": 0.275, "n": 10}, {"id": 2, "name": "Azure architecture and services", "w": 0.375, "n": 18}, {"id": 3, "name": "Management and governance", "w": 0.325, "n": 12}];
+Q.forEach(q=>{if(q.id.startsWith("s2-"))q.set=2;});
+const EXAM_MIN=45;
+// randomize option order on every load so answer position gives nothing away
+(function(){const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+Q.forEach(q=>{
+  if(q.t==="single"||q.t==="multi"){const p=sh(q.o.map((_,i)=>i));q.o=p.map(i=>q.o[i]);if(q.t==="single")q.a=p.indexOf(q.a);else q.a=q.a.map(x=>p.indexOf(x)).sort((x,y)=>x-y);}
+  if(q.t==="drop"){const same=q.b.every(B=>JSON.stringify(B.o)===JSON.stringify(q.b[0].o));let p0=same?sh(q.b[0].o.map((_,i)=>i)):null;
+    q.b=q.b.map(B=>{const p=p0||sh(B.o.map((_,i)=>i));return{o:p.map(i=>B.o[i]),a:p.indexOf(B.a)};});}
+});})();
+const byId={}; Q.forEach(q=>byId[q.id]=q);
+const LS="az-900-trainer-progress";
+let state={att:{},missed:{},exams:[]};
+
+// ---------- persistence
+function prune(){Object.keys(state.att).forEach(k=>{if(!byId[k])delete state.att[k];});Object.keys(state.missed).forEach(k=>{if(!byId[k])delete state.missed[k];});}
+function loadLocal(){try{const r=localStorage.getItem(LS);if(r){const s=JSON.parse(r);state={att:s.att||{},missed:s.missed||{},exams:s.exams||[]};}}catch(e){}}
+function persist(){try{state.exams=state.exams.slice(-30);localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+
+// ---------- helpers
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const L="ABCDEFGH";
+function blankInit(q){if(q.t==="single")return null;if(q.t==="multi")return[];if(q.t==="drop")return q.b.map(()=>-1);if(q.t==="yesno")return q.st.map(()=>null);if(q.t==="order")return shuffle(q.items.map((_,i)=>i));}
+function answered(q,a){if(a==null)return false;if(q.t==="single")return a!==null;if(q.t==="multi")return a.length>0;if(q.t==="drop")return a.every(x=>x>=0);if(q.t==="yesno")return a.every(x=>x!==null);if(q.t==="order")return true;}
+function score(q,a){
+  if(a==null)return 0;
+  if(q.t==="single")return a===q.a?1:0;
+  if(q.t==="multi"){const n=q.a.length;let g=0,b=0;a.forEach(i=>q.a.includes(i)?g++:b++);return Math.max(0,(g-b)/n);}
+  if(q.t==="drop")return a.filter((x,i)=>x===q.b[i].a).length/q.b.length;
+  if(q.t==="yesno")return a.filter((x,i)=>x===q.st[i][1]).length/q.st.length;
+  if(q.t==="order")return a.every((x,i)=>x===i)?1:0;
+}
+function record(q,sc){const p=state.att[q.id]||{n:0};state.att[q.id]={sc:sc,c:sc===1,n:p.n+1};if(sc<1)state.missed[q.id]=(state.missed[q.id]||0)+1;else delete state.missed[q.id];}
+
+// ---------- stats
+function domStats(d){const qs=Q.filter(q=>q.d===d);let seen=0,sum=0;qs.forEach(q=>{const a=state.att[q.id];if(a){seen++;sum+=a.sc;}});return{total:qs.length,seen,acc:seen?sum/seen:null};}
+function readiness(){let t=0;DOMAINS.forEach(D=>{const s=domStats(D.id);const cov=s.total?Math.min(1,s.seen/s.total*1.25):0;t+=D.w*(s.acc||0)*cov;});return Math.round(t*100);}
+function skillStats(){const m={};Q.forEach(q=>{const k=q.s;m[k]=m[k]||{d:q.d,seen:0,sum:0,n:0};m[k].n++;const a=state.att[q.id];if(a){m[k].seen++;m[k].sum+=a.sc;}});return m;}
+function weakSkills(){const m=skillStats();return Object.keys(m).map(k=>({s:k,d:m[k].d,seen:m[k].seen,acc:m[k].seen?m[k].sum/m[k].seen:null})).filter(r=>r.acc===null||r.acc<0.8).sort((a,b)=>(a.acc??-1)-(b.acc??-1));}
+function tier(acc,seen){if(!seen)return["untested","Untested"];if(acc>=.8)return["strong","Strong"];if(acc>=.6)return["dev","Developing"];return["weak","Weak"];}
+
+// ---------- home
+function renderHome(){
+  const r=readiness();document.getElementById("ready").textContent=r+"%";
+  const arc=document.getElementById("arc");arc.setAttribute("stroke-dashoffset",String(150.8-150.8*r/100));arc.setAttribute("stroke",r>=80?"var(--green)":r>=60?"var(--amber)":"var(--red)");
+  const le=state.exams[state.exams.length-1];document.getElementById("lastExam").textContent=le?le.score:"—";
+  const g=document.getElementById("domains");g.innerHTML="";
+  DOMAINS.forEach(D=>{const s=domStats(D.id);const[t,l]=tier(s.acc,s.seen);const c=document.createElement("button");c.className="dcard";
+    c.innerHTML=`<div class="row"><span>DOMAIN ${D.id}</span><span>${Math.round(D.w*100)}% of exam</span></div><h3>${D.name}</h3><div class="bar"><span style="width:${Math.round((s.acc||0)*100)}%;background:${t==="strong"?"var(--green)":t==="dev"?"var(--amber)":t==="weak"?"var(--red)":"transparent"}"></span></div><div class="row" style="margin-top:6px"><span>${s.seen}/${s.total} done · ${s.acc===null?"–":Math.round(s.acc*100)+"%"}</span><span class="pill ${t}">${l}</span></div>`;
+    c.onclick=()=>{const all=shuffle(Q.filter(q=>q.d===D.id));startPractice(all.filter(q=>!state.att[q.id]).concat(all.filter(q=>state.att[q.id])),"Domain "+D.id+" (unanswered first)");};g.appendChild(c);});
+  const ws=new Set(weakSkills().map(w=>w.s));document.getElementById("nWeak").textContent="("+Q.filter(q=>ws.has(q.s)).length+" q)";
+  document.getElementById("nMissed").textContent="("+Object.keys(state.missed).length+" q)";
+  document.getElementById("nAll").textContent="("+Q.length+" q)";document.getElementById("nNew").textContent="("+Q.filter(q=>q.set===2&&!state.att[q.id]).length+" unseen)";
+}
+function renderIntro(){document.getElementById("panel").innerHTML=`<div class="empty"><b style="color:var(--text)">How to use this trainer</b><ul>
+<li><b>Domain cards:</b> practice one domain with instant feedback. Unanswered questions come first.</li>
+<li><b>Exam simulation:</b> 40 questions weighted like the real exam, 45-minute timer, no feedback until the end, flag and review, scaled score out of 1000 (700 to pass).</li>
+<li><b>Weak skills / Retry missed:</b> drill what you got wrong until every domain is Strong (80%+).</li>
+<li>Read the explanation after every answer, even when you were right: it teaches the trigger words that decide the answer.</li>
+<li>You are ready when an exam simulation scores <b>800 or more</b> and every domain card is green.</li></ul></div>`;}
+
+// ---------- question renderer
+function renderQuestion(q,a,mode,onChange){
+  // mode: "answer" (editable) | "review" (locked + feedback)
+  const lock=mode==="review";
+  let h="";
+  if(q.case){h+=`<details class="case" open><summary>${CASES[q.case].title}</summary>${CASES[q.case].html}</details>`;}
+  h+=`<p class="stem">${q.q}</p>`;
+  if(q.t==="multi")h+=`<div class="hint">Choose ${q.a.length}.</div>`;
+  if(q.t==="single"||q.t==="multi"){
+    h+=`<div class="opts">`+q.o.map((o,i)=>{let c="opt";const sel=q.t==="single"?a===i:a.includes(i);if(sel)c+=" sel";
+      if(lock){c+=" locked";const right=q.t==="single"?q.a===i:q.a.includes(i);if(right&&sel)c+=" ok";else if(sel&&!right)c+=" bad";else if(right)c+=" miss";}
+      return `<button class="${c}" data-i="${i}" ${lock?"disabled":""}><span class="k">${q.t==="multi"?(sel?"☑":"☐"):L[i]}</span><span>${o}</span></button>`;}).join("")+`</div>`;
+  } else if(q.t==="drop"){
+    const sel=(bi)=>{const B=q.b[bi];let cls="";if(lock)cls=a[bi]===B.a?"ok":"bad";return `<select data-b="${bi}" class="${cls}" ${lock?"disabled":""}><option value="-1">Select…</option>${B.o.map((o,oi)=>`<option value="${oi}" ${a[bi]===oi?"selected":""}>${esc(o)}</option>`).join("")}</select>`+(lock&&a[bi]!==B.a?`<div class="fix">✔ ${esc(B.o[B.a])}</div>`:"");};
+    if(q.tpl){let t=esc(q.tpl);t=t.replace(/\[\[(\d+)\]\]/g,(m,n)=>sel(+n));h+=`<pre class="codeq">${t}</pre>`;}
+    else{h+=`<div class="tblwrap"><table class="rows">`+q.rows.map((r,i)=>`<tr><td>${r}</td><td>${sel(i)}</td></tr>`).join("")+`</table></div>`;}
+  } else if(q.t==="yesno"){
+    h+=`<div class="tblwrap"><table class="rows">`+q.st.map((s,i)=>{const nm=q.id+"_"+i;let mark="";if(lock){mark=a[i]===s[1]?` <span class="pill strong">✔</span>`:` <span class="pill weak">✘ ${s[1]?"Yes":"No"}</span>`;}
+      return `<tr><td>${s[0]}</td><td class="yn"><label><input type="radio" name="${nm}" data-y="${i}" value="1" ${a[i]===true?"checked":""} ${lock?"disabled":""}> Yes</label><label><input type="radio" name="${nm}" data-y="${i}" value="0" ${a[i]===false?"checked":""} ${lock?"disabled":""}> No</label>${mark}</td></tr>`;}).join("")+`</table></div>`;
+  } else if(q.t==="order"){
+    h+=`<div class="orderlist">`+a.map((it,pos)=>{let c="oitem";if(lock)c+=it===pos?" ok":" bad";return `<div class="${c}"><span class="pos">${pos+1}</span><span class="txt">${q.items[it]}</span>${lock?"":`<button data-up="${pos}" aria-label="Move up" ${pos===0?"disabled":""}>↑</button><button data-dn="${pos}" aria-label="Move down" ${pos===a.length-1?"disabled":""}>↓</button>`}</div>`;}).join("")+`</div>`;
+    if(lock&&!a.every((x,i)=>x===i))h+=`<div class="fix" style="margin-top:8px">Correct order: ${q.items.map((t,i)=>(i+1)+". "+t).join(" → ")}</div>`;
+  }
+  const wrap=document.createElement("div");wrap.innerHTML=h;
+  if(!lock){
+    wrap.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(q.t==="single")a=i;else{a=a.includes(i)?a.filter(x=>x!==i):a.concat(i);}onChange(a,true);});
+    wrap.querySelectorAll("select").forEach(s=>s.onchange=()=>{a=a.slice();a[+s.dataset.b]=+s.value;onChange(a,false);});
+    wrap.querySelectorAll("input[data-y]").forEach(r=>r.onchange=()=>{a=a.slice();a[+r.dataset.y]=r.value==="1";onChange(a,false);});
+    wrap.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{const p=+b.dataset.up;a=a.slice();[a[p-1],a[p]]=[a[p],a[p-1]];onChange(a,true);});
+    wrap.querySelectorAll("[data-dn]").forEach(b=>b.onclick=()=>{const p=+b.dataset.dn;a=a.slice();[a[p+1],a[p]]=[a[p],a[p+1]];onChange(a,true);});
+  }
+  return wrap;
+}
+function feedbackHTML(q,sc){const cls=sc===1?"good":sc>0?"part":"poor";const lab=sc===1?"Correct.":sc>0?`Partially correct (${Math.round(sc*100)}%).`:"Incorrect.";
+  return `<div class="explain"><span class="res ${cls}">${lab}</span> ${q.x}<div class="src">Microsoft Learn: ${q.r}</div></div>`;}
+
+// ---------- practice
+let P=null;
+function startPractice(list,label){if(!list.length){document.getElementById("panel").innerHTML=`<div class="empty">Nothing to practice here yet.</div>`;return;}
+  P={list,label,i:0,pts:0,a:blankInit(list[0]),done:false};drawPractice();}
+function drawPractice(){const q=P.list[P.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const meta=document.createElement("div");meta.className="meta";meta.innerHTML=`<span class="tag">${P.label} · D${q.d} · ${esc(q.s)}</span><span class="tag">Question ${P.i+1}/${P.list.length} · score ${P.pts.toFixed(1)}/${P.i}</span>`;panel.appendChild(meta);
+  const body=document.createElement("div");panel.appendChild(body);
+  const ctr=document.createElement("div");ctr.className="controls";panel.appendChild(ctr);
+  const redraw=()=>{body.innerHTML="";body.appendChild(renderQuestion(q,P.a,P.done?"review":"answer",(na,re)=>{P.a=na;if(re)redraw();else upd();}));if(P.done)body.insertAdjacentHTML("beforeend",feedbackHTML(q,score(q,P.a)));upd();};
+  const upd=()=>{ctr.innerHTML="";const quit=document.createElement("button");quit.className="btn";quit.textContent="End session";quit.onclick=()=>endPractice();ctr.appendChild(quit);
+    const go=document.createElement("button");go.className="btn primary";
+    if(!P.done){go.textContent="Submit answer";go.disabled=!answered(q,P.a);go.onclick=()=>{P.done=true;const sc=score(q,P.a);P.pts+=sc;record(q,sc);persist();renderHome();redraw();};}
+    else{go.textContent=P.i+1<P.list.length?"Next question":"See results";go.onclick=()=>{P.i++;if(P.i>=P.list.length)return endPractice(true);P.a=blankInit(P.list[P.i]);P.done=false;drawPractice();};}
+    ctr.appendChild(go);};
+  redraw();
+}
+function endPractice(){const n=P.i+(P.done&&P.i<P.list.length?1:0);const answeredN=Math.min(n,P.list.length);const pct=answeredN?Math.round(P.pts/answeredN*100):0;
+  const ws=weakSkills().slice(0,8);
+  document.getElementById("panel").innerHTML=`<h2 style="margin:0 0 4px;font-size:18px">Session results</h2><div class="sumgrid"><div class="sumcard"><div class="n">${P.pts.toFixed(1)}/${answeredN}</div><div class="l">Points</div></div><div class="sumcard"><div class="n">${pct}%</div><div class="l">Session accuracy</div></div><div class="sumcard"><div class="n">${readiness()}%</div><div class="l">Weighted readiness</div></div></div>
+  <b style="font-size:14px">Skills to work on</b>${ws.length?ws.map(w=>`<div class="wrow"><span>D${w.d} · ${esc(w.s)}</span><span class="mono" style="color:${w.acc===null?"var(--dim)":w.acc<.6?"var(--red)":"var(--amber)"}">${w.acc===null?"untested":Math.round(w.acc*100)+"%"}</span></div>`).join(""):`<div class="wrow">Every skill is at 80% or more.</div>`}
+  <div class="controls"><button class="btn" id="bw">Drill weak skills</button><button class="btn primary" id="bh">Back</button></div>`;
+  document.getElementById("bw").onclick=startWeak;document.getElementById("bh").onclick=renderIntro;P=null;renderHome();}
+function startWeak(){const ws=new Set(weakSkills().map(w=>w.s));startPractice(shuffle(Q.filter(q=>ws.has(q.s))),"Weak skills");}
+
+// ---------- exam simulation
+let E=null,timerH=null;
+function buildExam(){let picked=[];const seen=q=>(state.att[q.id]?state.att[q.id].n:0);DOMAINS.forEach(D=>{picked=picked.concat(shuffle(Q.filter(q=>q.d===D.id)).sort((x,y)=>seen(x)-seen(y)).slice(0,D.n));});
+  // keep case-study questions together at the end, like the real exam
+  const cs=picked.filter(q=>q.case),rest=shuffle(picked.filter(q=>!q.case));return rest.concat(cs);}
+function startExam(){if(!confirm("Start a 40-question exam simulation with a 45-minute timer? No feedback until you finish."))return;
+  const list=buildExam();E={list,ans:list.map(blankInit),flag:list.map(()=>false),i:0,end:Date.now()+EXAM_MIN*60000,over:false,touched:list.map(()=>false)};
+  clearInterval(timerH);timerH=setInterval(tick,1000);drawExam();}
+function tick(){if(!E||E.over)return;const left=E.end-Date.now();const t=document.getElementById("timer");if(left<=0){finishExam(true);return;}if(t){const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);t.textContent=`${m}:${String(s).padStart(2,"0")}`;t.className="timer"+(left<600000?" low":"");}}
+function drawExam(){const q=E.list[E.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const bar=document.createElement("div");bar.className="exambar";bar.innerHTML=`<span class="tag">Exam simulation · question ${E.i+1} of ${E.list.length}</span><label class="tag" style="cursor:pointer"><input type="checkbox" id="flg" ${E.flag[E.i]?"checked":""}> Flag for review</label><span class="timer" id="timer">--:--</span>`;panel.appendChild(bar);
+  bar.querySelector("#flg").onchange=e=>{E.flag[E.i]=e.target.checked;};
+  const body=document.createElement("div");panel.appendChild(body);
+  const redraw=()=>{body.innerHTML="";body.appendChild(renderQuestion(q,E.ans[E.i],"answer",(na,re)=>{E.ans[E.i]=na;E.touched[E.i]=true;if(re)redraw();}));};redraw();
+  const ctr=document.createElement("div");ctr.className="controls";ctr.innerHTML=`<button class="btn" id="prev" ${E.i===0?"disabled":""}>Previous</button><span style="display:flex;gap:10px"><button class="btn" id="rev">Review screen</button><button class="btn primary" id="next">${E.i+1<E.list.length?"Next":"Review screen"}</button></span>`;panel.appendChild(ctr);
+  ctr.querySelector("#prev").onclick=()=>{E.i--;drawExam();};
+  ctr.querySelector("#next").onclick=()=>{if(E.i+1<E.list.length){E.i++;drawExam();}else drawReview();};
+  ctr.querySelector("#rev").onclick=drawReview;tick();}
+function isAns(i){const q=E.list[i];return answered(q,E.ans[i]);}
+function drawReview(){const panel=document.getElementById("panel");const un=E.list.filter((_,i)=>!isAns(i)).length;
+  panel.innerHTML=`<div class="exambar"><span class="tag">Review screen · ${un} unanswered · ${E.flag.filter(Boolean).length} flagged</span><span class="timer" id="timer">--:--</span></div>
+  <div class="navgrid">${E.list.map((q,i)=>`<button data-go="${i}" class="${isAns(i)?"ans":""} ${E.flag[i]?"flag":""}">${i+1}${E.flag[i]?"⚑":""}</button>`).join("")}</div>
+  <p class="sub">Grey = answered. ⚑ = flagged. Click a number to go back to that question.</p>
+  <div class="controls"><button class="btn" id="back">Back to question ${E.i+1}</button><button class="btn primary" id="fin">Finish exam</button></div>`;
+  panel.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{E.i=+b.dataset.go;drawExam();});
+  panel.querySelector("#back").onclick=drawExam;panel.querySelector("#fin").onclick=()=>{if(confirm(un?`${un} questions are unanswered. Finish anyway?`:"Finish the exam?"))finishExam(false);};tick();}
+function finishExam(timeUp){E.over=true;clearInterval(timerH);
+  const dom={};let pts=0;E.list.forEach((q,i)=>{const sc=isAns(i)?score(q,E.ans[i]):0;pts+=sc;dom[q.d]=dom[q.d]||[0,0];dom[q.d][0]+=sc;dom[q.d][1]++;record(q,sc);E.sc=E.sc||[];E.sc[i]=sc;});
+  const scaled=Math.round(pts/E.list.length*1000);
+  state.exams.push({at:new Date().toISOString(),score:scaled,dom});persist();renderHome();
+  const pass=scaled>=700;
+  const panel=document.getElementById("panel");
+  panel.innerHTML=`<h2 style="margin:0 0 10px;font-size:18px">Exam simulation result${timeUp?" (time is up)":""}</h2>
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="score" style="color:${pass?"var(--green)":"var(--red)"}">${scaled}</span><span class="pill ${pass?"strong":"weak"}" style="font-size:13px">${pass?"PASS":"FAIL"} · 700 needed</span><span class="sub">${scaled>=800?"Real-exam ready on this attempt.":pass?"Passing, but aim for 800+ for a safety margin.":"Not ready yet: drill your weak domains, then retake."}</span></div>
+  <div class="sumgrid">${DOMAINS.map(D=>{const v=dom[D.id]||[0,0];const p=v[1]?Math.round(v[0]/v[1]*100):0;const[t]=tier(p/100,v[1]);return `<div class="sumcard"><div class="n">${p}%</div><div class="l">D${D.id} · ${v[1]} q</div><div class="bar" style="margin-top:6px"><span style="width:${p}%;background:${t==="strong"?"var(--green)":t==="dev"?"var(--amber)":"var(--red)"}"></span></div></div>`;}).join("")}</div>
+  <div class="controls"><button class="btn" id="home">Back</button><button class="btn primary" id="rv">Review every answer</button></div>`;
+  panel.querySelector("#home").onclick=()=>{E=null;renderIntro();};panel.querySelector("#rv").onclick=()=>{E.i=0;drawExamReview();};}
+function drawExamReview(){const q=E.list[E.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const bar=document.createElement("div");bar.className="meta";bar.innerHTML=`<span class="tag">Review · D${q.d} · ${esc(q.s)}</span><span class="tag">${E.i+1}/${E.list.length}</span>`;panel.appendChild(bar);
+  let a=E.ans[E.i];if(!isAns(E.i)&&q.t!=="order")a=blankInit(q);
+  panel.appendChild(renderQuestion(q,a,"review",()=>{}));panel.insertAdjacentHTML("beforeend",feedbackHTML(q,E.sc[E.i]));
+  const ctr=document.createElement("div");ctr.className="controls";ctr.innerHTML=`<button class="btn" id="p" ${E.i===0?"disabled":""}>Previous</button><span style="display:flex;gap:10px"><button class="btn" id="w">Next mistake</button><button class="btn primary" id="n">${E.i+1<E.list.length?"Next":"Done"}</button></span>`;panel.appendChild(ctr);
+  ctr.querySelector("#p").onclick=()=>{E.i--;drawExamReview();};
+  ctr.querySelector("#n").onclick=()=>{if(E.i+1<E.list.length){E.i++;drawExamReview();}else{E=null;renderIntro();}};
+  ctr.querySelector("#w").onclick=()=>{for(let j=E.i+1;j<E.list.length;j++){if(E.sc[j]<1){E.i=j;return drawExamReview();}}alert("No more mistakes after this question.");};}
+
+// ---------- wire up
+document.getElementById("mNew").onclick=()=>startPractice(shuffle(Q.filter(q=>q.set===2&&!state.att[q.id])).concat(shuffle(Q.filter(q=>q.set===2&&state.att[q.id]))),"New questions (set 2)");
+document.getElementById("mExam").onclick=startExam;
+document.getElementById("mWeak").onclick=startWeak;
+document.getElementById("mMissed").onclick=()=>startPractice(shuffle(Q.filter(q=>state.missed[q.id])),"Retry missed");
+document.getElementById("mAll").onclick=()=>startPractice(shuffle(Q),"All questions");
+document.getElementById("mReset").onclick=()=>{if(confirm("Reset all saved progress and exam history?")){state={att:{},missed:{},exams:[]};persist();renderHome();renderIntro();}};
+window.addEventListener("beforeunload",e=>{if(E&&!E.over){e.preventDefault();e.returnValue="";}});
+loadLocal();prune();renderHome();renderIntro();
+</script>
+
+</body></html>

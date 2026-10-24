@@ -1,0 +1,1466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Generative AI Leader Practice Trainer</title>
+<meta name="description" content="Free, unofficial Google Cloud Generative AI Leader practice trainer: 51 questions with explanations, domain drills and a timed exam simulation.">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#eef1f4;--surface:#ffffff;--surface-2:#e3e8ed;--line:#c9d1d9;--text:#1b232c;--dim:#5b6a78;
+  --accent:#0891a5;--on-accent:#ffffff;--accent-ink:#04353d;
+  --amber:#a85f06;--amber-bg:#fbeee0;--green:#15803d;--green-bg:#e4f4e9;--red:#b91c1c;--red-bg:#fbe7e7;--grey-bg:#e7eaee;--code:#f3f5f7;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;--text:#e7edf1;--dim:#93a3af;
+  --accent:#2fc7d9;--on-accent:#04262b;--accent-ink:#c9f5fa;
+  --amber:#f0a94e;--amber-bg:#3a2c15;--green:#4ade80;--green-bg:#123321;--red:#f87171;--red-bg:#3a1616;--grey-bg:#232c33;--code:#10171c;}}
+:root[data-theme="dark"]{
+  --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;--text:#e7edf1;--dim:#93a3af;
+  --accent:#2fc7d9;--on-accent:#04262b;--accent-ink:#c9f5fa;
+  --amber:#f0a94e;--amber-bg:#3a2c15;--green:#4ade80;--green-bg:#123321;--red:#f87171;--red-bg:#3a1616;--grey-bg:#232c33;--code:#10171c;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--text);font:14.5px/1.5 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.mono,code,pre{font-family:"IBM Plex Mono",ui-monospace,monospace}
+code{background:var(--surface-2);padding:1px 5px;border-radius:4px;font-size:.9em}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 20px 80px;display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(155deg,var(--accent),#04353d);display:flex;align-items:center;justify-content:center;color:#fff;font:700 13px "IBM Plex Mono"}
+h1{font-size:20px;margin:0;font-weight:650}
+.sub{font-size:12.5px;color:var(--dim)}
+.kpis{display:flex;gap:10px;flex-wrap:wrap}
+.kpi{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 16px 8px 10px}
+.kpi .num{font:600 24px "IBM Plex Mono";line-height:1}
+.kpi .lbl{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.gauge{width:50px;height:50px}
+.domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.dcard:hover{border-color:var(--accent)}
+.dcard:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dcard .row{display:flex;justify-content:space-between;font:11px "IBM Plex Mono";color:var(--dim)}
+.dcard h3{font-size:14px;margin:5px 0 8px;font-weight:600;line-height:1.3}
+.bar{height:6px;border-radius:4px;background:var(--surface-2);overflow:hidden}.bar>span{display:block;height:100%}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font:600 10.5px "IBM Plex Mono"}
+.strong{background:var(--green-bg);color:var(--green)}.dev{background:var(--amber-bg);color:var(--amber)}.weak{background:var(--red-bg);color:var(--red)}.untested{background:var(--grey-bg);color:var(--dim)}
+.modebar{display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 15px;font:600 13.5px "IBM Plex Sans";cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn .n{font:500 11px "IBM Plex Mono";opacity:.8;margin-left:4px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;min-height:220px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font:11px "IBM Plex Mono";color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.stem{font-size:16.5px;line-height:1.55;margin:0 0 14px;font-weight:560}
+.hint{font:600 12px "IBM Plex Mono";color:var(--amber);margin:-6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:10px;padding:11px 13px;font:inherit;cursor:pointer;line-height:1.45}
+.opt:hover:not(.locked){border-color:var(--accent)}
+.opt .k{font:600 12px "IBM Plex Mono";color:var(--dim);flex:none;margin-top:1px;min-width:16px}
+.opt.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.opt.ok{background:var(--green-bg);border-color:var(--green)}.opt.bad{background:var(--red-bg);border-color:var(--red)}.opt.miss{border-style:dashed;border-color:var(--green)}
+.opt.locked{cursor:default}
+pre.codeq{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.7;margin:0}
+select{font:13px "IBM Plex Mono";background:var(--surface);color:var(--text);border:1px solid var(--accent);border-radius:6px;padding:3px 6px;max-width:100%}
+select.ok{border-color:var(--green);background:var(--green-bg)}select.bad{border-color:var(--red);background:var(--red-bg)}
+table.rows{width:100%;border-collapse:collapse}
+table.rows td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.rows td:first-child{width:58%}
+.tblwrap{overflow-x:auto}
+.yn label{margin-right:14px;cursor:pointer;white-space:nowrap}
+.fix{font:12px "IBM Plex Mono";color:var(--green);margin-top:3px}
+.orderlist{display:flex;flex-direction:column;gap:6px}
+.oitem{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.oitem .pos{font:600 12px "IBM Plex Mono";color:var(--dim);min-width:18px}
+.oitem .txt{flex:1}
+.oitem button{border:1px solid var(--line);background:var(--surface-2);color:var(--text);border-radius:6px;width:30px;height:28px;cursor:pointer;font-size:13px}
+.oitem.ok{border-color:var(--green);background:var(--green-bg)}.oitem.bad{border-color:var(--red);background:var(--red-bg)}
+.explain{margin-top:14px;padding:13px 15px;border-radius:10px;background:var(--surface-2);font-size:13.8px;line-height:1.55}
+.explain .res{font-weight:700}.explain .res.good{color:var(--green)}.explain .res.part{color:var(--amber)}.explain .res.poor{color:var(--red)}
+.explain .src{margin-top:7px;font:11.5px "IBM Plex Mono";color:var(--dim)}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+details.case{border:1px solid var(--amber);border-radius:10px;padding:10px 14px;margin-bottom:14px;background:var(--amber-bg)}
+details.case summary{cursor:pointer;font-weight:650;color:var(--amber)}
+details.case ul{margin:6px 0;padding-left:18px}details.case p{margin:6px 0}
+.exambar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.timer{font:700 18px "IBM Plex Mono"}.timer.low{color:var(--red)}
+.navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin:12px 0}
+.navgrid button{font:600 12px "IBM Plex Mono";padding:7px 0;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.navgrid button.ans{background:var(--surface-2)}.navgrid button.flag{border-color:var(--amber);color:var(--amber)}
+.score{font:700 44px "IBM Plex Mono";line-height:1}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.sumcard{background:var(--surface-2);border-radius:12px;padding:12px 14px}
+.sumcard .n{font:600 20px "IBM Plex Mono"}.sumcard .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.wrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.empty{color:var(--dim);padding:22px 0}
+.empty ul{margin:8px 0;padding-left:18px}
+footer{font-size:12px;color:var(--dim);line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="mark">GCP</div><div><h1>Generative AI Leader Trainer</h1><div class="sub">Google Cloud Generative AI Leader · practice questions with explanations</div></div></div>
+    <div class="kpis">
+      <div class="kpi"><svg class="gauge" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--surface-2)" stroke-width="6"/><circle id="arc" cx="28" cy="28" r="24" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" transform="rotate(-90 28 28)"/></svg><div><div class="num" id="ready">0%</div><div class="lbl">Weighted readiness</div></div></div>
+      <div class="kpi"><div><div class="num" id="lastExam">—</div><div class="lbl">Last exam sim (/1000)</div></div></div>
+    </div>
+  </header>
+
+  <div class="domains" id="domains"></div>
+
+  <div class="modebar">
+    <button class="btn primary" id="mExam">Exam simulation <span class="n">50 q · 90 min</span></button>
+    <button class="btn" id="mWeak">Weak skills <span class="n" id="nWeak"></span></button>
+    <button class="btn" id="mMissed">Retry missed <span class="n" id="nMissed"></span></button>
+    <button class="btn" id="mNew" hidden>New questions (set 2) <span class="n" id="nNew"></span></button>
+    <button class="btn" id="mAll">All questions, shuffled <span class="n" id="nAll"></span></button>
+    <button class="btn" id="mReset" style="margin-left:auto">Reset progress</button>
+  </div>
+
+  <div class="panel" id="panel"></div>
+
+  <footer>Written from the official Generative AI Leader exam guide and documentation. These are original practice questions in the exam's formats, not real exam content. Scoring works like the exam: partial credit per drop-down, statement or correct choice, and a scaled score out of 1000 with 700 to pass. Your progress is saved only in this browser (localStorage); nothing is sent anywhere. Unofficial study material, not affiliated with or endorsed by Google. Products change often: when an explanation and the official documentation disagree, trust the official documentation.</footer>
+</div>
+
+<script>
+// ===== AI-103 hard question bank =====
+// types: single {o,a}, multi {o,a:[...]} , drop {tpl|rows, b:[{o,a}]}, yesno {st:[[text,bool]]}, order {items (correct order)}
+const CASES = {};
+
+const Q = [
+{
+"id": "f-01",
+"d": 1,
+"s": "AI landscape",
+"t": "single",
+"q": "A retailer's model labels each incoming email as 'complaint', 'question' or 'order'. Another model writes a personalized reply. Which statement is correct?",
+"o": [
+"Both are generative AI",
+"The first is discriminative/predictive AI, the second is generative AI",
+"Both are rule-based systems",
+"The first is generative AI, the second is discriminative AI"
+],
+"a": 1,
+"x": "Classifying into known labels is predictive (discriminative) AI. Creating new content, such as a reply, is generative AI.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-02",
+"d": 1,
+"s": "Foundation models",
+"t": "single",
+"q": "What best describes a foundation model?",
+"o": [
+"A small model trained for one narrow task",
+"A large model pre-trained on broad data that can be adapted to many tasks",
+"A database of prompts",
+"A rule engine"
+],
+"a": 1,
+"x": "Foundation models are pre-trained on massive, diverse data (often self-supervised) and adapted to many downstream tasks by prompting, grounding or tuning.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-03",
+"d": 1,
+"s": "Multimodal",
+"t": "single",
+"q": "A team wants one model that can read a product photo, listen to a voice note and answer in text. What kind of model do they need?",
+"o": [
+"A multimodal model such as Gemini",
+"A text-only LLM",
+"A clustering model",
+"A regression model"
+],
+"a": 0,
+"x": "Multimodal models process several data types (text, image, audio, video) in one model.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-04",
+"d": 1,
+"s": "Learning types",
+"t": "drop",
+"q": "Select the learning approach for each scenario.",
+"rows": [
+"Predict churn from customers labeled 'left' or 'stayed'",
+"Discover customer segments with no labels",
+"Train a model by rewarding good actions"
+],
+"b": [
+{
+"o": [
+"Supervised learning",
+"Unsupervised learning",
+"Reinforcement learning"
+],
+"a": 0
+},
+{
+"o": [
+"Supervised learning",
+"Unsupervised learning",
+"Reinforcement learning"
+],
+"a": 1
+},
+{
+"o": [
+"Supervised learning",
+"Unsupervised learning",
+"Reinforcement learning"
+],
+"a": 2
+}
+],
+"x": "Labels → supervised. No labels, find structure → unsupervised. Rewards for actions → reinforcement learning.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-05",
+"d": 1,
+"s": "Data",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"Emails, PDFs, images and call recordings are examples of unstructured data.",
+true
+],
+[
+"Data quality has little impact on generative AI outputs.",
+false
+],
+[
+"Timeliness and completeness are dimensions of data quality.",
+true
+]
+],
+"x": "Most enterprise data is unstructured. Poor data quality leads to poor, biased outputs (garbage in, garbage out).",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-06",
+"d": 1,
+"s": "Limitations",
+"t": "single",
+"q": "A chatbot confidently cites a company policy that does not exist. What is this called?",
+"o": [
+"Hallucination",
+"Overfitting",
+"Tokenization",
+"Grounding"
+],
+"a": 0,
+"x": "A hallucination is plausible but false output. Mitigate it with grounding, RAG, citations and human review.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-07",
+"d": 1,
+"s": "Limitations",
+"t": "single",
+"q": "A model doesn't know about a regulation published last month. Which limitation is this, and what is the usual fix?",
+"o": [
+"Knowledge cutoff; ground the model on current sources",
+"Bias; retrain with more data",
+"Context window; shorten the prompt",
+"Latency; use a smaller model"
+],
+"a": 0,
+"x": "Models only know their training data up to a cutoff date. Grounding (Google Search or your data) supplies current information.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-08",
+"d": 1,
+"s": "ML lifecycle",
+"t": "drop",
+"q": "Order the ML lifecycle: select the stage for each step.",
+"rows": [
+"Step 1",
+"Step 2",
+"Step 3",
+"Step 4"
+],
+"b": [
+{
+"o": [
+"Data ingestion and preparation",
+"Model training or selection",
+"Model deployment",
+"Model management and monitoring"
+],
+"a": 0
+},
+{
+"o": [
+"Data ingestion and preparation",
+"Model training or selection",
+"Model deployment",
+"Model management and monitoring"
+],
+"a": 1
+},
+{
+"o": [
+"Data ingestion and preparation",
+"Model training or selection",
+"Model deployment",
+"Model management and monitoring"
+],
+"a": 2
+},
+{
+"o": [
+"Data ingestion and preparation",
+"Model training or selection",
+"Model deployment",
+"Model management and monitoring"
+],
+"a": 3
+}
+],
+"x": "Data first, then training/selection, then deployment, then continuous monitoring (drift, performance).",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-09",
+"d": 1,
+"s": "Tokens",
+"t": "single",
+"q": "Why should a business leader care about tokens?",
+"o": [
+"They determine cost, speed and how much text the model can consider",
+"They are the security keys of the model",
+"They measure accuracy",
+"They only matter for images"
+],
+"a": 0,
+"x": "Usage is billed and limited in tokens; the context window is measured in tokens.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-10",
+"d": 1,
+"s": "Bias",
+"t": "single",
+"q": "A hiring assistant favors candidates from certain universities because of historical data. What is the issue and a mitigation?",
+"o": [
+"Bias inherited from training data; review data and outputs for fairness with human oversight",
+"Hallucination; raise temperature",
+"Latency; use TPUs",
+"Knowledge cutoff; ground with search"
+],
+"a": 0,
+"x": "Biased historical data produces unfair outputs. Mitigate with data review, fairness evaluation and human oversight.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "o-01",
+"d": 2,
+"s": "Products",
+"t": "drop",
+"q": "Select the Google product for each need.",
+"rows": [
+"Help employees draft emails in Gmail and summarize Meet calls",
+"A research assistant that answers only from the 20 reports a consultant uploads",
+"Employees search across Drive, SharePoint and Jira and use agents, with enterprise controls",
+"Developers pick and deploy a foundation model, including open models"
+],
+"b": [
+{
+"o": [
+"Gemini for Google Workspace",
+"NotebookLM",
+"Gemini Enterprise",
+"Vertex AI Model Garden"
+],
+"a": 0
+},
+{
+"o": [
+"Gemini for Google Workspace",
+"NotebookLM",
+"Gemini Enterprise",
+"Vertex AI Model Garden"
+],
+"a": 1
+},
+{
+"o": [
+"Gemini for Google Workspace",
+"NotebookLM",
+"Gemini Enterprise",
+"Vertex AI Model Garden"
+],
+"a": 2
+},
+{
+"o": [
+"Gemini for Google Workspace",
+"NotebookLM",
+"Gemini Enterprise",
+"Vertex AI Model Garden"
+],
+"a": 3
+}
+],
+"x": "Workspace = AI inside productivity apps. NotebookLM = grounded in your uploaded sources. Gemini Enterprise (formerly Agentspace) = enterprise search, assistants and agents over company data. Model Garden = model catalog.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-02",
+"d": 2,
+"s": "Vertex AI",
+"t": "drop",
+"q": "Select the Vertex AI component for each task.",
+"rows": [
+"Test prompts and compare models in a UI",
+"Train a custom image classifier without ML expertise",
+"Build and deploy an agent that calls tools",
+"Add Google-quality search and RAG over company documents"
+],
+"b": [
+{
+"o": [
+"Vertex AI Studio",
+"AutoML",
+"Agent Builder / Agent Engine",
+"Vertex AI Search"
+],
+"a": 0
+},
+{
+"o": [
+"Vertex AI Studio",
+"AutoML",
+"Agent Builder / Agent Engine",
+"Vertex AI Search"
+],
+"a": 1
+},
+{
+"o": [
+"Vertex AI Studio",
+"AutoML",
+"Agent Builder / Agent Engine",
+"Vertex AI Search"
+],
+"a": 2
+},
+{
+"o": [
+"Vertex AI Studio",
+"AutoML",
+"Agent Builder / Agent Engine",
+"Vertex AI Search"
+],
+"a": 3
+}
+],
+"x": "Studio = prompt and model experimentation. AutoML = custom models without expertise. Agent Builder/Engine = agents. Vertex AI Search = enterprise search and RAG.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-03",
+"d": 2,
+"s": "Models",
+"t": "drop",
+"q": "Select the Google model family for each need.",
+"rows": [
+"Generate marketing images",
+"Generate a short product video",
+"Transcribe customer calls",
+"Run a lightweight open model on our own infrastructure"
+],
+"b": [
+{
+"o": [
+"Imagen",
+"Veo",
+"Chirp",
+"Gemma"
+],
+"a": 0
+},
+{
+"o": [
+"Imagen",
+"Veo",
+"Chirp",
+"Gemma"
+],
+"a": 1
+},
+{
+"o": [
+"Imagen",
+"Veo",
+"Chirp",
+"Gemma"
+],
+"a": 2
+},
+{
+"o": [
+"Imagen",
+"Veo",
+"Chirp",
+"Gemma"
+],
+"a": 3
+}
+],
+"x": "Imagen = images, Veo = video, Chirp = speech, Gemma = open lightweight models. Gemini = multimodal reasoning.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-04",
+"d": 2,
+"s": "Infrastructure",
+"t": "single",
+"q": "What are TPUs?",
+"o": [
+"Google's custom chips designed to accelerate AI training and inference",
+"A prompting technique",
+"A data-labeling service",
+"A security framework"
+],
+"a": 0,
+"x": "Tensor Processing Units are Google's AI accelerators, available on Google Cloud.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-05",
+"d": 2,
+"s": "Build vs buy",
+"t": "single",
+"q": "A law firm wants AI help writing documents inside the tools lawyers use every day, as fast as possible, with no development. What should they choose?",
+"o": [
+"Gemini for Google Workspace",
+"Train a model on Vertex AI from scratch",
+"Build a custom agent with Agent Engine",
+"Deploy Gemma on GPUs"
+],
+"a": 0,
+"x": "A common need with no customization → buy the ready product. Build on Vertex AI only when you need customization or integration.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-06",
+"d": 2,
+"s": "Agents",
+"t": "single",
+"q": "What distinguishes an agent from a simple prompt-response model?",
+"o": [
+"It reasons, uses tools and takes actions toward a goal, often in several steps",
+"It only generates images",
+"It never uses a model",
+"It can only answer FAQs"
+],
+"a": 0,
+"x": "Agent = model + instructions + tools + reasoning loop (e.g. ReAct).",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-07",
+"d": 2,
+"s": "Security",
+"t": "single",
+"q": "Which Google framework helps organizations secure AI systems?",
+"o": [
+"Secure AI Framework (SAIF)",
+"AutoML",
+"Model Garden",
+"NotebookLM"
+],
+"a": 0,
+"x": "SAIF provides principles for securing AI: strong foundations, detection and response, automated defenses, contextual risk.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-08",
+"d": 2,
+"s": "Data privacy",
+"t": "yesno",
+"q": "For each statement about Google Cloud enterprise gen AI, select Yes if it is true.",
+"st": [
+[
+"Customer data sent to Google Cloud enterprise AI services is not used to train Google's foundation models.",
+true
+],
+[
+"Gemma models are only available through the Gemini consumer app.",
+false
+],
+[
+"Model Garden offers models from Google, partners and the open-source community.",
+true
+]
+],
+"x": "Enterprise data isn't used to train Google's foundation models. Gemma is open and can be self-hosted. Model Garden has first-party, partner and open models.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-09",
+"d": 2,
+"s": "Customer service",
+"t": "single",
+"q": "A telecom company wants AI-powered virtual agents and agent-assist for its contact center. Which Google offering fits best?",
+"o": [
+"Customer Engagement Suite (conversational agents)",
+"NotebookLM",
+"Imagen",
+"BigQuery"
+],
+"a": 0,
+"x": "The Customer Engagement Suite provides conversational agents, agent assist and contact-center AI.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-10",
+"d": 2,
+"s": "MLOps",
+"t": "single",
+"q": "After deployment, a team must detect when model quality drifts over time. What should they use?",
+"o": [
+"Vertex AI Model Monitoring",
+"Imagen",
+"Gemini for Workspace",
+"Chirp"
+],
+"a": 0,
+"x": "Model Monitoring tracks drift and performance; Model Registry and Pipelines support the rest of MLOps.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-11",
+"d": 2,
+"s": "Products",
+"t": "single",
+"q": "A sales team wants an assistant that can find answers across the CRM, shared drives and wikis and also run multi-step tasks for them. Which product?",
+"o": [
+"Gemini Enterprise",
+"Veo",
+"AutoML Tables",
+"Cloud Storage"
+],
+"a": 0,
+"x": "Gemini Enterprise (formerly Agentspace) connects to enterprise data sources for search, assistants and agents.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "t-01",
+"d": 3,
+"s": "Prompting",
+"t": "drop",
+"q": "Select the prompting technique.",
+"rows": [
+"Give the model three example input/output pairs before the request",
+"Ask the model to explain its reasoning step by step",
+"Tell the model 'You are a senior HR advisor'",
+"Split a report generation into outline, then sections, then summary"
+],
+"b": [
+{
+"o": [
+"Few-shot prompting",
+"Chain-of-thought",
+"Role prompting",
+"Prompt chaining"
+],
+"a": 0
+},
+{
+"o": [
+"Few-shot prompting",
+"Chain-of-thought",
+"Role prompting",
+"Prompt chaining"
+],
+"a": 1
+},
+{
+"o": [
+"Few-shot prompting",
+"Chain-of-thought",
+"Role prompting",
+"Prompt chaining"
+],
+"a": 2
+},
+{
+"o": [
+"Few-shot prompting",
+"Chain-of-thought",
+"Role prompting",
+"Prompt chaining"
+],
+"a": 3
+}
+],
+"x": "Examples → few-shot. Step-by-step reasoning → chain-of-thought. Persona → role prompting. Sequence of prompts → chaining.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-02",
+"d": 3,
+"s": "Sampling",
+"t": "drop",
+"q": "Select the parameter change for each goal.",
+"rows": [
+"More creative slogans",
+"Repeatable, focused answers for a compliance FAQ",
+"Cap the length (and cost) of answers"
+],
+"b": [
+{
+"o": [
+"Raise temperature",
+"Lower temperature",
+"Set max output tokens"
+],
+"a": 0
+},
+{
+"o": [
+"Raise temperature",
+"Lower temperature",
+"Set max output tokens"
+],
+"a": 1
+},
+{
+"o": [
+"Raise temperature",
+"Lower temperature",
+"Set max output tokens"
+],
+"a": 2
+}
+],
+"x": "Temperature controls randomness; max output tokens caps length. Top-K and Top-P also control sampling.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-03",
+"d": 3,
+"s": "Improve output",
+"t": "drop",
+"q": "Select the best technique for each need.",
+"rows": [
+"Answers about yesterday's public news",
+"Answers from internal HR policies with citations",
+"A consistent brand voice in every product description",
+"Quick improvement with no data and no budget"
+],
+"b": [
+{
+"o": [
+"Grounding with Google Search",
+"RAG over enterprise data",
+"Fine-tuning",
+"Better prompts (few-shot, role)"
+],
+"a": 0
+},
+{
+"o": [
+"Grounding with Google Search",
+"RAG over enterprise data",
+"Fine-tuning",
+"Better prompts (few-shot, role)"
+],
+"a": 1
+},
+{
+"o": [
+"Grounding with Google Search",
+"RAG over enterprise data",
+"Fine-tuning",
+"Better prompts (few-shot, role)"
+],
+"a": 2
+},
+{
+"o": [
+"Grounding with Google Search",
+"RAG over enterprise data",
+"Fine-tuning",
+"Better prompts (few-shot, role)"
+],
+"a": 3
+}
+],
+"x": "Public recent facts → Google Search grounding. Private documents → RAG. Consistent style/format → tuning. No data → prompt engineering.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-04",
+"d": 3,
+"s": "RAG vs tuning",
+"t": "single",
+"q": "Product prices change every week. The assistant must always quote current prices. What should you use?",
+"o": [
+"RAG / grounding on the live price data",
+"Fine-tune the model every week",
+"Raise the temperature",
+"Use a bigger context window only"
+],
+"a": 0,
+"x": "Fine-tuning bakes in a snapshot; frequently changing facts belong in retrieval (RAG/grounding).",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-05",
+"d": 3,
+"s": "Human in the loop",
+"t": "single",
+"q": "A hospital uses gen AI to draft discharge summaries. Accuracy is critical. What should be part of the process?",
+"o": [
+"Human-in-the-loop review by clinicians before release",
+"Higher temperature",
+"Removing citations",
+"Fully automatic sending"
+],
+"a": 0,
+"x": "High-stakes outputs need human review (HITL), plus grounding and evaluation.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-06",
+"d": 3,
+"s": "Agents",
+"t": "single",
+"q": "Which framework lets an agent alternate between reasoning about a task and calling tools, observing results each time?",
+"o": [
+"ReAct",
+"AutoML",
+"SAIF",
+"Top-K"
+],
+"a": 0,
+"x": "ReAct = Reason + Act: think, call a tool, observe, repeat.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-07",
+"d": 3,
+"s": "Hallucinations",
+"t": "multi",
+"q": "Which TWO actions reduce hallucinations most directly?",
+"o": [
+"Ground responses in trusted data and require citations",
+"Add human review for important outputs",
+"Raise temperature to 1.5",
+"Remove the system instructions",
+"Use more tokens in the output"
+],
+"a": [
+0,
+1
+],
+"x": "Grounding plus citations and human review reduce and catch hallucinations.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "b-01",
+"d": 4,
+"s": "Use cases",
+"t": "single",
+"q": "Which is the best FIRST gen-AI use case for a company new to AI?",
+"o": [
+"Summarizing internal documents for employees, with clear time-saved metrics",
+"Fully automated credit decisions without review",
+"Replacing all customer-service staff at once",
+"Autonomous medical diagnosis"
+],
+"a": 0,
+"x": "Start with high-value, low-risk, measurable use cases, then scale. High-stakes automation comes later, with oversight.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "b-02",
+"d": 4,
+"s": "Adoption",
+"t": "single",
+"q": "A pilot works technically, but employees don't use it. What is most likely missing?",
+"o": [
+"Change management: training, champions and communication",
+"More TPUs",
+"A larger model",
+"Higher temperature"
+],
+"a": 0,
+"x": "People adoption is the most common blocker; change management drives usage.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "b-03",
+"d": 4,
+"s": "Responsible AI",
+"t": "drop",
+"q": "Select the responsible AI concern for each scenario.",
+"rows": [
+"A loan assistant approves fewer applicants from one neighborhood",
+"Customer data in prompts must be protected and consented",
+"Customers must be able to understand why the AI made a recommendation",
+"A named team is answerable for the AI's outcomes"
+],
+"b": [
+{
+"o": [
+"Fairness / bias",
+"Privacy",
+"Transparency / explainability",
+"Accountability"
+],
+"a": 0
+},
+{
+"o": [
+"Fairness / bias",
+"Privacy",
+"Transparency / explainability",
+"Accountability"
+],
+"a": 1
+},
+{
+"o": [
+"Fairness / bias",
+"Privacy",
+"Transparency / explainability",
+"Accountability"
+],
+"a": 2
+},
+{
+"o": [
+"Fairness / bias",
+"Privacy",
+"Transparency / explainability",
+"Accountability"
+],
+"a": 3
+}
+],
+"x": "These map directly to the responsible AI concepts in Google's AI Principles.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "b-04",
+"d": 4,
+"s": "KPIs",
+"t": "single",
+"q": "How should a leader measure the success of a gen-AI customer-service assistant?",
+"o": [
+"Business KPIs such as resolution time, customer satisfaction and cost per contact",
+"Number of tokens generated",
+"Model size",
+"Number of prompts written by engineers"
+],
+"a": 0,
+"x": "Tie gen AI to business outcomes and KPIs, measured from the pilot onward.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "b-05",
+"d": 4,
+"s": "Build vs buy",
+"t": "single",
+"q": "When should a company build on Vertex AI instead of buying a ready product?",
+"o": [
+"When it needs customization or deep integration with its own data and systems",
+"Always, because it's cheaper",
+"Never",
+"Only for image generation"
+],
+"a": 0,
+"x": "Buy for common needs (Workspace, Gemini Enterprise); build when you need custom behavior or integration.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "b-06",
+"d": 4,
+"s": "Strategy",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"Executive sponsorship and a clear business goal improve the chances of gen-AI success.",
+true
+],
+[
+"Responsible AI checks should only happen after launch.",
+false
+],
+[
+"Starting with a pilot, measuring, then scaling is a recommended approach.",
+true
+]
+],
+"x": "Responsible AI is built in from the start (by design), not added after launch.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "f-11",
+"d": 1,
+"s": "Context window",
+"t": "single",
+"q": "A team pastes a 900-page manual into a prompt and the model ignores the end of it. Which concept explains this?",
+"o": [
+"The context window limit",
+"Temperature",
+"Fine-tuning",
+"Top-K"
+],
+"a": 0,
+"x": "The context window is the maximum number of tokens the model can consider at once; RAG retrieves only relevant parts instead.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-12",
+"d": 1,
+"s": "Pre-training",
+"t": "single",
+"q": "How are foundation models typically pre-trained?",
+"o": [
+"Self-supervised learning on huge amounts of unlabeled data, e.g. predicting the next token",
+"Only on hand-labeled examples",
+"With reinforcement learning only",
+"By writing rules manually"
+],
+"a": 0,
+"x": "The data provides its own labels (next word, masked word), which makes training on massive unlabeled data possible.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-13",
+"d": 1,
+"s": "Gen AI capabilities",
+"t": "single",
+"q": "Which task is generative AI LEAST suited to without additional safeguards?",
+"o": [
+"Making final legal decisions automatically",
+"Drafting a first version of a contract summary",
+"Brainstorming campaign ideas",
+"Summarizing meeting notes"
+],
+"a": 0,
+"x": "High-stakes, final decisions need human oversight; gen AI is strong at drafting, summarizing and ideation.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "f-14",
+"d": 1,
+"s": "Structured data",
+"t": "single",
+"q": "A company wants to forecast next quarter's sales from a table of past sales. Which kind of AI fits best?",
+"o": [
+"Predictive ML on structured data (e.g. regression / forecasting)",
+"Image generation",
+"Speech recognition",
+"A text-to-video model"
+],
+"a": 0,
+"x": "Numeric forecasting from tables is a classic predictive ML task on structured data.",
+"r": "Exam guide §1 · Fundamentals of gen AI"
+},
+{
+"id": "o-12",
+"d": 2,
+"s": "Grounding",
+"t": "single",
+"q": "An assistant built on Vertex AI must cite up-to-date public web information. What should be enabled?",
+"o": [
+"Grounding with Google Search",
+"AutoML",
+"Imagen",
+"Model Monitoring"
+],
+"a": 0,
+"x": "Grounding with Google Search connects the model's answers to current web results with sources.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-13",
+"d": 2,
+"s": "Model choice",
+"t": "single",
+"q": "A startup wants to fine-tune and host a small model on its own GPUs to keep full control. Which family fits?",
+"o": [
+"Gemma (open models)",
+"Gemini for Workspace",
+"NotebookLM",
+"Veo"
+],
+"a": 0,
+"x": "Gemma models are open and can be run, tuned and hosted on your own infrastructure.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-14",
+"d": 2,
+"s": "Vertex AI",
+"t": "single",
+"q": "Which statement about Vertex AI is correct?",
+"o": [
+"It is Google Cloud's unified platform to build, tune, deploy and manage ML and gen-AI models and agents",
+"It is a consumer chat app",
+"It only stores files",
+"It is a spreadsheet add-on"
+],
+"a": 0,
+"x": "Vertex AI unifies model access (Model Garden), experimentation (Studio), training (AutoML/custom), agents and MLOps.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-15",
+"d": 2,
+"s": "Products",
+"t": "single",
+"q": "Analysts want an AI audio overview (podcast-style summary) of a set of research papers they upload. Which product?",
+"o": [
+"NotebookLM",
+"Chirp only",
+"AutoML",
+"Cloud Storage"
+],
+"a": 0,
+"x": "NotebookLM generates summaries, Q&A and audio overviews grounded in your uploaded sources.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-16",
+"d": 2,
+"s": "Agents",
+"t": "single",
+"q": "A company wants a governed place where employees can discover and use pre-built and custom agents. Which product fits?",
+"o": [
+"Gemini Enterprise",
+"Imagen",
+"BigQuery ML",
+"Cloud Run"
+],
+"a": 0,
+"x": "Gemini Enterprise provides an enterprise interface for search, assistants and agents with governance.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "o-17",
+"d": 2,
+"s": "Customization",
+"t": "single",
+"q": "Which option adapts a foundation model's behavior with your own labeled examples?",
+"o": [
+"Supervised tuning (fine-tuning) on Vertex AI",
+"Raising temperature",
+"Grounding with Google Search",
+"Prompt chaining"
+],
+"a": 0,
+"x": "Supervised tuning trains the model further on example input/output pairs to change style or behavior.",
+"r": "Exam guide §2 · Google Cloud's gen AI offerings"
+},
+{
+"id": "t-08",
+"d": 3,
+"s": "Prompting",
+"t": "single",
+"q": "An answer must always be valid JSON with three named fields. What helps most?",
+"o": [
+"Specify the exact output format (schema) in the prompt with an example, or use structured output settings",
+"Raise the temperature",
+"Ask for a creative answer",
+"Remove all instructions"
+],
+"a": 0,
+"x": "Clear format instructions with an example (or controlled/structured output) make outputs predictable.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-09",
+"d": 3,
+"s": "Sampling",
+"t": "single",
+"q": "What does a low Top-P value do?",
+"o": [
+"Restricts choices to the most probable tokens, making output more focused",
+"Makes outputs longer",
+"Disables safety settings",
+"Increases randomness"
+],
+"a": 0,
+"x": "Top-P (nucleus sampling) keeps tokens until their cumulative probability reaches P; low P = fewer, safer choices.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-10",
+"d": 3,
+"s": "Evaluation",
+"t": "single",
+"q": "Before rolling out a new prompt, how should a team check it improves quality?",
+"o": [
+"Evaluate it on a representative test set of questions and compare with the current version",
+"Ask one user if they like it",
+"Check the token count only",
+"Deploy to everyone and wait"
+],
+"a": 0,
+"x": "Systematic evaluation on representative examples is the reliable way to compare prompts and models.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "t-11",
+"d": 3,
+"s": "Safety settings",
+"t": "single",
+"q": "A public chatbot must block harassment and dangerous content. What should you configure?",
+"o": [
+"Safety settings / content filters with appropriate thresholds",
+"Top-K = 1",
+"Fine-tuning on random data",
+"A longer context window"
+],
+"a": 0,
+"x": "Safety settings block harmful categories at chosen thresholds; combine with human review where needed.",
+"r": "Exam guide §3 · Techniques to improve model output"
+},
+{
+"id": "b-07",
+"d": 4,
+"s": "Governance",
+"t": "single",
+"q": "Who should be involved in deciding whether a gen-AI use case is acceptable from a risk perspective?",
+"o": [
+"A cross-functional group: business, legal, security, privacy and technical owners",
+"Only the data scientists",
+"Only the vendor",
+"Nobody, if the model is accurate"
+],
+"a": 0,
+"x": "Responsible AI governance is cross-functional and accountable to people.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "b-08",
+"d": 4,
+"s": "ROI",
+"t": "single",
+"q": "A gen-AI pilot saves each agent 10 minutes per ticket. What should the leader do next?",
+"o": [
+"Quantify the value against costs, check quality and risks, then plan a measured scale-up",
+"Immediately remove all human agents",
+"Stop measuring",
+"Switch to a bigger model regardless of cost"
+],
+"a": 0,
+"x": "Measure value vs. cost and risk, then scale in phases.",
+"r": "Exam guide §4 · Business strategies"
+},
+{
+"id": "b-09",
+"d": 4,
+"s": "Privacy",
+"t": "single",
+"q": "Employees paste customer personal data into a consumer chatbot. What is the main concern and fix?",
+"o": [
+"Privacy and data protection; use an enterprise service with data controls and train staff on policies",
+"Latency; buy TPUs",
+"Creativity; raise temperature",
+"Cost; shorten prompts"
+],
+"a": 0,
+"x": "Use enterprise-grade services with data governance, and set clear usage policies.",
+"r": "Exam guide §4 · Business strategies"
+}
+];
+
+const DOMAINS=[{"id": 1, "name": "Fundamentals of gen AI", "w": 0.3, "n": 14}, {"id": 2, "name": "Google Cloud's gen AI offerings", "w": 0.35, "n": 17}, {"id": 3, "name": "Techniques to improve model output", "w": 0.2, "n": 11}, {"id": 4, "name": "Business strategies", "w": 0.15, "n": 8}];
+Q.forEach(q=>{if(q.id.startsWith("s2-"))q.set=2;});
+const EXAM_MIN=90;
+// randomize option order on every load so answer position gives nothing away
+(function(){const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+Q.forEach(q=>{
+  if(q.t==="single"||q.t==="multi"){const p=sh(q.o.map((_,i)=>i));q.o=p.map(i=>q.o[i]);if(q.t==="single")q.a=p.indexOf(q.a);else q.a=q.a.map(x=>p.indexOf(x)).sort((x,y)=>x-y);}
+  if(q.t==="drop"){const same=q.b.every(B=>JSON.stringify(B.o)===JSON.stringify(q.b[0].o));let p0=same?sh(q.b[0].o.map((_,i)=>i)):null;
+    q.b=q.b.map(B=>{const p=p0||sh(B.o.map((_,i)=>i));return{o:p.map(i=>B.o[i]),a:p.indexOf(B.a)};});}
+});})();
+const byId={}; Q.forEach(q=>byId[q.id]=q);
+const LS="gail-trainer-progress";
+let state={att:{},missed:{},exams:[]};
+
+// ---------- persistence
+function prune(){Object.keys(state.att).forEach(k=>{if(!byId[k])delete state.att[k];});Object.keys(state.missed).forEach(k=>{if(!byId[k])delete state.missed[k];});}
+function loadLocal(){try{const r=localStorage.getItem(LS);if(r){const s=JSON.parse(r);state={att:s.att||{},missed:s.missed||{},exams:s.exams||[]};}}catch(e){}}
+function persist(){try{state.exams=state.exams.slice(-30);localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+
+// ---------- helpers
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const L="ABCDEFGH";
+function blankInit(q){if(q.t==="single")return null;if(q.t==="multi")return[];if(q.t==="drop")return q.b.map(()=>-1);if(q.t==="yesno")return q.st.map(()=>null);if(q.t==="order")return shuffle(q.items.map((_,i)=>i));}
+function answered(q,a){if(a==null)return false;if(q.t==="single")return a!==null;if(q.t==="multi")return a.length>0;if(q.t==="drop")return a.every(x=>x>=0);if(q.t==="yesno")return a.every(x=>x!==null);if(q.t==="order")return true;}
+function score(q,a){
+  if(a==null)return 0;
+  if(q.t==="single")return a===q.a?1:0;
+  if(q.t==="multi"){const n=q.a.length;let g=0,b=0;a.forEach(i=>q.a.includes(i)?g++:b++);return Math.max(0,(g-b)/n);}
+  if(q.t==="drop")return a.filter((x,i)=>x===q.b[i].a).length/q.b.length;
+  if(q.t==="yesno")return a.filter((x,i)=>x===q.st[i][1]).length/q.st.length;
+  if(q.t==="order")return a.every((x,i)=>x===i)?1:0;
+}
+function record(q,sc){const p=state.att[q.id]||{n:0};state.att[q.id]={sc:sc,c:sc===1,n:p.n+1};if(sc<1)state.missed[q.id]=(state.missed[q.id]||0)+1;else delete state.missed[q.id];}
+
+// ---------- stats
+function domStats(d){const qs=Q.filter(q=>q.d===d);let seen=0,sum=0;qs.forEach(q=>{const a=state.att[q.id];if(a){seen++;sum+=a.sc;}});return{total:qs.length,seen,acc:seen?sum/seen:null};}
+function readiness(){let t=0;DOMAINS.forEach(D=>{const s=domStats(D.id);const cov=s.total?Math.min(1,s.seen/s.total*1.25):0;t+=D.w*(s.acc||0)*cov;});return Math.round(t*100);}
+function skillStats(){const m={};Q.forEach(q=>{const k=q.s;m[k]=m[k]||{d:q.d,seen:0,sum:0,n:0};m[k].n++;const a=state.att[q.id];if(a){m[k].seen++;m[k].sum+=a.sc;}});return m;}
+function weakSkills(){const m=skillStats();return Object.keys(m).map(k=>({s:k,d:m[k].d,seen:m[k].seen,acc:m[k].seen?m[k].sum/m[k].seen:null})).filter(r=>r.acc===null||r.acc<0.8).sort((a,b)=>(a.acc??-1)-(b.acc??-1));}
+function tier(acc,seen){if(!seen)return["untested","Untested"];if(acc>=.8)return["strong","Strong"];if(acc>=.6)return["dev","Developing"];return["weak","Weak"];}
+
+// ---------- home
+function renderHome(){
+  const r=readiness();document.getElementById("ready").textContent=r+"%";
+  const arc=document.getElementById("arc");arc.setAttribute("stroke-dashoffset",String(150.8-150.8*r/100));arc.setAttribute("stroke",r>=80?"var(--green)":r>=60?"var(--amber)":"var(--red)");
+  const le=state.exams[state.exams.length-1];document.getElementById("lastExam").textContent=le?le.score:"—";
+  const g=document.getElementById("domains");g.innerHTML="";
+  DOMAINS.forEach(D=>{const s=domStats(D.id);const[t,l]=tier(s.acc,s.seen);const c=document.createElement("button");c.className="dcard";
+    c.innerHTML=`<div class="row"><span>DOMAIN ${D.id}</span><span>${Math.round(D.w*100)}% of exam</span></div><h3>${D.name}</h3><div class="bar"><span style="width:${Math.round((s.acc||0)*100)}%;background:${t==="strong"?"var(--green)":t==="dev"?"var(--amber)":t==="weak"?"var(--red)":"transparent"}"></span></div><div class="row" style="margin-top:6px"><span>${s.seen}/${s.total} done · ${s.acc===null?"–":Math.round(s.acc*100)+"%"}</span><span class="pill ${t}">${l}</span></div>`;
+    c.onclick=()=>{const all=shuffle(Q.filter(q=>q.d===D.id));startPractice(all.filter(q=>!state.att[q.id]).concat(all.filter(q=>state.att[q.id])),"Domain "+D.id+" (unanswered first)");};g.appendChild(c);});
+  const ws=new Set(weakSkills().map(w=>w.s));document.getElementById("nWeak").textContent="("+Q.filter(q=>ws.has(q.s)).length+" q)";
+  document.getElementById("nMissed").textContent="("+Object.keys(state.missed).length+" q)";
+  document.getElementById("nAll").textContent="("+Q.length+" q)";document.getElementById("nNew").textContent="("+Q.filter(q=>q.set===2&&!state.att[q.id]).length+" unseen)";
+}
+function renderIntro(){document.getElementById("panel").innerHTML=`<div class="empty"><b style="color:var(--text)">How to use this trainer</b><ul>
+<li><b>Domain cards:</b> practice one domain with instant feedback. Unanswered questions come first.</li>
+<li><b>Exam simulation:</b> 50 questions weighted like the real exam, 90-minute timer, no feedback until the end, flag and review, scaled score out of 1000 (700 to pass).</li>
+<li><b>Weak skills / Retry missed:</b> drill what you got wrong until every domain is Strong (80%+).</li>
+<li>Read the explanation after every answer, even when you were right: it teaches the trigger words that decide the answer.</li>
+<li>You are ready when an exam simulation scores <b>800 or more</b> and every domain card is green.</li></ul></div>`;}
+
+// ---------- question renderer
+function renderQuestion(q,a,mode,onChange){
+  // mode: "answer" (editable) | "review" (locked + feedback)
+  const lock=mode==="review";
+  let h="";
+  if(q.case){h+=`<details class="case" open><summary>${CASES[q.case].title}</summary>${CASES[q.case].html}</details>`;}
+  h+=`<p class="stem">${q.q}</p>`;
+  if(q.t==="multi")h+=`<div class="hint">Choose ${q.a.length}.</div>`;
+  if(q.t==="single"||q.t==="multi"){
+    h+=`<div class="opts">`+q.o.map((o,i)=>{let c="opt";const sel=q.t==="single"?a===i:a.includes(i);if(sel)c+=" sel";
+      if(lock){c+=" locked";const right=q.t==="single"?q.a===i:q.a.includes(i);if(right&&sel)c+=" ok";else if(sel&&!right)c+=" bad";else if(right)c+=" miss";}
+      return `<button class="${c}" data-i="${i}" ${lock?"disabled":""}><span class="k">${q.t==="multi"?(sel?"☑":"☐"):L[i]}</span><span>${o}</span></button>`;}).join("")+`</div>`;
+  } else if(q.t==="drop"){
+    const sel=(bi)=>{const B=q.b[bi];let cls="";if(lock)cls=a[bi]===B.a?"ok":"bad";return `<select data-b="${bi}" class="${cls}" ${lock?"disabled":""}><option value="-1">Select…</option>${B.o.map((o,oi)=>`<option value="${oi}" ${a[bi]===oi?"selected":""}>${esc(o)}</option>`).join("")}</select>`+(lock&&a[bi]!==B.a?`<div class="fix">✔ ${esc(B.o[B.a])}</div>`:"");};
+    if(q.tpl){let t=esc(q.tpl);t=t.replace(/\[\[(\d+)\]\]/g,(m,n)=>sel(+n));h+=`<pre class="codeq">${t}</pre>`;}
+    else{h+=`<div class="tblwrap"><table class="rows">`+q.rows.map((r,i)=>`<tr><td>${r}</td><td>${sel(i)}</td></tr>`).join("")+`</table></div>`;}
+  } else if(q.t==="yesno"){
+    h+=`<div class="tblwrap"><table class="rows">`+q.st.map((s,i)=>{const nm=q.id+"_"+i;let mark="";if(lock){mark=a[i]===s[1]?` <span class="pill strong">✔</span>`:` <span class="pill weak">✘ ${s[1]?"Yes":"No"}</span>`;}
+      return `<tr><td>${s[0]}</td><td class="yn"><label><input type="radio" name="${nm}" data-y="${i}" value="1" ${a[i]===true?"checked":""} ${lock?"disabled":""}> Yes</label><label><input type="radio" name="${nm}" data-y="${i}" value="0" ${a[i]===false?"checked":""} ${lock?"disabled":""}> No</label>${mark}</td></tr>`;}).join("")+`</table></div>`;
+  } else if(q.t==="order"){
+    h+=`<div class="orderlist">`+a.map((it,pos)=>{let c="oitem";if(lock)c+=it===pos?" ok":" bad";return `<div class="${c}"><span class="pos">${pos+1}</span><span class="txt">${q.items[it]}</span>${lock?"":`<button data-up="${pos}" aria-label="Move up" ${pos===0?"disabled":""}>↑</button><button data-dn="${pos}" aria-label="Move down" ${pos===a.length-1?"disabled":""}>↓</button>`}</div>`;}).join("")+`</div>`;
+    if(lock&&!a.every((x,i)=>x===i))h+=`<div class="fix" style="margin-top:8px">Correct order: ${q.items.map((t,i)=>(i+1)+". "+t).join(" → ")}</div>`;
+  }
+  const wrap=document.createElement("div");wrap.innerHTML=h;
+  if(!lock){
+    wrap.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(q.t==="single")a=i;else{a=a.includes(i)?a.filter(x=>x!==i):a.concat(i);}onChange(a,true);});
+    wrap.querySelectorAll("select").forEach(s=>s.onchange=()=>{a=a.slice();a[+s.dataset.b]=+s.value;onChange(a,false);});
+    wrap.querySelectorAll("input[data-y]").forEach(r=>r.onchange=()=>{a=a.slice();a[+r.dataset.y]=r.value==="1";onChange(a,false);});
+    wrap.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{const p=+b.dataset.up;a=a.slice();[a[p-1],a[p]]=[a[p],a[p-1]];onChange(a,true);});
+    wrap.querySelectorAll("[data-dn]").forEach(b=>b.onclick=()=>{const p=+b.dataset.dn;a=a.slice();[a[p+1],a[p]]=[a[p],a[p+1]];onChange(a,true);});
+  }
+  return wrap;
+}
+function feedbackHTML(q,sc){const cls=sc===1?"good":sc>0?"part":"poor";const lab=sc===1?"Correct.":sc>0?`Partially correct (${Math.round(sc*100)}%).`:"Incorrect.";
+  return `<div class="explain"><span class="res ${cls}">${lab}</span> ${q.x}<div class="src">Source: ${q.r}</div></div>`;}
+
+// ---------- practice
+let P=null;
+function startPractice(list,label){if(!list.length){document.getElementById("panel").innerHTML=`<div class="empty">Nothing to practice here yet.</div>`;return;}
+  P={list,label,i:0,pts:0,a:blankInit(list[0]),done:false};drawPractice();}
+function drawPractice(){const q=P.list[P.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const meta=document.createElement("div");meta.className="meta";meta.innerHTML=`<span class="tag">${P.label} · D${q.d} · ${esc(q.s)}</span><span class="tag">Question ${P.i+1}/${P.list.length} · score ${P.pts.toFixed(1)}/${P.i}</span>`;panel.appendChild(meta);
+  const body=document.createElement("div");panel.appendChild(body);
+  const ctr=document.createElement("div");ctr.className="controls";panel.appendChild(ctr);
+  const redraw=()=>{body.innerHTML="";body.appendChild(renderQuestion(q,P.a,P.done?"review":"answer",(na,re)=>{P.a=na;if(re)redraw();else upd();}));if(P.done)body.insertAdjacentHTML("beforeend",feedbackHTML(q,score(q,P.a)));upd();};
+  const upd=()=>{ctr.innerHTML="";const quit=document.createElement("button");quit.className="btn";quit.textContent="End session";quit.onclick=()=>endPractice();ctr.appendChild(quit);
+    const go=document.createElement("button");go.className="btn primary";
+    if(!P.done){go.textContent="Submit answer";go.disabled=!answered(q,P.a);go.onclick=()=>{P.done=true;const sc=score(q,P.a);P.pts+=sc;record(q,sc);persist();renderHome();redraw();};}
+    else{go.textContent=P.i+1<P.list.length?"Next question":"See results";go.onclick=()=>{P.i++;if(P.i>=P.list.length)return endPractice(true);P.a=blankInit(P.list[P.i]);P.done=false;drawPractice();};}
+    ctr.appendChild(go);};
+  redraw();
+}
+function endPractice(){const n=P.i+(P.done&&P.i<P.list.length?1:0);const answeredN=Math.min(n,P.list.length);const pct=answeredN?Math.round(P.pts/answeredN*100):0;
+  const ws=weakSkills().slice(0,8);
+  document.getElementById("panel").innerHTML=`<h2 style="margin:0 0 4px;font-size:18px">Session results</h2><div class="sumgrid"><div class="sumcard"><div class="n">${P.pts.toFixed(1)}/${answeredN}</div><div class="l">Points</div></div><div class="sumcard"><div class="n">${pct}%</div><div class="l">Session accuracy</div></div><div class="sumcard"><div class="n">${readiness()}%</div><div class="l">Weighted readiness</div></div></div>
+  <b style="font-size:14px">Skills to work on</b>${ws.length?ws.map(w=>`<div class="wrow"><span>D${w.d} · ${esc(w.s)}</span><span class="mono" style="color:${w.acc===null?"var(--dim)":w.acc<.6?"var(--red)":"var(--amber)"}">${w.acc===null?"untested":Math.round(w.acc*100)+"%"}</span></div>`).join(""):`<div class="wrow">Every skill is at 80% or more.</div>`}
+  <div class="controls"><button class="btn" id="bw">Drill weak skills</button><button class="btn primary" id="bh">Back</button></div>`;
+  document.getElementById("bw").onclick=startWeak;document.getElementById("bh").onclick=renderIntro;P=null;renderHome();}
+function startWeak(){const ws=new Set(weakSkills().map(w=>w.s));startPractice(shuffle(Q.filter(q=>ws.has(q.s))),"Weak skills");}
+
+// ---------- exam simulation
+let E=null,timerH=null;
+function buildExam(){let picked=[];const seen=q=>(state.att[q.id]?state.att[q.id].n:0);DOMAINS.forEach(D=>{picked=picked.concat(shuffle(Q.filter(q=>q.d===D.id)).sort((x,y)=>seen(x)-seen(y)).slice(0,D.n));});
+  // keep case-study questions together at the end, like the real exam
+  const cs=picked.filter(q=>q.case),rest=shuffle(picked.filter(q=>!q.case));return rest.concat(cs);}
+function startExam(){if(!confirm("Start a 50-question exam simulation with a 90-minute timer? No feedback until you finish."))return;
+  const list=buildExam();E={list,ans:list.map(blankInit),flag:list.map(()=>false),i:0,end:Date.now()+EXAM_MIN*60000,over:false,touched:list.map(()=>false)};
+  clearInterval(timerH);timerH=setInterval(tick,1000);drawExam();}
+function tick(){if(!E||E.over)return;const left=E.end-Date.now();const t=document.getElementById("timer");if(left<=0){finishExam(true);return;}if(t){const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);t.textContent=`${m}:${String(s).padStart(2,"0")}`;t.className="timer"+(left<600000?" low":"");}}
+function drawExam(){const q=E.list[E.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const bar=document.createElement("div");bar.className="exambar";bar.innerHTML=`<span class="tag">Exam simulation · question ${E.i+1} of ${E.list.length}</span><label class="tag" style="cursor:pointer"><input type="checkbox" id="flg" ${E.flag[E.i]?"checked":""}> Flag for review</label><span class="timer" id="timer">--:--</span>`;panel.appendChild(bar);
+  bar.querySelector("#flg").onchange=e=>{E.flag[E.i]=e.target.checked;};
+  const body=document.createElement("div");panel.appendChild(body);
+  const redraw=()=>{body.innerHTML="";body.appendChild(renderQuestion(q,E.ans[E.i],"answer",(na,re)=>{E.ans[E.i]=na;E.touched[E.i]=true;if(re)redraw();}));};redraw();
+  const ctr=document.createElement("div");ctr.className="controls";ctr.innerHTML=`<button class="btn" id="prev" ${E.i===0?"disabled":""}>Previous</button><span style="display:flex;gap:10px"><button class="btn" id="rev">Review screen</button><button class="btn primary" id="next">${E.i+1<E.list.length?"Next":"Review screen"}</button></span>`;panel.appendChild(ctr);
+  ctr.querySelector("#prev").onclick=()=>{E.i--;drawExam();};
+  ctr.querySelector("#next").onclick=()=>{if(E.i+1<E.list.length){E.i++;drawExam();}else drawReview();};
+  ctr.querySelector("#rev").onclick=drawReview;tick();}
+function isAns(i){const q=E.list[i];return answered(q,E.ans[i]);}
+function drawReview(){const panel=document.getElementById("panel");const un=E.list.filter((_,i)=>!isAns(i)).length;
+  panel.innerHTML=`<div class="exambar"><span class="tag">Review screen · ${un} unanswered · ${E.flag.filter(Boolean).length} flagged</span><span class="timer" id="timer">--:--</span></div>
+  <div class="navgrid">${E.list.map((q,i)=>`<button data-go="${i}" class="${isAns(i)?"ans":""} ${E.flag[i]?"flag":""}">${i+1}${E.flag[i]?"⚑":""}</button>`).join("")}</div>
+  <p class="sub">Grey = answered. ⚑ = flagged. Click a number to go back to that question.</p>
+  <div class="controls"><button class="btn" id="back">Back to question ${E.i+1}</button><button class="btn primary" id="fin">Finish exam</button></div>`;
+  panel.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{E.i=+b.dataset.go;drawExam();});
+  panel.querySelector("#back").onclick=drawExam;panel.querySelector("#fin").onclick=()=>{if(confirm(un?`${un} questions are unanswered. Finish anyway?`:"Finish the exam?"))finishExam(false);};tick();}
+function finishExam(timeUp){E.over=true;clearInterval(timerH);
+  const dom={};let pts=0;E.list.forEach((q,i)=>{const sc=isAns(i)?score(q,E.ans[i]):0;pts+=sc;dom[q.d]=dom[q.d]||[0,0];dom[q.d][0]+=sc;dom[q.d][1]++;record(q,sc);E.sc=E.sc||[];E.sc[i]=sc;});
+  const scaled=Math.round(pts/E.list.length*1000);
+  state.exams.push({at:new Date().toISOString(),score:scaled,dom});persist();renderHome();
+  const pass=scaled>=700;
+  const panel=document.getElementById("panel");
+  panel.innerHTML=`<h2 style="margin:0 0 10px;font-size:18px">Exam simulation result${timeUp?" (time is up)":""}</h2>
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="score" style="color:${pass?"var(--green)":"var(--red)"}">${scaled}</span><span class="pill ${pass?"strong":"weak"}" style="font-size:13px">${pass?"PASS":"FAIL"} · 700 needed</span><span class="sub">${scaled>=800?"Real-exam ready on this attempt.":pass?"Passing, but aim for 800+ for a safety margin.":"Not ready yet: drill your weak domains, then retake."}</span></div>
+  <div class="sumgrid">${DOMAINS.map(D=>{const v=dom[D.id]||[0,0];const p=v[1]?Math.round(v[0]/v[1]*100):0;const[t]=tier(p/100,v[1]);return `<div class="sumcard"><div class="n">${p}%</div><div class="l">D${D.id} · ${v[1]} q</div><div class="bar" style="margin-top:6px"><span style="width:${p}%;background:${t==="strong"?"var(--green)":t==="dev"?"var(--amber)":"var(--red)"}"></span></div></div>`;}).join("")}</div>
+  <div class="controls"><button class="btn" id="home">Back</button><button class="btn primary" id="rv">Review every answer</button></div>`;
+  panel.querySelector("#home").onclick=()=>{E=null;renderIntro();};panel.querySelector("#rv").onclick=()=>{E.i=0;drawExamReview();};}
+function drawExamReview(){const q=E.list[E.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const bar=document.createElement("div");bar.className="meta";bar.innerHTML=`<span class="tag">Review · D${q.d} · ${esc(q.s)}</span><span class="tag">${E.i+1}/${E.list.length}</span>`;panel.appendChild(bar);
+  let a=E.ans[E.i];if(!isAns(E.i)&&q.t!=="order")a=blankInit(q);
+  panel.appendChild(renderQuestion(q,a,"review",()=>{}));panel.insertAdjacentHTML("beforeend",feedbackHTML(q,E.sc[E.i]));
+  const ctr=document.createElement("div");ctr.className="controls";ctr.innerHTML=`<button class="btn" id="p" ${E.i===0?"disabled":""}>Previous</button><span style="display:flex;gap:10px"><button class="btn" id="w">Next mistake</button><button class="btn primary" id="n">${E.i+1<E.list.length?"Next":"Done"}</button></span>`;panel.appendChild(ctr);
+  ctr.querySelector("#p").onclick=()=>{E.i--;drawExamReview();};
+  ctr.querySelector("#n").onclick=()=>{if(E.i+1<E.list.length){E.i++;drawExamReview();}else{E=null;renderIntro();}};
+  ctr.querySelector("#w").onclick=()=>{for(let j=E.i+1;j<E.list.length;j++){if(E.sc[j]<1){E.i=j;return drawExamReview();}}alert("No more mistakes after this question.");};}
+
+// ---------- wire up
+document.getElementById("mNew").onclick=()=>startPractice(shuffle(Q.filter(q=>q.set===2&&!state.att[q.id])).concat(shuffle(Q.filter(q=>q.set===2&&state.att[q.id]))),"New questions (set 2)");
+document.getElementById("mExam").onclick=startExam;
+document.getElementById("mWeak").onclick=startWeak;
+document.getElementById("mMissed").onclick=()=>startPractice(shuffle(Q.filter(q=>state.missed[q.id])),"Retry missed");
+document.getElementById("mAll").onclick=()=>startPractice(shuffle(Q),"All questions");
+document.getElementById("mReset").onclick=()=>{if(confirm("Reset all saved progress and exam history?")){state={att:{},missed:{},exams:[]};persist();renderHome();renderIntro();}};
+window.addEventListener("beforeunload",e=>{if(E&&!E.over){e.preventDefault();e.returnValue="";}});
+loadLocal();prune();renderHome();renderIntro();
+</script>
+
+</body></html>

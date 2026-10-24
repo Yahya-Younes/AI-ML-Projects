@@ -12,6 +12,9 @@
   <img src="https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="pandas">
 </p>
 
+> ### 🎓 New: [Certification Study Hub](certifications/)
+> Free zero-to-certified guides with study plans in hours, cheatsheets and interactive exam simulators for **AZ-900**, **AI-900/AI-901**, **AI-103**, **Google Cloud Generative AI Leader** and the **TensorFlow Developer Certificate**.
+
 A collection of machine-learning and deep-learning work: personal projects and graded
 course assignments, mostly in Python (NumPy, pandas, scikit-learn, TensorFlow/Keras).
 
@@ -26,6 +29,10 @@ course assignments, mostly in Python (NumPy, pandas, scikit-learn, TensorFlow/Ke
 
 ```
 .
+├── certifications/                             # Study hub: guides, cheatsheets, exam simulators
+│   ├── microsoft-azure/                       # AZ-900, AI-900/AI-901, AI-103
+│   ├── google-cloud/                          # Generative AI Leader
+│   └── tensorflow/                            # TensorFlow Developer Certificate
 ├── courses/
 │   └── advanced-computer-vision-tensorflow/   # DeepLearning.AI TensorFlow course 3 assignments
 │       ├── week-1-object-localization/        # Bounding-box regression (Caltech Birds, MobileNetV2)
