@@ -1,5 +1,7 @@
 # 🎓 AI & Cloud Certification Study Hub
 
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
+
 **Free, complete, beginner-friendly guides to pass Microsoft Azure, Google Cloud and TensorFlow certifications** — each with a study plan in hours, a full course written for people starting from zero, a one-page cheatsheet, every official link, and an **interactive exam simulator** that runs in your browser.
 
 > ⭐ If this helps you pass, star the repository so others can find it — and open an issue if you spot anything outdated.
@@ -69,5 +71,9 @@ They are **not** copies of real exam questions: those are protected by the certi
 ## Contributing
 
 Certifications change every few months. If a service was renamed, a question is outdated or an explanation is unclear, please open an issue or a pull request with a link to the official documentation.
+
+## License
+
+The guides, cheatsheets and practice questions are licensed under [**Creative Commons Attribution 4.0 (CC BY 4.0)**](LICENSE): share and adapt them freely, as long as you credit this repository.
 
 <sub>Unofficial study material. Not affiliated with or endorsed by Microsoft, Google or the TensorFlow team. All trademarks belong to their owners.</sub>
