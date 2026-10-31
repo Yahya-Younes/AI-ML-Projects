@@ -97,6 +97,8 @@ details.case ul{margin:6px 0;padding-left:18px}details.case p{margin:6px 0}
 .sumcard .n{font:600 20px "IBM Plex Mono"}.sumcard .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
 .wrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .empty{color:var(--dim);padding:22px 0}
+.dlg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}.dlgbox{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:14px;padding:20px;max-width:420px;width:100%}.dlgbox p{margin:0 0 16px}.dlgbtns{display:flex;gap:10px;justify-content:flex-end}
+
 .empty ul{margin:8px 0;padding-left:18px}
 footer{font-size:12px;color:var(--dim);line-height:1.6}
 </style>
@@ -1736,12 +1738,17 @@ function endPractice(){const n=P.i+(P.done&&P.i<P.list.length?1:0);const answere
   document.getElementById("bw").onclick=startWeak;document.getElementById("bh").onclick=renderIntro;P=null;renderHome();}
 function startWeak(){const ws=new Set(weakSkills().map(w=>w.s));startPractice(shuffle(Q.filter(q=>ws.has(q.s))),"Weak skills");}
 
+
+// in-page dialogs
+function ask(msg,ok="OK",cancel="Cancel"){return new Promise(res=>{const o=document.createElement("div");o.className="dlg";
+ o.innerHTML=`<div class="dlgbox" role="dialog" aria-modal="true"><p>${msg}</p><div class="dlgbtns">${cancel?`<button class="btn" data-r="0">${cancel}</button>`:""}<button class="btn primary" data-r="1">${ok}</button></div></div>`;
+ document.body.appendChild(o);o.querySelectorAll("button").forEach(b=>b.onclick=()=>{o.remove();res(b.dataset.r==="1");});o.querySelector(".primary").focus();});}
 // ---------- exam simulation
 let E=null,timerH=null;
 function buildExam(){let picked=[];const seen=q=>(state.att[q.id]?state.att[q.id].n:0);DOMAINS.forEach(D=>{picked=picked.concat(shuffle(Q.filter(q=>q.d===D.id)).sort((x,y)=>seen(x)-seen(y)).slice(0,D.n));});
   // keep case-study questions together at the end, like the real exam
   const cs=picked.filter(q=>q.case),rest=shuffle(picked.filter(q=>!q.case));return rest.concat(cs);}
-function startExam(){if(!confirm("Start a 50-question exam simulation with a 100-minute timer? No feedback until you finish."))return;
+async function startExam(){if(!(await ask("Start a 50-question exam simulation with a 100-minute timer? No feedback until you finish.","Start exam")))return;
   const list=buildExam();E={list,ans:list.map(blankInit),flag:list.map(()=>false),i:0,end:Date.now()+EXAM_MIN*60000,over:false,touched:list.map(()=>false)};
   clearInterval(timerH);timerH=setInterval(tick,1000);drawExam();}
 function tick(){if(!E||E.over)return;const left=E.end-Date.now();const t=document.getElementById("timer");if(left<=0){finishExam(true);return;}if(t){const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);t.textContent=`${m}:${String(s).padStart(2,"0")}`;t.className="timer"+(left<600000?" low":"");}}
@@ -1761,7 +1768,7 @@ function drawReview(){const panel=document.getElementById("panel");const un=E.li
   <p class="sub">Grey = answered. ⚑ = flagged. Click a number to go back to that question.</p>
   <div class="controls"><button class="btn" id="back">Back to question ${E.i+1}</button><button class="btn primary" id="fin">Finish exam</button></div>`;
   panel.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{E.i=+b.dataset.go;drawExam();});
-  panel.querySelector("#back").onclick=drawExam;panel.querySelector("#fin").onclick=()=>{if(confirm(un?`${un} questions are unanswered. Finish anyway?`:"Finish the exam?"))finishExam(false);};tick();}
+  panel.querySelector("#back").onclick=drawExam;panel.querySelector("#fin").onclick=async()=>{if(await ask(un?`${un} questions are unanswered. Finish anyway?`:"Finish the exam?","Finish"))finishExam(false);};tick();}
 function finishExam(timeUp){E.over=true;clearInterval(timerH);
   const dom={};let pts=0;E.list.forEach((q,i)=>{const sc=isAns(i)?score(q,E.ans[i]):0;pts+=sc;dom[q.d]=dom[q.d]||[0,0];dom[q.d][0]+=sc;dom[q.d][1]++;record(q,sc);E.sc=E.sc||[];E.sc[i]=sc;});
   const scaled=Math.round(pts/E.list.length*1000);
@@ -1780,15 +1787,15 @@ function drawExamReview(){const q=E.list[E.i];const panel=document.getElementByI
   const ctr=document.createElement("div");ctr.className="controls";ctr.innerHTML=`<button class="btn" id="p" ${E.i===0?"disabled":""}>Previous</button><span style="display:flex;gap:10px"><button class="btn" id="w">Next mistake</button><button class="btn primary" id="n">${E.i+1<E.list.length?"Next":"Done"}</button></span>`;panel.appendChild(ctr);
   ctr.querySelector("#p").onclick=()=>{E.i--;drawExamReview();};
   ctr.querySelector("#n").onclick=()=>{if(E.i+1<E.list.length){E.i++;drawExamReview();}else{E=null;renderIntro();}};
-  ctr.querySelector("#w").onclick=()=>{for(let j=E.i+1;j<E.list.length;j++){if(E.sc[j]<1){E.i=j;return drawExamReview();}}alert("No more mistakes after this question.");};}
+  ctr.querySelector("#w").onclick=()=>{for(let j=E.i+1;j<E.list.length;j++){if(E.sc[j]<1){E.i=j;return drawExamReview();}}ask("No more mistakes after this question.","OK",null);};}
 
 // ---------- wire up
-document.getElementById("mNew").onclick=()=>startPractice(shuffle(Q.filter(q=>q.set===2&&!state.att[q.id])).concat(shuffle(Q.filter(q=>q.set===2&&state.att[q.id]))),"New questions (set 2)");
+document.getElementById("mNew").onclick=()=>{const un=shuffle(Q.filter(q=>q.set===2&&!state.att[q.id]));if(!un.length){document.getElementById("panel").innerHTML=`<div class="empty"><b style="color:var(--text)">You have answered all 112 set 2 questions.</b><br>Use <b>Retry missed</b> to fix the ones you got wrong, or <b>Weak skills</b>. Exam simulations now draw from questions you have already seen, so treat their score as a review score, not a fresh one.</div>`;return;}startPractice(un,"New questions (set 2): unseen only");};
 document.getElementById("mExam").onclick=startExam;
 document.getElementById("mWeak").onclick=startWeak;
 document.getElementById("mMissed").onclick=()=>startPractice(shuffle(Q.filter(q=>state.missed[q.id])),"Retry missed");
 document.getElementById("mAll").onclick=()=>startPractice(shuffle(Q),"All questions");
-document.getElementById("mReset").onclick=()=>{if(confirm("Reset all saved progress and exam history?")){state={att:{},missed:{},exams:[]};persist();renderHome();renderIntro();}};
+document.getElementById("mReset").onclick=async()=>{if(await ask("Reset all saved progress and exam history? This cannot be undone.","Reset")){state={att:{},missed:{},exams:[]};persist();renderHome();renderIntro();}};
 window.addEventListener("beforeunload",e=>{if(E&&!E.over){e.preventDefault();e.returnValue="";}});
 loadLocal();prune();renderHome();renderIntro();
 </script>

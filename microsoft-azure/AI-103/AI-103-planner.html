@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI-103 Study Planner</title>
+<meta name="description" content="Free, unofficial AI-103 study planner: enter your start date, exam date and weekly availability and get a day-by-day plan (~50 h) with videos, official labs, trainer drills and go/no-go gates.">
+<style>
+:root{
+  --paper:#eef1f4;--surface:#ffffff;--surface-2:#e3e8ed;--line:#cbd3db;
+  --text:#1b232c;--dim:#5b6a78;--accent:#0b7f91;--on-accent:#ffffff;
+  --green:#15803d;--green-bg:#e4f4e9;--amber:#a85f06;--amber-bg:#fbeee0;--red:#b91c1c;--red-bg:#fbe7e7;
+  --d1:#0e7490;--d2:#6d28d9;--d3:#b45309;--d4:#be185d;--d5:#15803d;--dx:#475569;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;
+    --text:#e7edf1;--dim:#93a3af;--accent:#2fc7d9;--on-accent:#04262b;
+    --green:#4ade80;--green-bg:#123321;--amber:#f0a94e;--amber-bg:#3a2c15;--red:#f87171;--red-bg:#3a1616;
+    --d1:#38bdf8;--d2:#a78bfa;--d3:#fbbf24;--d4:#f472b6;--d5:#4ade80;--dx:#94a3b8;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;
+  --text:#e7edf1;--dim:#93a3af;--accent:#2fc7d9;--on-accent:#04262b;
+  --green:#4ade80;--green-bg:#123321;--amber:#f0a94e;--amber-bg:#3a2c15;--red:#f87171;--red-bg:#3a1616;
+  --d1:#38bdf8;--d2:#a78bfa;--d3:#fbbf24;--d4:#f472b6;--d5:#4ade80;--dx:#94a3b8;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--text);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.mono,.n,.v,.hrs,.date,.tag,.h{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:26px 16px 70px;display:flex;flex-direction:column;gap:18px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+h1{margin:0;font-size:22px;letter-spacing:-.01em;font-weight:650}
+.sub{color:var(--dim);font-size:13px}
+.count{text-align:right}
+.count .n{font-size:40px;font-weight:600;line-height:1;color:var(--accent)}
+.count .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
+section.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+h2{font-size:15px;margin:0 0 12px;font-weight:650}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 18px;align-items:end}
+.field{display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:var(--dim)}
+.field input[type=date],.field input[type=number],.gate input{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font:14px ui-monospace,Menlo,Consolas,monospace;width:100%}
+.days{display:flex;gap:5px;flex-wrap:wrap}
+.days label{display:flex;align-items:center;justify-content:center;width:40px;height:32px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:12.5px;color:var(--text);user-select:none}
+.days input{position:absolute;opacity:0;pointer-events:none}
+.days label.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+.days label:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{font:600 13px system-ui,sans-serif;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer;text-decoration:none}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.notice{margin-top:14px;padding:10px 12px;border-radius:10px;font-size:13px}
+.notice.ok{background:var(--green-bg);color:var(--green)}.notice.warn{background:var(--amber-bg);color:var(--amber)}.notice.bad{background:var(--red-bg);color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat .v{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat .k{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.track{height:6px;background:var(--surface-2);border-radius:4px;overflow:hidden;margin-top:8px}
+.track span{display:block;height:100%;background:var(--accent)}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font:600 11px ui-monospace,Menlo,monospace}
+.pill.ok{background:var(--green-bg);color:var(--green)}.pill.warn{background:var(--amber-bg);color:var(--amber)}.pill.bad{background:var(--red-bg);color:var(--red)}
+.today{border:1.5px solid var(--accent)}
+.today h2 .when{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--accent);font-weight:500;margin-left:8px}
+.task{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:13px}
+.task input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent);flex:none;cursor:pointer}
+.task label{flex:1;cursor:pointer}
+.task.done label{color:var(--dim);text-decoration:line-through}
+.task.opt label::before{content:"Optional · ";color:var(--dim);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end;max-width:46%}
+.go{font:600 11px ui-monospace,Menlo,monospace;color:var(--on-accent);background:var(--accent);padding:2px 8px;border-radius:5px;text-decoration:none;flex:none}
+.task .h{font-size:11.5px;color:var(--dim);flex:none;min-width:38px;text-align:right}
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.gate{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.gate .d{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--dim)}
+.gate .t{font-weight:600;font-size:13.5px}
+.gate .row{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--dim)}
+.gate input{width:80px}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.split div{border-left:3px solid var(--c);padding:4px 10px}
+.split .v{font-weight:600;font-size:16px}
+.split .k{font-size:12px;color:var(--dim)}
+.phase-h{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 8px;gap:10px;flex-wrap:wrap}
+.phase-h h3{margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent)}
+.phase-h .r{font-size:12px;color:var(--dim)}
+.day{display:grid;grid-template-columns:86px 1fr 70px;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.day.is-today{background:color-mix(in srgb,var(--accent) 9%,transparent);margin:0 -20px;padding:12px 20px}
+.day.late .date b{color:var(--red)}
+.date{font-size:12.5px;line-height:1.35}
+.date b{display:block;font-size:14px;color:var(--text)}
+.date .wd{color:var(--dim)}
+.focus{font-weight:600;font-size:13.5px;margin:2px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tag{font-weight:600;font-size:10.5px;padding:1px 7px;border-radius:5px;border:1px solid currentColor}
+.hrs{font-size:12px;text-align:right;color:var(--dim);font-variant-numeric:tabular-nums}
+.hrs b{display:block;font-size:14px;color:var(--text)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 22px;margin:0;padding:0;list-style:none}
+.rules li{font-size:13px;padding-left:14px;position:relative}
+.rules li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+footer{font-size:12px;color:var(--dim);line-height:1.6}
+@media (max-width:620px){.day{grid-template-columns:62px 1fr}.hrs{display:none}.count .n{font-size:30px}.links{max-width:100%}.task{flex-wrap:wrap}}
+@media print{body{background:#fff}.no-print,#setup,.today{display:none!important}section.card{border:none;padding:0}.go{background:none;color:#000;border:1px solid #999}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>AI-103 Study Planner</h1>
+      <div class="sub">Developing AI Apps and Agents on Azure · a day-by-day plan of about 50 hours, built around your dates</div>
+    </div>
+    <div class="count" id="countBox" hidden><div class="n" id="daysLeft">--</div><div class="l">days to exam</div></div>
+  </header>
+
+  <section class="card" id="setup">
+    <h2>1 · Your dates and availability</h2>
+    <div class="form">
+      <label class="field">Start date<input type="date" id="fStart"></label>
+      <label class="field">Exam date<input type="date" id="fExam"></label>
+      <label class="field">Hours on a weekday<input type="number" id="fWd" min="0.5" max="10" step="0.5" value="2"></label>
+      <label class="field">Hours on a weekend day<input type="number" id="fWe" min="0.5" max="12" step="0.5" value="5"></label>
+      <div class="field">Days you can study
+        <div class="days" id="fDays"></div>
+      </div>
+      <div class="btns"><button class="primary" id="build">Build my plan</button></div>
+    </div>
+    <div id="advice"></div>
+    <p class="sub" style="margin:12px 0 0">No exam date yet? Fill in the start date and availability, leave the exam date empty, and the planner suggests the earliest sensible date. Everything stays in this browser: nothing is sent anywhere.</p>
+  </section>
+
+  <div id="planArea" hidden>
+    <div class="stats" style="margin-bottom:18px">
+      <div class="stat"><div class="k">Hours done</div><div class="v"><span id="hDone">0</span> / <span id="hAll">0</span></div><div class="track"><span id="hBar" style="width:0"></span></div></div>
+      <div class="stat"><div class="k">Planned before today</div><div class="v" id="hPlanned">0</div></div>
+      <div class="stat"><div class="k">Pace</div><div class="v" id="pace"></div></div>
+      <div class="stat"><div class="k">Tasks done</div><div class="v"><span id="tDone">0</span> / <span id="tAll">0</span></div></div>
+    </div>
+
+    <section class="card today" id="todayCard" style="margin-bottom:18px"></section>
+
+    <section class="card" style="margin-bottom:18px">
+      <h2>Go / no-go gates</h2>
+      <p class="sub" style="margin:-4px 0 12px">Enter your score after each one. Readiness is measured, not felt.</p>
+      <div class="gates" id="gates"></div>
+    </section>
+
+    <section class="card" style="margin-bottom:18px">
+      <h2>Where the hours go</h2>
+      <div class="split" id="split"></div>
+    </section>
+
+    <section class="card" style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <h2 style="margin:0">2 · Your full schedule</h2>
+        <div class="btns no-print">
+          <button id="ics">Add to calendar (.ics)</button>
+          <button id="print">Print</button>
+          <button id="reset">Reset progress</button>
+        </div>
+      </div>
+      <div id="plan"></div>
+    </section>
+
+    <section class="card">
+      <h2>Rules that make the plan work</h2>
+      <ul class="rules">
+        <li>Same time every study day, phone in another room. Short evening blocks (30 min) are for the trainer or a short lab.</li>
+        <li>Every "Learn" or "Watch" block ends with a few trainer questions on that topic.</li>
+        <li>Log every wrong answer the same day, as one line: <i>constraint word in the scenario → right service or setting</i>. That log becomes your second cheatsheet.</li>
+        <li>Never skip two study days in a row. A missed day moves to your next long (weekend) day, not on top of tomorrow.</li>
+        <li>Agent labs need a chat model deployment with quota. If your subscription shows 0 quota, request an increase on day one: it is free but can take a few days. Until then, read the lab steps and answer the matching trainer questions.</li>
+        <li>From the exam-mode phase on, no new material: only the trainer, your mistakes log and the cheatsheet.</li>
+        <li>You are ready when the official practice assessment is at 80%+ and a trainer simulation is at 800+, not when you feel ready. If you are below 700 two days before, move the exam (free up to 24 h before).</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>Built from the official AI-103 study guide (skills measured as of 16 April 2026), the AI-103 learning paths on Microsoft Learn, the official Microsoft lab repositories (github.com/MicrosoftLearning: mslearn-ai-studio, mslearn-ai-agents, mslearn-ai-vision, mslearn-ai-language, mslearn-ai-information-extraction) and the public "AI-103: Develop AI apps and agents on Azure" video series (course preview + 26 episodes; watch at 1.25–1.5×). Your settings and progress are saved only in this browser (localStorage). Unofficial study material, not affiliated with or endorsed by Microsoft. Microsoft services and exam outlines change often: when this plan and Microsoft Learn disagree, trust Microsoft Learn.</footer>
+</div>
+
+<script>
+"use strict";
+const TRAINER = "AI-103-trainer.html";
+const CHEAT = "https://github.com/Yahya-Younes/ai-cloud-certification-hub/blob/main/microsoft-azure/AI-103/cheatsheet.md";
+const CERT = "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/";
+const YT = id => "https://www.youtube.com/watch?v=" + id;
+const LAB_STUDIO = "https://microsoftlearning.github.io/mslearn-ai-studio/Instructions/Exercises/";
+const LAB_AGENTS = "https://microsoftlearning.github.io/mslearn-ai-agents/Instructions/";
+const ML = "https://learn.microsoft.com/en-us/azure/";
+const T = [["Trainer", TRAINER]];
+
+const TAGS = {D1:["D1","var(--d1)"],D2:["D2","var(--d2)"],D3:["D3","var(--d3)"],D4:["D4","var(--d4)"],D5:["D5","var(--d5)"],X:["Practice","var(--dx)"]};
+const PHASES = [
+  {id:"p1", name:"Phase 1 · Foundations and agents", note:"Domain 1, chat apps, RAG and agents: the core labs hands-on"},
+  {id:"p2", name:"Phase 2 · Remaining domains", note:"Videos + scenario questions for Domains 3, 4 and 5"},
+  {id:"p3", name:"Phase 3 · Exam mode", note:"Gates, two timed simulations, cheatsheets. No new material"},
+];
+
+// Sessions in study order. Each task: [text, hours, links, optional?]
+const SESSIONS = [
+ {p:"p1",tag:"X",focus:"Setup and baseline",t:[
+  ["Watch: AI-103 Course Preview",.25,[["Watch",YT("3pyTJXkqc58")]]],
+  ["Create or verify an Azure subscription and a Microsoft Foundry project. Check your model quota (Operate → Quota) and request an increase now if it shows 0",.5,[["Foundry portal","https://ai.azure.com"],["Azure portal","https://portal.azure.com"]]],
+  ["Baseline: one exam simulation in the trainer, no notes. Write the score down",1.75,T],
+  ["Read the study guide's skills-measured list once, end to end",.25,[["Study guide","https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103"]]]]},
+ {p:"p1",tag:"D1",focus:"Choose, deploy and run models",t:[
+  ["Watch: Ep 1, Plan and prepare to develop AI solutions on Azure (29 min)",.5,[["Watch",YT("PE_7sP3uN5k")]]],
+  ["Watch: Ep 2, Select, deploy, and evaluate Microsoft Foundry models (28 min)",.5,[["Watch",YT("71gi8ULxPZQ")]]],
+  ["Lab: 'Create a generative AI chat app', first half: project, deployment, endpoint, az login, Chat Completions + Responses API (keyless)",1,[["Open lab",LAB_STUDIO+"03-foundry-sdk.html"]]],
+  ["Learn: deployment types (standard, global, data zone, provisioned/PTU, batch) and when to choose each",1,[["Deployment types",ML+"foundry/foundry-models/concepts/deployment-types"]]],
+  ["Learn: quotas (TPM/RPM), 429 handling and retries, scaling, cost",1,[["Manage quota",ML+"foundry/openai/how-to/quota"],["Quotas & limits",ML+"foundry/openai/quotas-limits"]]]]},
+ {p:"p1",tag:"D1",focus:"Security and CI/CD",t:[
+  ["Learn: managed identity, RBAC roles, private endpoints, keyless credentials: module 'Secure Microsoft Foundry environments'",1,[["Open module","https://learn.microsoft.com/en-us/training/modules/azure-ai-foundry-secure-environment/"]]],
+  ["Learn: CI/CD for Foundry projects: module 'Automate AI evaluations with Microsoft Foundry and GitHub Actions' (units 1–6)",.5,[["Open module","https://learn.microsoft.com/en-us/training/modules/automated-evaluation-genaiops/"]]],
+  ["Quiz: trainer Domain 1 card, then log every miss",.5,T]]},
+ {p:"p1",tag:"D2",focus:"Chat apps and tools",t:[
+  ["Watch: Ep 3, Develop a generative AI chat app with Microsoft Foundry (36 min)",.75,[["Watch",YT("tXPry-BRVRs")]]],
+  ["Lab: finish 'Create a generative AI chat app': conversation tracking, streaming, async, then clean up",.75,[["Open lab",LAB_STUDIO+"03-foundry-sdk.html"]]],
+  ["Watch: Ep 4, Develop generative AI apps that use tools (29 min)",.5,[["Watch",YT("N5DcQ-ZNp_M")]]]]},
+ {p:"p1",tag:"D2",focus:"Optimization and responsible AI",t:[
+  ["Watch: Ep 5, Optimize generative AI model performance (28 min)",.5,[["Watch",YT("Ocx76q4p9ME")]]],
+  ["Watch: Ep 6, Implement a responsible generative AI solution (20 min)",.5,[["Watch",YT("H5wPr-Ca2UM")]]],
+  ["Learn: guardrails (content filters and severity, Prompt Shields, groundedness detection, blocklists) and the AI Red Teaming Agent",.5,[["Severity levels",ML+"foundry/openai/concepts/content-filter-severity-levels"],["Prompt Shields",ML+"foundry/openai/concepts/content-filter-prompt-shields"],["Groundedness",ML+"foundry/openai/concepts/content-filter-groundedness"],["Red Teaming Agent",ML+"foundry/concepts/ai-red-teaming-agent"]]],
+  ["Lab: 'Explore and compare models': do the evaluation part",.5,[["Open lab",LAB_STUDIO+"02-model-catalog-evaluation.html"]]]]},
+ {p:"p1",tag:"D2",focus:"RAG with Azure AI Search",t:[
+  ["Learn: RAG end to end: chunking, embeddings, vector, hybrid and semantic ranking",1,[["RAG overview",ML+"search/retrieval-augmented-generation-overview"],["Chunking",ML+"search/vector-search-how-to-chunk-documents"],["Vector search",ML+"search/vector-search-overview"],["Hybrid search",ML+"search/hybrid-search-overview"],["Semantic ranker",ML+"search/semantic-search-overview"]]],
+  ["Trainer: Domain 2 card, RAG and search questions only. Read every explanation",.5,T]]},
+ {p:"p1",tag:"D2",focus:"Agent fundamentals",t:[
+  ["Watch: Ep 7, Develop AI agents with Microsoft Foundry and Visual Studio Code (34 min)",.75,[["Watch",YT("EmBPT_tIs8Y")]]],
+  ["Lab: 'Build AI agents with the portal and VS Code' (45 min). No quota yet? Use any deployed chat model that supports tools, or read the steps",1,[["Open lab",LAB_AGENTS+"Exercises/01-build-agent-portal-and-vscode.html"]]],
+  ["Trainer → Retry missed (your Domain 1 misses so far)",.5,T]]},
+ {p:"p1",tag:"D2",focus:"Custom tools and MCP",t:[
+  ["Watch: Ep 8 (23 min) + Ep 9 (23 min): custom tools, MCP tools",1,[["Ep 8",YT("uEEjq-yQw_c")],["Ep 9",YT("pQ9yEEcXNeE")]]],
+  ["Lab: 'Extend agents with MCP tools': approval loop, MCP server, client",.5,[["Open lab",LAB_AGENTS+"Exercises/03-mcp-integration.html"]]]]},
+ {p:"p1",tag:"D2",focus:"Knowledge: custom functions and Foundry IQ",t:[
+  ["Watch: Ep 10, Foundry IQ (25 min)",.5,[["Watch",YT("c9zns7PX0Io")]]],
+  ["Lab (hands-on): 'Use a custom function in an AI agent' (50 min)",1,[["Open lab",LAB_AGENTS+"Exercises/02-agent-custom-tools.html"]]],
+  ["Lab (hands-on): 'Integrate an AI agent with Foundry IQ' (45 min): your hands-on RAG",.75,[["Open lab",LAB_AGENTS+"Exercises/04-integrate-agent-with-foundry-iq.html"]]]]},
+ {p:"p1",tag:"D2",focus:"Built-in tools, memory and setup",t:[
+  ["Learn: file search, Bing grounding, code interpreter, computer use vs browser automation, memory, standard vs basic setup, function calling, MCP approvals",.75,[["File search",ML+"foundry/agents/how-to/tools/file-search"],["Bing grounding",ML+"foundry/agents/how-to/tools/bing-tools"],["Code interpreter",ML+"foundry/agents/how-to/tools/code-interpreter"],["Computer use",ML+"foundry/agents/how-to/tools/computer-use"],["Browser automation",ML+"foundry/agents/how-to/tools/browser-automation"],["Memory",ML+"foundry/agents/concepts/what-is-memory"],["Standard setup",ML+"foundry/agents/concepts/standard-agent-setup"],["Function calling",ML+"foundry/agents/how-to/tools/function-calling"],["MCP tool",ML+"foundry/agents/how-to/tools/model-context-protocol"]]],
+  ["Trainer: Domain 2 card, agent tool questions",.5,T]]},
+ {p:"p1",tag:"D2",focus:"Workflows, Agent Framework, multi-agent",t:[
+  ["Watch Ep 12 (34 min), then read the lab 'Build a workflow in Microsoft Foundry' and do the trainer lab drill",.75,[["Ep 12",YT("ChGunV55YiU")],["Open lab",LAB_AGENTS+"Exercises/06-build-workflow-ms-foundry.html"],["Trainer",TRAINER]]],
+  ["Watch Ep 13 (21 min), then the lab 'Agent Framework SDK'",.5,[["Ep 13",YT("WznrISPGx-g")],["Open lab",LAB_AGENTS+"Exercises/07-agent-framework.html"]]],
+  ["Watch Ep 14 (19 min), then the lab 'Develop a multi-agent solution' + the model router page",.75,[["Ep 14",YT("l3oAcAWySlE")],["Open lab",LAB_AGENTS+"Exercises/08-agent-framework-multi-agents.html"],["Model router",ML+"foundry/openai/concepts/model-router"]]]]},
+ {p:"p1",tag:"D2",focus:"Observe, evaluate, red-team",t:[
+  ["Labs: 'Trace your agent', 'Evaluate answer quality', 'Red team your agent' + the built-in evaluators page",1.25,[["Trace",LAB_AGENTS+"Consolidated/D1-trace-your-agent.html"],["Evaluate",LAB_AGENTS+"Consolidated/D2-evaluate-answer-quality.html"],["Red team",LAB_AGENTS+"Consolidated/D3-red-team-your-agent.html"],["Evaluators",ML+"foundry/concepts/built-in-evaluators"]]]]},
+ {p:"p1",tag:"X",focus:"Gate 1: first official practice assessment",gate:"g1",t:[
+  ["Gate 1: the free official practice assessment (certification page → Practice assessment). Target ≥ 65%. Log every miss",1.25,[["Practice assessment",CERT]]]]},
+ {p:"p2",tag:"D5",focus:"Knowledge mining and documents",t:[
+  ["Watch: Ep 26 (knowledge mining) + Ep 25 (Document Intelligence) at 1.25×",1.25,[["Ep 26",YT("3E7ewqSwO8k")],["Ep 25",YT("tWgf8ODQQv0")]]],
+  ["Trainer → Domain 5 card (unanswered first, Litware case included). For each miss, open the Learn link and read that section",1,T],
+  ["Learn: Document Intelligence model choice",.25,[["Model overview","https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/model-overview"]]],
+  ["Labs: information extraction exercises",0,[["Open labs","https://microsoftlearning.github.io/mslearn-ai-information-extraction/"]],1]]},
+ {p:"p2",tag:"D4",focus:"Language and translation",t:[
+  ["Watch: Ep 15 + Ep 16 (50 min)",1,[["Ep 15",YT("-Ln7aW38gxI")],["Ep 16",YT("O1tc09coYO4")]]],
+  ["Watch: Ep 21, Translate text and speech (21 min)",.5,[["Ep 21",YT("bnPIZUZjDyA")]]],
+  ["Trainer → Domain 4 card (unanswered first). Read every explanation",1,T],
+  ["Labs: language exercises",0,[["Open labs","https://microsoftlearning.github.io/mslearn-ai-language/"]],1]]},
+ {p:"p2",tag:"D4",focus:"Speech, Voice Live, Microsoft 365, A2A",t:[
+  ["Watch: Ep 17–20: speech and Voice Live (78 min at 1.25×)",1.5,[["Ep 17",YT("C5ZE-mzU1wA")],["Ep 18",YT("OQKQtqjZ1Wo")],["Ep 19",YT("mRfkydveXAs")],["Ep 20",YT("FMfX6qo4LII")]]],
+  ["Trainer: Domain 4 + Domain 5 cards, unanswered questions only",.5,T],
+  ["Watch: Ep 11 (Microsoft 365) + read the agent-to-agent (A2A) tool page",.5,[["Ep 11",YT("eWYOZkFoNn4")],["A2A tool",ML+"foundry/agents/how-to/tools/agent-to-agent"]]]]},
+ {p:"p2",tag:"D3",focus:"Vision and Content Understanding",t:[
+  ["Watch: Ep 22, 23, 24 (62 min at 1.25×)",1,[["Ep 22",YT("Xlo-VDqYrz4")],["Ep 23",YT("XNeW6L8wj9k")],["Ep 24",YT("PLbh3DdyZS8")]]],
+  ["Trainer → Domain 3 card (unanswered first). Read every explanation",1.5,T],
+  ["Labs: vision exercises",0,[["Open labs","https://microsoftlearning.github.io/mslearn-ai-vision/"]],1]]},
+ {p:"p3",tag:"D2",focus:"Agents: the biggest domain",t:[
+  ["Trainer → Domain 2 card: every unanswered question (Tailspin case included). Domain 2 is 30–35% of the exam. Before clicking, name the word in the scenario that decides it",2,T]]},
+ {p:"p3",tag:"D1",focus:"Repair weak spots + Domain 1",t:[
+  ["Trainer → Retry missed, then Weak skills until no domain is red. Read the cheatsheet section of your weakest domain",1.5,[["Trainer",TRAINER],["Cheatsheet",CHEAT]]],
+  ["Trainer → Domain 1 card: every unanswered question (Fabrikam case included)",1.5,T]]},
+ {p:"p3",tag:"X",focus:"Simulation #1",t:[
+  ["Trainer: exam simulation #1 (50 questions, 100 min, exam conditions, no notes)",1.75,T],
+  ["Review every miss: explanation + Learn link, one line each in your mistakes log",.75,T]]},
+ {p:"p3",tag:"X",focus:"Gate 2: practice assessment again",gate:"g2",t:[
+  ["Gate 2: official practice assessment (target ≥ 80%). Add every miss to your mistakes log",1.25,[["Practice assessment",CERT]]],
+  ["Trainer → Retry missed",1.25,T]]},
+ {p:"p3",tag:"X",focus:"Simulation #2 + logistics",gate:"g3",t:[
+  ["Trainer: exam simulation #2 (target ≥ 800)",1.75,T],
+  ["Review misses; read the cheatsheet and your mistakes log",.5,[["Cheatsheet",CHEAT]]],
+  ["Logistics: confirm the exam time; for online exams run the proctoring system test on the computer you will use; check the exam demo",.25,[["Exam demo","https://aka.ms/examdemo"],["Exam experience","https://learn.microsoft.com/en-us/credentials/support/exam-duration-exam-experience"]]]]},
+ {p:"p3",tag:"X",focus:"Eve of exam: light",eve:true,t:[
+  ["Read the cheatsheet and your mistakes log only; redo only questions still in Retry missed. No new material. Prepare ID, desk and computer; sleep early",1,[["Cheatsheet",CHEAT],["Trainer",TRAINER]]]]},
+];
+const GATES = [
+  {id:"g1",t:"Official practice assessment #1",target:65,unit:"%",fail:"Below 65%: in Phase 2, start each day with 20 minutes on your two weakest domains."},
+  {id:"g2",t:"Official practice assessment #2",target:80,unit:"%",fail:"Below 70%: think about moving the exam now. Rescheduling is free until 24 hours before."},
+  {id:"g3",t:"Trainer simulation #2 (score out of 1000)",target:800,unit:"",fail:"Below 700: move the exam if you still can, and spend the extra days on Retry missed and Weak skills."},
+];
+
+// ---- flatten
+SESSIONS.forEach((s,i)=>{s.id="s"+String(i+1).padStart(2,"0");s.t=s.t.map((x,j)=>({id:s.id+"-"+j,txt:x[0],h:x[1],links:x[2]||[],opt:!!x[3],s}));s.h=s.t.reduce((a,b)=>a+b.h,0);});
+const TASKS = SESSIONS.flatMap(s=>s.t);
+const REQ = TASKS.filter(t=>!t.opt);
+const TOTAL_H = REQ.reduce((a,b)=>a+b.h,0);
+
+// ---- dates
+const pad = n=>String(n).padStart(2,"0");
+const iso = d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parse = s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d,12);};
+const addDays=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return iso(d);};
+const todayISO = ()=>iso(new Date());
+const fmt = s=>{const d=parse(s);return {dm:d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}),wd:d.toLocaleDateString("en-GB",{weekday:"short"}),long:d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"})};};
+const fmtH = h=>(Math.round(h*100)/100).toString()+" h";
+const esc = s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const WD = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]; // index 0 = Monday
+const dow = s=>(parse(s).getDay()+6)%7;
+
+// ---- state
+const LS="ai103-planner";
+let state={start:"",exam:"",wd:2,we:5,days:[1,1,1,1,1,1,1],done:{},gates:{}};
+try{const r=localStorage.getItem(LS);if(r)state={...state,...JSON.parse(r)};}catch(e){}
+const save=()=>{try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}};
+
+function capOf(day){if(!state.days[dow(day)])return 0;return dow(day)>=5?Number(state.we):Number(state.wd);}
+
+// Earliest exam date that leaves enough study time (+10% slack) from a start date.
+function suggestExam(start){let cap=0,d=start;for(let i=0;i<400;i++){cap+=capOf(d);if(cap>=TOTAL_H*1.1)return addDays(d,1);d=addDays(d,1);}return null;}
+
+// Map every required task onto a study day, in order, proportionally to each day's available hours.
+// The eve-of-exam session always lands on the last study day before the exam.
+function schedule(){
+  const out={}, last=addDays(state.exam,-1);
+  const days=[];for(let d=state.start;d<=last;d=addDays(d,1))if(capOf(d)>0)days.push(d);
+  if(!days.length)return null;
+  const eveDay=days[days.length-1];
+  const main=days.length>1?days.slice(0,-1):days;
+  const eveTasks=TASKS.filter(t=>t.s.eve), mainTasks=TASKS.filter(t=>!t.s.eve);
+  const mainH=mainTasks.filter(t=>!t.opt).reduce((a,b)=>a+b.h,0);
+  const caps=main.map(capOf), capTot=caps.reduce((a,b)=>a+b,0);
+  const cum=[];caps.reduce((a,b,i)=>(cum[i]=a+b),0);
+  let acc=0;
+  mainTasks.forEach(t=>{
+    const mid=(acc+(t.opt?0:t.h/2))/mainH*capTot; if(!t.opt)acc+=t.h;
+    let j=cum.findIndex(c=>c>mid-1e-9); if(j<0)j=main.length-1;
+    (out[main[j]]=out[main[j]]||[]).push(t);
+  });
+  eveTasks.forEach(t=>(out[eveDay]=out[eveDay]||[]).push(t));
+  const capAll=days.reduce((a,d)=>a+capOf(d),0);
+  return {byDay:out, days, capAll};
+}
+
+// ---- setup form
+const fDays=document.getElementById("fDays");
+fDays.innerHTML=WD.map((w,i)=>`<label><input type="checkbox" data-wd="${i}">${w}</label>`).join("");
+function syncForm(){
+  document.getElementById("fStart").value=state.start||todayISO();
+  document.getElementById("fExam").value=state.exam||"";
+  document.getElementById("fWd").value=state.wd;document.getElementById("fWe").value=state.we;
+  fDays.querySelectorAll("input").forEach(c=>{c.checked=!!state.days[c.dataset.wd];c.parentNode.classList.toggle("on",c.checked);});
+}
+fDays.addEventListener("change",e=>{e.target.parentNode.classList.toggle("on",e.target.checked);});
+document.getElementById("build").onclick=()=>{
+  const st=document.getElementById("fStart").value||todayISO();
+  const wd=Math.max(.5,Number(document.getElementById("fWd").value)||2), we=Math.max(.5,Number(document.getElementById("fWe").value)||5);
+  const days=[...fDays.querySelectorAll("input")].map(c=>c.checked?1:0);
+  const adv=document.getElementById("advice");
+  if(!days.some(Boolean)){adv.innerHTML=`<div class="notice bad">Pick at least one day of the week.</div>`;return;}
+  const changed=st!==state.start;
+  state.start=st;state.wd=wd;state.we=we;state.days=days;
+  let ex=document.getElementById("fExam").value;
+  if(!ex){ex=suggestExam(st);adv.innerHTML=`<div class="notice ok">Suggested exam date: <b>${fmt(ex).long}</b>. Book it on the certification page, then adjust here if the slot differs.</div>`;}
+  else adv.innerHTML="";
+  if(ex<=st){adv.innerHTML=`<div class="notice bad">The exam date must be after the start date.</div>`;return;}
+  if(changed&&Object.keys(state.done).length&&!confirm("Changing the start date keeps your ticked tasks; the remaining tasks are re-spread over your dates. Continue?"))return;
+  state.exam=ex;save();syncForm();render();
+  document.getElementById("planArea").scrollIntoView({behavior:"smooth",block:"start"});
+};
+
+// ---- rendering
+function linksHTML(ls){return ls.length?`<span class="links">${ls.map(([l,h])=>`<a class="go" href="${esc(h)}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</span>`:"";}
+function taskHTML(t){const on=!!state.done[t.id];
+  return `<div class="task ${on?"done":""} ${t.opt?"opt":""}"><input type="checkbox" id="c-${t.id}" data-t="${t.id}" ${on?"checked":""}><label for="c-${t.id}">${esc(t.txt)}</label>${linksHTML(t.links)}<span class="h">${t.opt?"":fmtH(t.h)}</span></div>`;}
+function groupHTML(tasks){ // group consecutive tasks by session
+  let html="",cur=null;
+  tasks.forEach(t=>{if(t.s!==cur){cur=t.s;const tg=TAGS[cur.tag];html+=`<div class="focus"><span class="tag" style="color:${tg[1]}">${tg[0]}</span>${esc(cur.focus)}</div>`;}html+=taskHTML(t);});
+  return html;
+}
+function render(){
+  const ready=state.start&&state.exam;
+  document.getElementById("planArea").hidden=!ready;document.getElementById("countBox").hidden=!ready;
+  if(!ready)return;
+  const sch=schedule(), adv=document.getElementById("advice");
+  if(!sch){adv.innerHTML=`<div class="notice bad">No study days between your start date and the day before the exam. Add days or move the exam.</div>`;document.getElementById("planArea").hidden=true;return;}
+  const ratio=TOTAL_H/sch.capAll;
+  if(!adv.innerHTML){
+    if(ratio>1.3)adv.innerHTML=`<div class="notice bad">This plan needs about ${fmtH(TOTAL_H)} but your dates give ${fmtH(sch.capAll)}: each day is ~${Math.round(ratio*100)}% of what you said you can do. Earliest comfortable exam date with this availability: <b>${fmt(suggestExam(state.start)).long}</b>. Move the exam or add hours.</div>`;
+    else if(ratio>1)adv.innerHTML=`<div class="notice warn">Tight: about ${fmtH(TOTAL_H)} of work for ${fmtH(sch.capAll)} available. Doable if you never skip a day; skip optional labs.</div>`;
+    else adv.innerHTML=`<div class="notice ok">${fmtH(TOTAL_H)} of work over ${sch.days.length} study days (${fmtH(sch.capAll)} available). ${ratio<.7?"You have slack: use spare time for the optional labs and Retry missed.":"Good fit."}</div>`;
+  }
+  const today=todayISO();
+  const days=Math.round((parse(state.exam)-parse(today))/86400000);
+  document.getElementById("daysLeft").textContent=days>0?days:(days===0?"Today":"Done");
+
+  const doneReq=REQ.filter(t=>state.done[t.id]);
+  const hDone=doneReq.reduce((a,b)=>a+b.h,0);
+  const planned=Object.entries(sch.byDay).filter(([d])=>d<today).flatMap(([,ts])=>ts).filter(t=>!t.opt).reduce((a,b)=>a+b.h,0);
+  document.getElementById("hDone").textContent=fmtH(hDone).replace(" h","");
+  document.getElementById("hAll").textContent=fmtH(TOTAL_H).replace(" h","");
+  document.getElementById("hBar").style.width=Math.min(100,hDone/TOTAL_H*100)+"%";
+  document.getElementById("hPlanned").textContent=fmtH(planned);
+  const gap=planned-hDone;
+  document.getElementById("pace").innerHTML=gap<=0.01?`<span class="pill ok">on track</span>`:gap<=2?`<span class="pill warn">${fmtH(gap)} behind</span>`:`<span class="pill bad">${fmtH(gap)} behind</span>`;
+  document.getElementById("tDone").textContent=doneReq.length;document.getElementById("tAll").textContent=REQ.length;
+
+  // today
+  const tc=document.getElementById("todayCard");
+  const studyDays=Object.keys(sch.byDay).sort();
+  const late=studyDays.filter(d=>d<today&&sch.byDay[d].some(t=>!t.opt&&!state.done[t.id]));
+  if(today>=state.exam){tc.innerHTML=`<h2>Exam day</h2><p class="sub">No studying today. Eat, arrive early, read each question's constraints twice. Good luck.</p>`;}
+  else{
+    let d=studyDays.find(x=>x>=today),label=d===today?"Today":"Next session";
+    if(today<state.start)label="First session";
+    tc.innerHTML=d?`<h2>${label}<span class="when">${fmt(d).wd} ${fmt(d).dm}</span></h2>${groupHTML(sch.byDay[d])}`
+      +(late.length?`<p class="sub" style="margin:12px 0 0">Unfinished earlier days: ${late.map(x=>fmt(x).wd+" "+fmt(x).dm).join(", ")}. Catch up on your next long day.</p>`:""):`<h2>No more study days</h2>`;
+  }
+
+  // gates
+  const gateDay={};Object.entries(sch.byDay).forEach(([d,ts])=>ts.forEach(t=>{if(t.s.gate&&!gateDay[t.s.gate])gateDay[t.s.gate]=d;}));
+  document.getElementById("gates").innerHTML=GATES.map(g=>{
+    const v=state.gates[g.id],has=v!==undefined&&v!=="";const max=g.unit?100:1000;
+    const st=!has?"":(Number(v)>=g.target?`<span class="pill ok">pass</span>`:`<span class="pill bad">below</span>`);
+    const gd=gateDay[g.id]?fmt(gateDay[g.id]):null;
+    return `<div class="gate"><span class="d">${gd?gd.wd+" "+gd.dm:""}</span><span class="t">${g.t}: target ≥ ${g.target}${g.unit}</span>
+      <div class="row"><label for="g-${g.id}">Score</label><input id="g-${g.id}" data-g="${g.id}" type="number" min="0" max="${max}" inputmode="numeric" value="${has?esc(v):""}">${g.unit} ${st}</div>
+      <div class="row" ${has&&Number(v)<g.target?'style="color:var(--red)"':""}>${g.fail}</div></div>`;}).join("");
+
+  // where the hours go
+  const by={};REQ.forEach(t=>{const k=t.s.tag;by[k]=(by[k]||0)+t.h;});
+  const names={D2:"D2 Generative AI & agents (30–35%)",D1:"D1 Plan & manage (25–30%)",D5:"D5 Information extraction (10–15%)",D4:"D4 Text & speech (10–15%)",D3:"D3 Vision (10–15%)",X:"Gates, simulations, reviews"};
+  document.getElementById("split").innerHTML=Object.keys(names).map(k=>`<div style="--c:${TAGS[k][1]}"><div class="v">~${fmtH(by[k]||0)}</div><div class="k">${names[k]}</div></div>`).join("");
+
+  // full plan
+  let html="";
+  PHASES.forEach(p=>{
+    const ds=studyDays.filter(d=>sch.byDay[d].some(t=>t.s.p===p.id));
+    const own=d=>sch.byDay[d].filter(t=>t.s.p===p.id);
+    const ph=ds.reduce((a,d)=>a+own(d).filter(t=>!t.opt).reduce((x,y)=>x+y.h,0),0);
+    if(!ds.length)return;
+    html+=`<div class="phase-h"><h3>${p.name}</h3><span class="r">${fmt(ds[0]).dm} – ${fmt(ds[ds.length-1]).dm} · ${fmtH(ph)} · ${p.note}</span></div>`;
+    ds.forEach(d=>{const ts=own(d),f=fmt(d);const req=ts.filter(t=>!t.opt);const h=req.reduce((a,b)=>a+b.h,0),dh=req.filter(t=>state.done[t.id]).reduce((a,b)=>a+b.h,0);
+      html+=`<div class="day ${d===today?"is-today":""} ${d<today&&dh<h?"late":""}"><div class="date"><b>${f.dm}</b><span class="wd">${f.wd} · ${fmtH(capOf(d))} free</span></div><div>${groupHTML(ts)}</div><div class="hrs"><b>${fmtH(dh)}</b>of ${fmtH(h)}</div></div>`;});
+  });
+  const fe=fmt(state.exam);
+  html+=`<div class="day" style="border-top:2px solid var(--accent)"><div class="date"><b>${fe.dm}</b><span class="wd">${fe.wd}</span></div><div class="focus">Exam: AI-103, 120 minutes, pass mark 700 / 1000</div><div></div></div>`;
+  document.getElementById("plan").innerHTML=html;
+}
+
+document.addEventListener("change",e=>{const t=e.target;
+  if(t.dataset.t){if(t.checked)state.done[t.dataset.t]=true;else delete state.done[t.dataset.t];save();render();}
+  if(t.dataset.g){state.gates[t.dataset.g]=t.value;save();render();}
+});
+document.getElementById("print").onclick=()=>window.print();
+document.getElementById("reset").onclick=()=>{if(confirm("Clear all ticked tasks and gate scores? Your dates stay.")){state.done={};state.gates={};save();render();}};
+document.getElementById("ics").onclick=()=>{
+  const sch=schedule();if(!sch)return;
+  const stamp=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d+/,"");
+  const icsEsc=s=>s.replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");
+  const fold=l=>{const out=[];while(l.length>73){out.push(l.slice(0,73));l=" "+l.slice(73);}out.push(l);return out.join("\r\n");};
+  const lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//AI-103 Study Planner//EN","CALSCALE:GREGORIAN"];
+  Object.keys(sch.byDay).sort().forEach(d=>{const ts=sch.byDay[d].filter(t=>!t.opt);if(!ts.length)return;
+    const foci=[...new Set(ts.map(t=>t.s.focus))].join(" + ");const h=ts.reduce((a,b)=>a+b.h,0);
+    lines.push("BEGIN:VEVENT","UID:ai103-"+d+"@study-planner","DTSTAMP:"+stamp,"DTSTART;VALUE=DATE:"+d.replace(/-/g,""),"DTEND;VALUE=DATE:"+addDays(d,1).replace(/-/g,""),
+      fold("SUMMARY:"+icsEsc("AI-103 ("+fmtH(h)+"): "+foci)),fold("DESCRIPTION:"+icsEsc(ts.map(t=>"- "+t.txt+" ("+fmtH(t.h)+")").join("\n"))),"END:VEVENT");});
+  lines.push("BEGIN:VEVENT","UID:ai103-exam@study-planner","DTSTAMP:"+stamp,"DTSTART;VALUE=DATE:"+state.exam.replace(/-/g,""),"DTEND;VALUE=DATE:"+addDays(state.exam,1).replace(/-/g,""),"SUMMARY:AI-103 exam","END:VEVENT","END:VCALENDAR");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([lines.join("\r\n")],{type:"text/calendar"}));a.download="ai103-study-plan.ics";document.body.appendChild(a);a.click();a.remove();
+};
+
+syncForm();render();
+</script>
+</body>
+</html>

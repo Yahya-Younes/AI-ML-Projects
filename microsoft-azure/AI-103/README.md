@@ -4,6 +4,7 @@
 > **Time budget:** **~55 hours** over 5 weeks (≈ 2 h on weekdays + 5 h on weekends), or **~70 h** if you are new to Python or Azure.
 > **Main tools in this folder:**
 > - 🎯 [**▶️ Open `AI-103-trainer.html` in your browser**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-103/AI-103-trainer.html) — **190 exam-style questions** with explanations, 4 case studies, domain drills, weak-skill tracking and a timed **50-question exam simulation** scored out of 1000.
+> - 🗓️ [**▶️ Open `AI-103-planner.html`: your personal study plan**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-103/AI-103-planner.html) — enter your **start date, exam date and free hours per day**, and it builds a day-by-day schedule (~50 h) with every video, official lab, trainer drill and go/no-go gate, tracks your pace, and exports to your calendar (.ics).
 > - 📄 [`cheatsheet.md`](cheatsheet.md) — one page per domain: "if the scenario says X, choose Y".
 
 | Exam fact | Value |
@@ -42,6 +43,15 @@
 > 💡 **Where the points are:** Domains 1 + 2 are **~60% of the exam**. If you are short on time, cut vision/speech videos, never cut agents, RAG, security or evaluation.
 
 ---
+
+## Your personal plan in 2 minutes
+
+1. Open the [**study planner**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-103/AI-103-planner.html).
+2. Enter your **start date**, your **exam date** (or leave it empty to get the earliest sensible date), how many hours you can study on a weekday and on a weekend day, and which days of the week you study.
+3. Click **Build my plan**. You get the same path that was used to pass this exam, spread over your dates: **Phase 1** foundations and agents → **Phase 2** remaining domains → **Phase 3** exam mode, with three go/no-go gates (official practice assessment ≥ 65% then ≥ 80%, trainer simulation ≥ 800).
+4. Tick tasks as you go: the planner shows today's session, how far ahead or behind you are, and warns you early if your dates are too tight. **Add to calendar (.ics)** puts every session in Google Calendar, Outlook or Apple Calendar.
+
+Everything is saved only in your browser. Prefer a fixed, printable schedule? The 5-week version below covers the same content.
 
 ## The 5-week plan (~55 h)
 

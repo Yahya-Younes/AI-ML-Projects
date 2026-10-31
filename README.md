@@ -14,7 +14,7 @@
 |---|---|---|---|---|---|---|
 | **AZ-900** · Microsoft Azure Fundamentals | Beginner | **~18 h** | [Guide](microsoft-azure/AZ-900/) | [40 + simulation](microsoft-azure/AZ-900/AZ-900-trainer.html) | [**Open trainer**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AZ-900/AZ-900-trainer.html) | ✅ Active (outline of 14 Jan 2026) |
 | **AI-900 → AI-901** · Azure AI Fundamentals | Beginner | **~16 h** (+ ~8 h Foundry hands-on for AI-901) | [Guide](microsoft-azure/AI-900/) | [38 + simulation](microsoft-azure/AI-900/AI-900-trainer.html) | [**Open trainer**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-900/AI-900-trainer.html) | ⚠️ AI-900 retired 30 Jun 2026 → exam is now **AI-901** |
-| **AI-103** · Azure AI Apps and Agents Developer Associate | Intermediate | **~55 h** | [Guide](microsoft-azure/AI-103/) · [Cheatsheet](microsoft-azure/AI-103/cheatsheet.md) | [**190** + 4 case studies + 50-q simulation](microsoft-azure/AI-103/AI-103-trainer.html) | [**Open trainer**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-103/AI-103-trainer.html) | ✅ Active (replaces AI-102) |
+| **AI-103** · Azure AI Apps and Agents Developer Associate | Intermediate | **~55 h** | [Guide](microsoft-azure/AI-103/) · [Cheatsheet](microsoft-azure/AI-103/cheatsheet.md) · [**Personal planner**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-103/AI-103-planner.html) | [**190** + 4 case studies + 50-q simulation](microsoft-azure/AI-103/AI-103-trainer.html) | [**Open trainer**](https://yahya-younes.github.io/ai-cloud-certification-hub/microsoft-azure/AI-103/AI-103-trainer.html) | ✅ Active (replaces AI-102) |
 | **Google Cloud Generative AI Leader** | Beginner (business) | **~15 h** | [Guide](google-cloud/generative-ai-leader/) | [51 + 50-q simulation](google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) | [**Open trainer**](https://yahya-younes.github.io/ai-cloud-certification-hub/google-cloud/generative-ai-leader/GenAI-Leader-trainer.html) | ✅ Active |
 | **TensorFlow Developer Certificate** | Intermediate (coding) | **~60 h** | [Guide + tested code templates](tensorflow/developer-certificate/) | [31 concept & code questions](tensorflow/developer-certificate/TensorFlow-trainer.html) | [**Open trainer**](https://yahya-younes.github.io/ai-cloud-certification-hub/tensorflow/developer-certificate/TensorFlow-trainer.html) | ⛔ Exam closed in 2024 — still the best structured deep-learning bootcamp |
 
@@ -25,7 +25,7 @@
 ├── microsoft-azure/
 │   ├── AZ-900/            guide · 40-question trainer
 │   ├── AI-900/            guide (AI-900 → AI-901) · 38-question trainer
-│   └── AI-103/            guide · cheatsheet · 190-question trainer with case studies
+│   └── AI-103/            guide · cheatsheet · 190-question trainer with case studies · date-based study planner
 ├── google-cloud/
 │   └── generative-ai-leader/   guide · 51-question trainer
 └── tensorflow/
