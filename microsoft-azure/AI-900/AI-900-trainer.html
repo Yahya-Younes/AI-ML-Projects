@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI-900 Practice Trainer</title>
+<meta name="description" content="Free, unofficial AI-900 (Microsoft Azure AI Fundamentals (AI-900 / AI-901)) practice trainer: 38 questions with explanations, domain drills and a timed exam simulation.">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#eef1f4;--surface:#ffffff;--surface-2:#e3e8ed;--line:#c9d1d9;--text:#1b232c;--dim:#5b6a78;
+  --accent:#0891a5;--on-accent:#ffffff;--accent-ink:#04353d;
+  --amber:#a85f06;--amber-bg:#fbeee0;--green:#15803d;--green-bg:#e4f4e9;--red:#b91c1c;--red-bg:#fbe7e7;--grey-bg:#e7eaee;--code:#f3f5f7;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;--text:#e7edf1;--dim:#93a3af;
+  --accent:#2fc7d9;--on-accent:#04262b;--accent-ink:#c9f5fa;
+  --amber:#f0a94e;--amber-bg:#3a2c15;--green:#4ade80;--green-bg:#123321;--red:#f87171;--red-bg:#3a1616;--grey-bg:#232c33;--code:#10171c;}}
+:root[data-theme="dark"]{
+  --paper:#0d1216;--surface:#161d23;--surface-2:#1f282f;--line:#2c3740;--text:#e7edf1;--dim:#93a3af;
+  --accent:#2fc7d9;--on-accent:#04262b;--accent-ink:#c9f5fa;
+  --amber:#f0a94e;--amber-bg:#3a2c15;--green:#4ade80;--green-bg:#123321;--red:#f87171;--red-bg:#3a1616;--grey-bg:#232c33;--code:#10171c;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--text);font:14.5px/1.5 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.mono,code,pre{font-family:"IBM Plex Mono",ui-monospace,monospace}
+code{background:var(--surface-2);padding:1px 5px;border-radius:4px;font-size:.9em}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 20px 80px;display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(155deg,var(--accent),#04353d);display:flex;align-items:center;justify-content:center;color:#fff;font:700 13px "IBM Plex Mono"}
+h1{font-size:20px;margin:0;font-weight:650}
+.sub{font-size:12.5px;color:var(--dim)}
+.kpis{display:flex;gap:10px;flex-wrap:wrap}
+.kpi{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 16px 8px 10px}
+.kpi .num{font:600 24px "IBM Plex Mono";line-height:1}
+.kpi .lbl{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.gauge{width:50px;height:50px}
+.domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.dcard:hover{border-color:var(--accent)}
+.dcard:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dcard .row{display:flex;justify-content:space-between;font:11px "IBM Plex Mono";color:var(--dim)}
+.dcard h3{font-size:14px;margin:5px 0 8px;font-weight:600;line-height:1.3}
+.bar{height:6px;border-radius:4px;background:var(--surface-2);overflow:hidden}.bar>span{display:block;height:100%}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font:600 10.5px "IBM Plex Mono"}
+.strong{background:var(--green-bg);color:var(--green)}.dev{background:var(--amber-bg);color:var(--amber)}.weak{background:var(--red-bg);color:var(--red)}.untested{background:var(--grey-bg);color:var(--dim)}
+.modebar{display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 15px;font:600 13.5px "IBM Plex Sans";cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn .n{font:500 11px "IBM Plex Mono";opacity:.8;margin-left:4px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;min-height:220px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font:11px "IBM Plex Mono";color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.stem{font-size:16.5px;line-height:1.55;margin:0 0 14px;font-weight:560}
+.hint{font:600 12px "IBM Plex Mono";color:var(--amber);margin:-6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:10px;padding:11px 13px;font:inherit;cursor:pointer;line-height:1.45}
+.opt:hover:not(.locked){border-color:var(--accent)}
+.opt .k{font:600 12px "IBM Plex Mono";color:var(--dim);flex:none;margin-top:1px;min-width:16px}
+.opt.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.opt.ok{background:var(--green-bg);border-color:var(--green)}.opt.bad{background:var(--red-bg);border-color:var(--red)}.opt.miss{border-style:dashed;border-color:var(--green)}
+.opt.locked{cursor:default}
+pre.codeq{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.7;margin:0}
+select{font:13px "IBM Plex Mono";background:var(--surface);color:var(--text);border:1px solid var(--accent);border-radius:6px;padding:3px 6px;max-width:100%}
+select.ok{border-color:var(--green);background:var(--green-bg)}select.bad{border-color:var(--red);background:var(--red-bg)}
+table.rows{width:100%;border-collapse:collapse}
+table.rows td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.rows td:first-child{width:58%}
+.tblwrap{overflow-x:auto}
+.yn label{margin-right:14px;cursor:pointer;white-space:nowrap}
+.fix{font:12px "IBM Plex Mono";color:var(--green);margin-top:3px}
+.orderlist{display:flex;flex-direction:column;gap:6px}
+.oitem{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.oitem .pos{font:600 12px "IBM Plex Mono";color:var(--dim);min-width:18px}
+.oitem .txt{flex:1}
+.oitem button{border:1px solid var(--line);background:var(--surface-2);color:var(--text);border-radius:6px;width:30px;height:28px;cursor:pointer;font-size:13px}
+.oitem.ok{border-color:var(--green);background:var(--green-bg)}.oitem.bad{border-color:var(--red);background:var(--red-bg)}
+.explain{margin-top:14px;padding:13px 15px;border-radius:10px;background:var(--surface-2);font-size:13.8px;line-height:1.55}
+.explain .res{font-weight:700}.explain .res.good{color:var(--green)}.explain .res.part{color:var(--amber)}.explain .res.poor{color:var(--red)}
+.explain .src{margin-top:7px;font:11.5px "IBM Plex Mono";color:var(--dim)}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+details.case{border:1px solid var(--amber);border-radius:10px;padding:10px 14px;margin-bottom:14px;background:var(--amber-bg)}
+details.case summary{cursor:pointer;font-weight:650;color:var(--amber)}
+details.case ul{margin:6px 0;padding-left:18px}details.case p{margin:6px 0}
+.exambar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.timer{font:700 18px "IBM Plex Mono"}.timer.low{color:var(--red)}
+.navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin:12px 0}
+.navgrid button{font:600 12px "IBM Plex Mono";padding:7px 0;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.navgrid button.ans{background:var(--surface-2)}.navgrid button.flag{border-color:var(--amber);color:var(--amber)}
+.score{font:700 44px "IBM Plex Mono";line-height:1}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.sumcard{background:var(--surface-2);border-radius:12px;padding:12px 14px}
+.sumcard .n{font:600 20px "IBM Plex Mono"}.sumcard .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.wrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.empty{color:var(--dim);padding:22px 0}
+.empty ul{margin:8px 0;padding-left:18px}
+footer{font-size:12px;color:var(--dim);line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="mark">900</div><div><h1>AI-900 Trainer</h1><div class="sub">Microsoft Azure AI Fundamentals (AI-900 / AI-901) · practice questions with explanations</div></div></div>
+    <div class="kpis">
+      <div class="kpi"><svg class="gauge" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--surface-2)" stroke-width="6"/><circle id="arc" cx="28" cy="28" r="24" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" transform="rotate(-90 28 28)"/></svg><div><div class="num" id="ready">0%</div><div class="lbl">Weighted readiness</div></div></div>
+      <div class="kpi"><div><div class="num" id="lastExam">—</div><div class="lbl">Last exam sim (/1000)</div></div></div>
+    </div>
+  </header>
+
+  <div class="domains" id="domains"></div>
+
+  <div class="modebar">
+    <button class="btn primary" id="mExam">Exam simulation <span class="n">38 q · 45 min</span></button>
+    <button class="btn" id="mWeak">Weak skills <span class="n" id="nWeak"></span></button>
+    <button class="btn" id="mMissed">Retry missed <span class="n" id="nMissed"></span></button>
+    <button class="btn" id="mNew" hidden>New questions (set 2) <span class="n" id="nNew"></span></button>
+    <button class="btn" id="mAll">All questions, shuffled <span class="n" id="nAll"></span></button>
+    <button class="btn" id="mReset" style="margin-left:auto">Reset progress</button>
+  </div>
+
+  <div class="panel" id="panel"></div>
+
+  <footer>Written from the official AI-900 exam guide and documentation. These are original practice questions in the exam's formats, not real exam content. Scoring works like the exam: partial credit per drop-down, statement or correct choice, and a scaled score out of 1000 with 700 to pass. Your progress is saved only in this browser (localStorage); nothing is sent anywhere. Unofficial study material, not affiliated with or endorsed by Microsoft. Microsoft services change often: when an explanation and Microsoft Learn disagree, trust Microsoft Learn.</footer>
+</div>
+
+<script>
+// ===== AI-103 hard question bank =====
+// types: single {o,a}, multi {o,a:[...]} , drop {tpl|rows, b:[{o,a}]}, yesno {st:[[text,bool]]}, order {items (correct order)}
+const CASES = {};
+
+const Q = [
+{
+"id": "w-01",
+"d": 1,
+"s": "AI workloads",
+"t": "drop",
+"q": "Select the AI workload for each scenario.",
+"rows": [
+"Flag a credit-card payment that is unusual for this customer",
+"Draft a reply to a customer email",
+"Read the total amount from scanned receipts",
+"Find insights across 100,000 unstructured contracts"
+],
+"b": [
+{
+"o": [
+"Anomaly detection",
+"Generative AI",
+"Document intelligence",
+"Knowledge mining"
+],
+"a": 0
+},
+{
+"o": [
+"Anomaly detection",
+"Generative AI",
+"Document intelligence",
+"Knowledge mining"
+],
+"a": 1
+},
+{
+"o": [
+"Anomaly detection",
+"Generative AI",
+"Document intelligence",
+"Knowledge mining"
+],
+"a": 2
+},
+{
+"o": [
+"Anomaly detection",
+"Generative AI",
+"Document intelligence",
+"Knowledge mining"
+],
+"a": 3
+}
+],
+"x": "Unusual patterns → anomaly detection. Creating new content → generative AI. Fields from forms → document intelligence. Searchable insights from huge unstructured content → knowledge mining.",
+"r": "Fundamental AI concepts (Microsoft Learn)"
+},
+{
+"id": "w-02",
+"d": 1,
+"s": "Responsible AI",
+"t": "drop",
+"q": "Select the responsible AI principle that each scenario is about.",
+"rows": [
+"A hiring model ranks candidates lower because of their gender",
+"A banking chatbot tells users that they are talking to an AI and explains its limits",
+"A voice assistant must also work for users with speech impairments",
+"A committee is answerable for decisions made by an AI system"
+],
+"b": [
+{
+"o": [
+"Fairness",
+"Transparency",
+"Inclusiveness",
+"Accountability",
+"Reliability and safety",
+"Privacy and security"
+],
+"a": 0
+},
+{
+"o": [
+"Fairness",
+"Transparency",
+"Inclusiveness",
+"Accountability",
+"Reliability and safety",
+"Privacy and security"
+],
+"a": 1
+},
+{
+"o": [
+"Fairness",
+"Transparency",
+"Inclusiveness",
+"Accountability",
+"Reliability and safety",
+"Privacy and security"
+],
+"a": 2
+},
+{
+"o": [
+"Fairness",
+"Transparency",
+"Inclusiveness",
+"Accountability",
+"Reliability and safety",
+"Privacy and security"
+],
+"a": 3
+}
+],
+"x": "Fairness = no unequal treatment. Transparency = people understand the system and its limits. Inclusiveness = empower everyone. Accountability = humans are responsible.",
+"r": "Responsible AI principles"
+},
+{
+"id": "w-03",
+"d": 1,
+"s": "Responsible AI",
+"t": "single",
+"q": "An autonomous vehicle's AI must be rigorously tested in rain, snow and darkness before release. Which principle does this support?",
+"o": [
+"Reliability and safety",
+"Inclusiveness",
+"Transparency",
+"Fairness"
+],
+"a": 0,
+"x": "Reliability and safety: the system must perform as intended, including in unexpected conditions, and be tested before deployment.",
+"r": "Responsible AI principles"
+},
+{
+"id": "w-04",
+"d": 1,
+"s": "Responsible AI",
+"t": "single",
+"q": "Personal data used to train a model must be protected and used only with consent. Which principle?",
+"o": [
+"Accountability",
+"Privacy and security",
+"Fairness",
+"Inclusiveness"
+],
+"a": 1,
+"x": "Privacy and security covers protecting personal data and respecting how it may be used.",
+"r": "Responsible AI principles"
+},
+{
+"id": "w-05",
+"d": 1,
+"s": "Responsible AI",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"Transparency means users should understand how and why an AI system behaves the way it does.",
+true
+],
+[
+"Accountability means the AI system itself is legally responsible for its decisions.",
+false
+],
+[
+"Inclusiveness means AI should benefit and empower all people, including people with disabilities.",
+true
+]
+],
+"x": "Accountability is about PEOPLE being responsible for AI systems, not the AI.",
+"r": "Responsible AI principles"
+},
+{
+"id": "m-01",
+"d": 2,
+"s": "ML types",
+"t": "drop",
+"q": "Select the type of machine learning for each scenario.",
+"rows": [
+"Predict next month's sales in euros",
+"Predict whether an email is spam or not",
+"Group customers by buying behavior without predefined groups"
+],
+"b": [
+{
+"o": [
+"Regression",
+"Classification",
+"Clustering"
+],
+"a": 0
+},
+{
+"o": [
+"Regression",
+"Classification",
+"Clustering"
+],
+"a": 1
+},
+{
+"o": [
+"Regression",
+"Classification",
+"Clustering"
+],
+"a": 2
+}
+],
+"x": "Number → regression. Known category → classification. Unknown groups found from data → clustering (unsupervised).",
+"r": "Fundamentals of machine learning"
+},
+{
+"id": "m-02",
+"d": 2,
+"s": "ML types",
+"t": "single",
+"q": "A hospital predicts which of 4 diseases a patient most likely has from test results. Which type of machine learning is this?",
+"o": [
+"Binary classification",
+"Multiclass classification",
+"Regression",
+"Clustering"
+],
+"a": 1,
+"x": "Predicting one of several (more than two) known categories is multiclass classification.",
+"r": "Fundamentals of machine learning"
+},
+{
+"id": "m-03",
+"d": 2,
+"s": "ML concepts",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"In a model that predicts house prices, the price is the label.",
+true
+],
+[
+"Clustering is a supervised learning technique.",
+false
+],
+[
+"You should evaluate a model on data that was not used to train it.",
+true
+]
+],
+"x": "Label = what you predict; features = inputs. Clustering is unsupervised (no labels). Validation/test data must be separate to check generalization.",
+"r": "Fundamentals of machine learning"
+},
+{
+"id": "m-04",
+"d": 2,
+"s": "ML concepts",
+"t": "single",
+"q": "A model is almost perfect on training data but performs badly on new data. What is this called?",
+"o": [
+"Underfitting",
+"Overfitting",
+"Clustering",
+"Inferencing"
+],
+"a": 1,
+"x": "Overfitting: the model memorized the training data instead of learning general patterns.",
+"r": "Fundamentals of machine learning"
+},
+{
+"id": "m-05",
+"d": 2,
+"s": "Metrics",
+"t": "drop",
+"q": "Select a metric that fits each model type.",
+"rows": [
+"Regression model predicting temperatures",
+"Classification model detecting fraud",
+"Both: a table of true/false positives and negatives"
+],
+"b": [
+{
+"o": [
+"Root mean squared error (RMSE)",
+"Precision and recall",
+"Confusion matrix",
+"Coefficient of determination only for clustering"
+],
+"a": 0
+},
+{
+"o": [
+"Root mean squared error (RMSE)",
+"Precision and recall",
+"Confusion matrix",
+"Coefficient of determination only for clustering"
+],
+"a": 1
+},
+{
+"o": [
+"Root mean squared error (RMSE)",
+"Precision and recall",
+"Confusion matrix",
+"Coefficient of determination only for clustering"
+],
+"a": 2
+}
+],
+"x": "Regression → MAE, RMSE, R². Classification → accuracy, precision, recall, F1, AUC. The confusion matrix belongs to classification and shows TP/FP/TN/FN.",
+"r": "Fundamentals of machine learning"
+},
+{
+"id": "m-06",
+"d": 2,
+"s": "Azure ML",
+"t": "single",
+"q": "A business analyst with no data-science experience must train the best possible model from a CSV file by letting Azure try many algorithms. What should they use?",
+"o": [
+"Automated machine learning (AutoML) in Azure Machine Learning",
+"Azure AI Speech",
+"A custom Python notebook",
+"Azure AI Translator"
+],
+"a": 0,
+"x": "AutoML automatically tries algorithms and parameters and selects the best model, no expertise needed.",
+"r": "Introduction to Azure Machine Learning"
+},
+{
+"id": "m-07",
+"d": 2,
+"s": "Azure ML",
+"t": "single",
+"q": "You want to build a machine learning pipeline by dragging and dropping modules on a canvas, without writing code. What should you use?",
+"o": [
+"Azure Machine Learning designer",
+"Azure Functions",
+"Azure AI Content Safety",
+"Azure DNS"
+],
+"a": 0,
+"x": "The designer is the visual, drag-and-drop pipeline tool in Azure Machine Learning.",
+"r": "Introduction to Azure Machine Learning"
+},
+{
+"id": "m-08",
+"d": 2,
+"s": "Deep learning",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"Deep learning uses artificial neural networks with many layers.",
+true
+],
+[
+"Large language models are based on the Transformer architecture.",
+true
+],
+[
+"Using a trained model to make predictions on new data is called training.",
+false
+]
+],
+"x": "Using a trained model is inferencing (scoring), not training.",
+"r": "Fundamentals of machine learning"
+},
+{
+"id": "m-09",
+"d": 2,
+"s": "Metrics",
+"t": "single",
+"q": "A fraud model must find as many of the real fraud cases as possible, even if it raises some false alarms. Which metric should you focus on?",
+"o": [
+"Recall",
+"Precision",
+"RMSE",
+"R²"
+],
+"a": 0,
+"x": "Recall = share of real positives found. Precision = share of flagged items that were truly positive.",
+"r": "Fundamentals of machine learning"
+},
+{
+"id": "v-01",
+"d": 3,
+"s": "Vision tasks",
+"t": "drop",
+"q": "Select the computer vision task for each requirement.",
+"rows": [
+"Say whether a photo contains a cat or a dog",
+"Locate every car in a parking photo with a bounding box",
+"Mark the exact pixels that belong to a road in a satellite image",
+"Read the text on a street sign"
+],
+"b": [
+{
+"o": [
+"Image classification",
+"Object detection",
+"Semantic segmentation",
+"Optical character recognition (OCR)"
+],
+"a": 0
+},
+{
+"o": [
+"Image classification",
+"Object detection",
+"Semantic segmentation",
+"Optical character recognition (OCR)"
+],
+"a": 1
+},
+{
+"o": [
+"Image classification",
+"Object detection",
+"Semantic segmentation",
+"Optical character recognition (OCR)"
+],
+"a": 2
+},
+{
+"o": [
+"Image classification",
+"Object detection",
+"Semantic segmentation",
+"Optical character recognition (OCR)"
+],
+"a": 3
+}
+],
+"x": "Classification = one label per image. Detection = labels + boxes. Segmentation = label per pixel. OCR = read text.",
+"r": "Fundamentals of computer vision"
+},
+{
+"id": "v-02",
+"d": 3,
+"s": "Vision services",
+"t": "single",
+"q": "You need to extract the vendor name, invoice date and total from thousands of invoices with different layouts. Which service should you use?",
+"o": [
+"Azure AI Document Intelligence (prebuilt invoice model)",
+"Azure AI Vision image tagging",
+"Azure AI Translator",
+"Azure AI Speech"
+],
+"a": 0,
+"x": "Document Intelligence extracts structured fields from forms; the prebuilt invoice model handles varied layouts. Plain OCR would return text without fields.",
+"r": "Fundamentals of document intelligence"
+},
+{
+"id": "v-03",
+"d": 3,
+"s": "Vision services",
+"t": "single",
+"q": "A website must generate a one-sentence description and a list of tags for every uploaded photo. Which service?",
+"o": [
+"Azure AI Vision (Image Analysis)",
+"Azure AI Language",
+"Azure Machine Learning designer",
+"Azure AI Translator"
+],
+"a": 0,
+"x": "Image Analysis returns captions, tags, objects and text (Read OCR) for images.",
+"r": "Fundamentals of computer vision"
+},
+{
+"id": "v-04",
+"d": 3,
+"s": "Face",
+"t": "yesno",
+"q": "For each statement about Azure AI Face, select Yes if it is true.",
+"st": [
+[
+"Face detection returns the location of faces in an image.",
+true
+],
+[
+"Face identification and verification are Limited Access features that require approval.",
+true
+],
+[
+"Face detection is used to read license plates.",
+false
+]
+],
+"x": "Microsoft restricts facial recognition (identification/verification) under its responsible AI policy. License plates are read with OCR.",
+"r": "Fundamentals of facial recognition"
+},
+{
+"id": "v-05",
+"d": 3,
+"s": "Custom vision",
+"t": "single",
+"q": "A factory must classify photos of its own specific product defects that no prebuilt model knows. What should you do?",
+"o": [
+"Train a custom image model with labeled photos of the defects",
+"Use prebuilt image tagging",
+"Use speech to text",
+"Use sentiment analysis"
+],
+"a": 0,
+"x": "Company-specific categories need a custom model trained on your labeled images; prebuilt tags only know common objects.",
+"r": "Fundamentals of computer vision"
+},
+{
+"id": "v-06",
+"d": 3,
+"s": "Vision tasks",
+"t": "single",
+"q": "Which task returns the coordinates of each object found in an image?",
+"o": [
+"Image classification",
+"Object detection",
+"Captioning",
+"Sentiment analysis"
+],
+"a": 1,
+"x": "Object detection returns a label and a bounding box (coordinates) for each object.",
+"r": "Fundamentals of computer vision"
+},
+{
+"id": "v-07",
+"d": 3,
+"s": "Vision tasks",
+"t": "single",
+"q": "Scanned handwritten notes must be converted into editable text. Which capability do you need?",
+"o": [
+"OCR (Read)",
+"Object detection",
+"Semantic segmentation",
+"Face detection"
+],
+"a": 0,
+"x": "The Read (OCR) capability extracts printed and handwritten text from images and documents.",
+"r": "Fundamentals of computer vision"
+},
+{
+"id": "n-01",
+"d": 4,
+"s": "Language",
+"t": "drop",
+"q": "Select the Azure AI Language feature for each requirement.",
+"rows": [
+"Is this product review positive or negative?",
+"Which language is this message written in?",
+"List the main talking points of a document",
+"Find names of people, organizations and places"
+],
+"b": [
+{
+"o": [
+"Sentiment analysis",
+"Language detection",
+"Key phrase extraction",
+"Named entity recognition"
+],
+"a": 0
+},
+{
+"o": [
+"Sentiment analysis",
+"Language detection",
+"Key phrase extraction",
+"Named entity recognition"
+],
+"a": 1
+},
+{
+"o": [
+"Sentiment analysis",
+"Language detection",
+"Key phrase extraction",
+"Named entity recognition"
+],
+"a": 2
+},
+{
+"o": [
+"Sentiment analysis",
+"Language detection",
+"Key phrase extraction",
+"Named entity recognition"
+],
+"a": 3
+}
+],
+"x": "Each feature maps directly to its output: sentiment, language, key phrases, entities.",
+"r": "Fundamentals of text analysis"
+},
+{
+"id": "n-02",
+"d": 4,
+"s": "Language",
+"t": "single",
+"q": "A chatbot must understand that 'I'd like to book a flight to Rome on Friday' means the intent BookFlight with the entities Rome and Friday. What should you use?",
+"o": [
+"Conversational language understanding (CLU)",
+"Key phrase extraction",
+"Text to speech",
+"Document translation"
+],
+"a": 0,
+"x": "CLU (successor of LUIS) predicts the user's intent and extracts entities from utterances.",
+"r": "Fundamentals of conversational language understanding"
+},
+{
+"id": "n-03",
+"d": 4,
+"s": "Language",
+"t": "single",
+"q": "Support tickets must have phone numbers and email addresses masked before analysts read them. Which feature?",
+"o": [
+"PII detection",
+"Language detection",
+"Opinion mining",
+"Speech translation"
+],
+"a": 0,
+"x": "PII detection finds personally identifiable information and returns a redacted version of the text.",
+"r": "Fundamentals of text analysis"
+},
+{
+"id": "n-04",
+"d": 4,
+"s": "Speech",
+"t": "drop",
+"q": "Select the Azure AI Speech capability for each need.",
+"rows": [
+"Create subtitles from a recorded lecture",
+"Read news articles aloud to visually impaired users",
+"Turn a speaker's French into spoken English in real time"
+],
+"b": [
+{
+"o": [
+"Speech to text",
+"Text to speech",
+"Speech translation"
+],
+"a": 0
+},
+{
+"o": [
+"Speech to text",
+"Text to speech",
+"Speech translation"
+],
+"a": 1
+},
+{
+"o": [
+"Speech to text",
+"Text to speech",
+"Speech translation"
+],
+"a": 2
+}
+],
+"x": "Speech recognition = speech → text. Speech synthesis = text → speech. Speech translation = speech in one language → text/speech in another.",
+"r": "Fundamentals of Azure AI Speech"
+},
+{
+"id": "n-05",
+"d": 4,
+"s": "Translation",
+"t": "single",
+"q": "You must translate 500 Word documents into German while keeping their formatting. What should you use?",
+"o": [
+"Azure AI Translator document translation",
+"Text translation one sentence at a time",
+"Speech translation",
+"Sentiment analysis"
+],
+"a": 0,
+"x": "Document translation translates whole documents and preserves their structure and formatting.",
+"r": "Fundamentals of language translation"
+},
+{
+"id": "n-06",
+"d": 4,
+"s": "Language",
+"t": "single",
+"q": "A hotel wants to know that guests liked the room but disliked the breakfast, within the same review. Which feature?",
+"o": [
+"Opinion mining (aspect-based sentiment)",
+"Language detection",
+"Entity linking",
+"Text to speech"
+],
+"a": 0,
+"x": "Opinion mining gives sentiment per aspect (room, breakfast), not just one score for the whole review.",
+"r": "Fundamentals of text analysis"
+},
+{
+"id": "n-07",
+"d": 4,
+"s": "Language",
+"t": "single",
+"q": "An FAQ bot must answer customer questions from a list of question-and-answer pairs. Which capability fits best?",
+"o": [
+"Question answering",
+"Key phrase extraction",
+"Speech synthesis",
+"Object detection"
+],
+"a": 0,
+"x": "Question answering (in Azure AI Language) builds a knowledge base from FAQ content and returns the best answer.",
+"r": "Fundamentals of question answering"
+},
+{
+"id": "g-01",
+"d": 5,
+"s": "GenAI concepts",
+"t": "drop",
+"q": "Select the concept described.",
+"rows": [
+"A piece of a word that the model reads and writes, used to count usage",
+"A vector of numbers representing the meaning of a text",
+"Instructions that set the assistant's role, tone and rules",
+"A setting that makes output more random (high) or more focused (low)"
+],
+"b": [
+{
+"o": [
+"Token",
+"Embedding",
+"System message",
+"Temperature"
+],
+"a": 0
+},
+{
+"o": [
+"Token",
+"Embedding",
+"System message",
+"Temperature"
+],
+"a": 1
+},
+{
+"o": [
+"Token",
+"Embedding",
+"System message",
+"Temperature"
+],
+"a": 2
+},
+{
+"o": [
+"Token",
+"Embedding",
+"System message",
+"Temperature"
+],
+"a": 3
+}
+],
+"x": "Tokens = text units for billing and limits. Embeddings = meaning as vectors (semantic search). System message = role and rules. Temperature = randomness.",
+"r": "Fundamentals of generative AI"
+},
+{
+"id": "g-02",
+"d": 5,
+"s": "RAG",
+"t": "single",
+"q": "A company chatbot must answer questions using the company's own HR documents and cite them, without training a new model. Which technique?",
+"o": [
+"Retrieval-augmented generation (RAG / grounding)",
+"Training a new model from scratch",
+"Raising the temperature",
+"Image segmentation"
+],
+"a": 0,
+"x": "RAG retrieves relevant passages from your data and adds them to the prompt, so the answer is grounded in your documents and can cite them.",
+"r": "Fundamentals of generative AI"
+},
+{
+"id": "g-03",
+"d": 5,
+"s": "GenAI concepts",
+"t": "yesno",
+"q": "For each statement, select Yes if it is true.",
+"st": [
+[
+"Large language models generate text by predicting the next token.",
+true
+],
+[
+"A model's answer is always factually correct if it sounds confident.",
+false
+],
+[
+"Few-shot prompting includes a few examples of the expected output in the prompt.",
+true
+]
+],
+"x": "LLMs can 'hallucinate' confident but wrong answers; mitigate with grounding, citations and human review.",
+"r": "Fundamentals of generative AI"
+},
+{
+"id": "g-04",
+"d": 5,
+"s": "Azure services",
+"t": "single",
+"q": "Which Azure offering provides a portal and SDK to explore a model catalog, test prompts in a playground, build agents and evaluate them?",
+"o": [
+"Microsoft Foundry (formerly Azure AI Foundry / Azure AI Studio)",
+"Azure DNS",
+"Azure Virtual Desktop",
+"Azure Data Box"
+],
+"a": 0,
+"x": "Microsoft Foundry is the platform for building generative AI apps and agents: model catalog, playgrounds, evaluation, safety, agents.",
+"r": "Fundamentals of generative AI in Azure"
+},
+{
+"id": "g-05",
+"d": 5,
+"s": "Safety",
+"t": "single",
+"q": "A generative app must block violent and hateful content in prompts and answers, with adjustable severity thresholds. What should you use?",
+"o": [
+"Azure AI Content Safety / content filters",
+"Key phrase extraction",
+"AutoML",
+"Object detection"
+],
+"a": 0,
+"x": "Content Safety scores hate, sexual, violence and self-harm with severity levels; content filters apply thresholds. Prompt Shields also detect jailbreak attempts.",
+"r": "Responsible generative AI"
+},
+{
+"id": "g-06",
+"d": 5,
+"s": "Responsible GenAI",
+"t": "drop",
+"q": "Put Microsoft's responsible generative AI process in order: select the stage for each step.",
+"rows": [
+"Step 1",
+"Step 2",
+"Step 3",
+"Step 4"
+],
+"b": [
+{
+"o": [
+"Identify potential harms",
+"Measure the harms",
+"Mitigate the harms",
+"Operate the solution responsibly"
+],
+"a": 0
+},
+{
+"o": [
+"Identify potential harms",
+"Measure the harms",
+"Mitigate the harms",
+"Operate the solution responsibly"
+],
+"a": 1
+},
+{
+"o": [
+"Identify potential harms",
+"Measure the harms",
+"Mitigate the harms",
+"Operate the solution responsibly"
+],
+"a": 2
+},
+{
+"o": [
+"Identify potential harms",
+"Measure the harms",
+"Mitigate the harms",
+"Operate the solution responsibly"
+],
+"a": 3
+}
+],
+"x": "Identify → Measure → Mitigate (model, safety system, system message & grounding, user experience) → Operate (monitoring, incident response).",
+"r": "Responsible generative AI"
+},
+{
+"id": "g-07",
+"d": 5,
+"s": "Agents",
+"t": "single",
+"q": "What makes an AI agent different from a simple chatbot?",
+"o": [
+"It can use tools and take actions, often over several steps, to reach a goal",
+"It only answers from a fixed FAQ",
+"It cannot use large language models",
+"It works only offline"
+],
+"a": 0,
+"x": "Agents combine a model with instructions and tools (search, APIs, code) to plan and act toward goals.",
+"r": "Fundamentals of AI agents"
+},
+{
+"id": "g-08",
+"d": 5,
+"s": "GenAI concepts",
+"t": "single",
+"q": "Answers must be consistent and repeatable for the same question. Which change helps most?",
+"o": [
+"Lower the temperature",
+"Raise the temperature",
+"Remove the system message",
+"Use a smaller context"
+],
+"a": 0,
+"x": "Lower temperature = more focused, deterministic output.",
+"r": "Fundamentals of generative AI"
+},
+{
+"id": "g-09",
+"d": 5,
+"s": "Hallucinations",
+"t": "multi",
+"q": "Which TWO measures reduce made-up answers in a generative AI app?",
+"o": [
+"Ground answers in trusted data (RAG) and ask for citations",
+"Add human review for high-stakes answers",
+"Increase the temperature to 2",
+"Remove all instructions from the system message",
+"Hide from users that they talk to an AI"
+],
+"a": [
+0,
+1
+],
+"x": "Grounding + citations and human oversight reduce and catch hallucinations. Higher temperature increases randomness; hiding AI use breaks transparency.",
+"r": "Responsible generative AI"
+},
+{
+"id": "g-10",
+"d": 5,
+"s": "Azure services",
+"t": "single",
+"q": "You need OpenAI GPT models with Azure security, private networking and compliance. What should you use?",
+"o": [
+"Azure OpenAI in Foundry Models",
+"Azure AI Translator",
+"Azure Machine Learning designer",
+"Azure AI Vision"
+],
+"a": 0,
+"x": "Azure OpenAI provides OpenAI models (GPT, embeddings, image generation) inside Azure with enterprise security and compliance.",
+"r": "Fundamentals of generative AI in Azure"
+}
+];
+
+const DOMAINS=[{"id": 1, "name": "AI workloads and responsible AI", "w": 0.175, "n": 5}, {"id": 2, "name": "Machine learning fundamentals", "w": 0.175, "n": 9}, {"id": 3, "name": "Computer vision", "w": 0.175, "n": 7}, {"id": 4, "name": "Natural language processing", "w": 0.175, "n": 7}, {"id": 5, "name": "Generative AI", "w": 0.225, "n": 10}];
+Q.forEach(q=>{if(q.id.startsWith("s2-"))q.set=2;});
+const EXAM_MIN=45;
+// randomize option order on every load so answer position gives nothing away
+(function(){const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+Q.forEach(q=>{
+  if(q.t==="single"||q.t==="multi"){const p=sh(q.o.map((_,i)=>i));q.o=p.map(i=>q.o[i]);if(q.t==="single")q.a=p.indexOf(q.a);else q.a=q.a.map(x=>p.indexOf(x)).sort((x,y)=>x-y);}
+  if(q.t==="drop"){const same=q.b.every(B=>JSON.stringify(B.o)===JSON.stringify(q.b[0].o));let p0=same?sh(q.b[0].o.map((_,i)=>i)):null;
+    q.b=q.b.map(B=>{const p=p0||sh(B.o.map((_,i)=>i));return{o:p.map(i=>B.o[i]),a:p.indexOf(B.a)};});}
+});})();
+const byId={}; Q.forEach(q=>byId[q.id]=q);
+const LS="ai-900-trainer-progress";
+let state={att:{},missed:{},exams:[]};
+
+// ---------- persistence
+function prune(){Object.keys(state.att).forEach(k=>{if(!byId[k])delete state.att[k];});Object.keys(state.missed).forEach(k=>{if(!byId[k])delete state.missed[k];});}
+function loadLocal(){try{const r=localStorage.getItem(LS);if(r){const s=JSON.parse(r);state={att:s.att||{},missed:s.missed||{},exams:s.exams||[]};}}catch(e){}}
+function persist(){try{state.exams=state.exams.slice(-30);localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+
+// ---------- helpers
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const L="ABCDEFGH";
+function blankInit(q){if(q.t==="single")return null;if(q.t==="multi")return[];if(q.t==="drop")return q.b.map(()=>-1);if(q.t==="yesno")return q.st.map(()=>null);if(q.t==="order")return shuffle(q.items.map((_,i)=>i));}
+function answered(q,a){if(a==null)return false;if(q.t==="single")return a!==null;if(q.t==="multi")return a.length>0;if(q.t==="drop")return a.every(x=>x>=0);if(q.t==="yesno")return a.every(x=>x!==null);if(q.t==="order")return true;}
+function score(q,a){
+  if(a==null)return 0;
+  if(q.t==="single")return a===q.a?1:0;
+  if(q.t==="multi"){const n=q.a.length;let g=0,b=0;a.forEach(i=>q.a.includes(i)?g++:b++);return Math.max(0,(g-b)/n);}
+  if(q.t==="drop")return a.filter((x,i)=>x===q.b[i].a).length/q.b.length;
+  if(q.t==="yesno")return a.filter((x,i)=>x===q.st[i][1]).length/q.st.length;
+  if(q.t==="order")return a.every((x,i)=>x===i)?1:0;
+}
+function record(q,sc){const p=state.att[q.id]||{n:0};state.att[q.id]={sc:sc,c:sc===1,n:p.n+1};if(sc<1)state.missed[q.id]=(state.missed[q.id]||0)+1;else delete state.missed[q.id];}
+
+// ---------- stats
+function domStats(d){const qs=Q.filter(q=>q.d===d);let seen=0,sum=0;qs.forEach(q=>{const a=state.att[q.id];if(a){seen++;sum+=a.sc;}});return{total:qs.length,seen,acc:seen?sum/seen:null};}
+function readiness(){let t=0;DOMAINS.forEach(D=>{const s=domStats(D.id);const cov=s.total?Math.min(1,s.seen/s.total*1.25):0;t+=D.w*(s.acc||0)*cov;});return Math.round(t*100);}
+function skillStats(){const m={};Q.forEach(q=>{const k=q.s;m[k]=m[k]||{d:q.d,seen:0,sum:0,n:0};m[k].n++;const a=state.att[q.id];if(a){m[k].seen++;m[k].sum+=a.sc;}});return m;}
+function weakSkills(){const m=skillStats();return Object.keys(m).map(k=>({s:k,d:m[k].d,seen:m[k].seen,acc:m[k].seen?m[k].sum/m[k].seen:null})).filter(r=>r.acc===null||r.acc<0.8).sort((a,b)=>(a.acc??-1)-(b.acc??-1));}
+function tier(acc,seen){if(!seen)return["untested","Untested"];if(acc>=.8)return["strong","Strong"];if(acc>=.6)return["dev","Developing"];return["weak","Weak"];}
+
+// ---------- home
+function renderHome(){
+  const r=readiness();document.getElementById("ready").textContent=r+"%";
+  const arc=document.getElementById("arc");arc.setAttribute("stroke-dashoffset",String(150.8-150.8*r/100));arc.setAttribute("stroke",r>=80?"var(--green)":r>=60?"var(--amber)":"var(--red)");
+  const le=state.exams[state.exams.length-1];document.getElementById("lastExam").textContent=le?le.score:"—";
+  const g=document.getElementById("domains");g.innerHTML="";
+  DOMAINS.forEach(D=>{const s=domStats(D.id);const[t,l]=tier(s.acc,s.seen);const c=document.createElement("button");c.className="dcard";
+    c.innerHTML=`<div class="row"><span>DOMAIN ${D.id}</span><span>${Math.round(D.w*100)}% of exam</span></div><h3>${D.name}</h3><div class="bar"><span style="width:${Math.round((s.acc||0)*100)}%;background:${t==="strong"?"var(--green)":t==="dev"?"var(--amber)":t==="weak"?"var(--red)":"transparent"}"></span></div><div class="row" style="margin-top:6px"><span>${s.seen}/${s.total} done · ${s.acc===null?"–":Math.round(s.acc*100)+"%"}</span><span class="pill ${t}">${l}</span></div>`;
+    c.onclick=()=>{const all=shuffle(Q.filter(q=>q.d===D.id));startPractice(all.filter(q=>!state.att[q.id]).concat(all.filter(q=>state.att[q.id])),"Domain "+D.id+" (unanswered first)");};g.appendChild(c);});
+  const ws=new Set(weakSkills().map(w=>w.s));document.getElementById("nWeak").textContent="("+Q.filter(q=>ws.has(q.s)).length+" q)";
+  document.getElementById("nMissed").textContent="("+Object.keys(state.missed).length+" q)";
+  document.getElementById("nAll").textContent="("+Q.length+" q)";document.getElementById("nNew").textContent="("+Q.filter(q=>q.set===2&&!state.att[q.id]).length+" unseen)";
+}
+function renderIntro(){document.getElementById("panel").innerHTML=`<div class="empty"><b style="color:var(--text)">How to use this trainer</b><ul>
+<li><b>Domain cards:</b> practice one domain with instant feedback. Unanswered questions come first.</li>
+<li><b>Exam simulation:</b> 38 questions weighted like the real exam, 45-minute timer, no feedback until the end, flag and review, scaled score out of 1000 (700 to pass).</li>
+<li><b>Weak skills / Retry missed:</b> drill what you got wrong until every domain is Strong (80%+).</li>
+<li>Read the explanation after every answer, even when you were right: it teaches the trigger words that decide the answer.</li>
+<li>You are ready when an exam simulation scores <b>800 or more</b> and every domain card is green.</li></ul></div>`;}
+
+// ---------- question renderer
+function renderQuestion(q,a,mode,onChange){
+  // mode: "answer" (editable) | "review" (locked + feedback)
+  const lock=mode==="review";
+  let h="";
+  if(q.case){h+=`<details class="case" open><summary>${CASES[q.case].title}</summary>${CASES[q.case].html}</details>`;}
+  h+=`<p class="stem">${q.q}</p>`;
+  if(q.t==="multi")h+=`<div class="hint">Choose ${q.a.length}.</div>`;
+  if(q.t==="single"||q.t==="multi"){
+    h+=`<div class="opts">`+q.o.map((o,i)=>{let c="opt";const sel=q.t==="single"?a===i:a.includes(i);if(sel)c+=" sel";
+      if(lock){c+=" locked";const right=q.t==="single"?q.a===i:q.a.includes(i);if(right&&sel)c+=" ok";else if(sel&&!right)c+=" bad";else if(right)c+=" miss";}
+      return `<button class="${c}" data-i="${i}" ${lock?"disabled":""}><span class="k">${q.t==="multi"?(sel?"☑":"☐"):L[i]}</span><span>${o}</span></button>`;}).join("")+`</div>`;
+  } else if(q.t==="drop"){
+    const sel=(bi)=>{const B=q.b[bi];let cls="";if(lock)cls=a[bi]===B.a?"ok":"bad";return `<select data-b="${bi}" class="${cls}" ${lock?"disabled":""}><option value="-1">Select…</option>${B.o.map((o,oi)=>`<option value="${oi}" ${a[bi]===oi?"selected":""}>${esc(o)}</option>`).join("")}</select>`+(lock&&a[bi]!==B.a?`<div class="fix">✔ ${esc(B.o[B.a])}</div>`:"");};
+    if(q.tpl){let t=esc(q.tpl);t=t.replace(/\[\[(\d+)\]\]/g,(m,n)=>sel(+n));h+=`<pre class="codeq">${t}</pre>`;}
+    else{h+=`<div class="tblwrap"><table class="rows">`+q.rows.map((r,i)=>`<tr><td>${r}</td><td>${sel(i)}</td></tr>`).join("")+`</table></div>`;}
+  } else if(q.t==="yesno"){
+    h+=`<div class="tblwrap"><table class="rows">`+q.st.map((s,i)=>{const nm=q.id+"_"+i;let mark="";if(lock){mark=a[i]===s[1]?` <span class="pill strong">✔</span>`:` <span class="pill weak">✘ ${s[1]?"Yes":"No"}</span>`;}
+      return `<tr><td>${s[0]}</td><td class="yn"><label><input type="radio" name="${nm}" data-y="${i}" value="1" ${a[i]===true?"checked":""} ${lock?"disabled":""}> Yes</label><label><input type="radio" name="${nm}" data-y="${i}" value="0" ${a[i]===false?"checked":""} ${lock?"disabled":""}> No</label>${mark}</td></tr>`;}).join("")+`</table></div>`;
+  } else if(q.t==="order"){
+    h+=`<div class="orderlist">`+a.map((it,pos)=>{let c="oitem";if(lock)c+=it===pos?" ok":" bad";return `<div class="${c}"><span class="pos">${pos+1}</span><span class="txt">${q.items[it]}</span>${lock?"":`<button data-up="${pos}" aria-label="Move up" ${pos===0?"disabled":""}>↑</button><button data-dn="${pos}" aria-label="Move down" ${pos===a.length-1?"disabled":""}>↓</button>`}</div>`;}).join("")+`</div>`;
+    if(lock&&!a.every((x,i)=>x===i))h+=`<div class="fix" style="margin-top:8px">Correct order: ${q.items.map((t,i)=>(i+1)+". "+t).join(" → ")}</div>`;
+  }
+  const wrap=document.createElement("div");wrap.innerHTML=h;
+  if(!lock){
+    wrap.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(q.t==="single")a=i;else{a=a.includes(i)?a.filter(x=>x!==i):a.concat(i);}onChange(a,true);});
+    wrap.querySelectorAll("select").forEach(s=>s.onchange=()=>{a=a.slice();a[+s.dataset.b]=+s.value;onChange(a,false);});
+    wrap.querySelectorAll("input[data-y]").forEach(r=>r.onchange=()=>{a=a.slice();a[+r.dataset.y]=r.value==="1";onChange(a,false);});
+    wrap.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{const p=+b.dataset.up;a=a.slice();[a[p-1],a[p]]=[a[p],a[p-1]];onChange(a,true);});
+    wrap.querySelectorAll("[data-dn]").forEach(b=>b.onclick=()=>{const p=+b.dataset.dn;a=a.slice();[a[p+1],a[p]]=[a[p],a[p+1]];onChange(a,true);});
+  }
+  return wrap;
+}
+function feedbackHTML(q,sc){const cls=sc===1?"good":sc>0?"part":"poor";const lab=sc===1?"Correct.":sc>0?`Partially correct (${Math.round(sc*100)}%).`:"Incorrect.";
+  return `<div class="explain"><span class="res ${cls}">${lab}</span> ${q.x}<div class="src">Microsoft Learn: ${q.r}</div></div>`;}
+
+// ---------- practice
+let P=null;
+function startPractice(list,label){if(!list.length){document.getElementById("panel").innerHTML=`<div class="empty">Nothing to practice here yet.</div>`;return;}
+  P={list,label,i:0,pts:0,a:blankInit(list[0]),done:false};drawPractice();}
+function drawPractice(){const q=P.list[P.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const meta=document.createElement("div");meta.className="meta";meta.innerHTML=`<span class="tag">${P.label} · D${q.d} · ${esc(q.s)}</span><span class="tag">Question ${P.i+1}/${P.list.length} · score ${P.pts.toFixed(1)}/${P.i}</span>`;panel.appendChild(meta);
+  const body=document.createElement("div");panel.appendChild(body);
+  const ctr=document.createElement("div");ctr.className="controls";panel.appendChild(ctr);
+  const redraw=()=>{body.innerHTML="";body.appendChild(renderQuestion(q,P.a,P.done?"review":"answer",(na,re)=>{P.a=na;if(re)redraw();else upd();}));if(P.done)body.insertAdjacentHTML("beforeend",feedbackHTML(q,score(q,P.a)));upd();};
+  const upd=()=>{ctr.innerHTML="";const quit=document.createElement("button");quit.className="btn";quit.textContent="End session";quit.onclick=()=>endPractice();ctr.appendChild(quit);
+    const go=document.createElement("button");go.className="btn primary";
+    if(!P.done){go.textContent="Submit answer";go.disabled=!answered(q,P.a);go.onclick=()=>{P.done=true;const sc=score(q,P.a);P.pts+=sc;record(q,sc);persist();renderHome();redraw();};}
+    else{go.textContent=P.i+1<P.list.length?"Next question":"See results";go.onclick=()=>{P.i++;if(P.i>=P.list.length)return endPractice(true);P.a=blankInit(P.list[P.i]);P.done=false;drawPractice();};}
+    ctr.appendChild(go);};
+  redraw();
+}
+function endPractice(){const n=P.i+(P.done&&P.i<P.list.length?1:0);const answeredN=Math.min(n,P.list.length);const pct=answeredN?Math.round(P.pts/answeredN*100):0;
+  const ws=weakSkills().slice(0,8);
+  document.getElementById("panel").innerHTML=`<h2 style="margin:0 0 4px;font-size:18px">Session results</h2><div class="sumgrid"><div class="sumcard"><div class="n">${P.pts.toFixed(1)}/${answeredN}</div><div class="l">Points</div></div><div class="sumcard"><div class="n">${pct}%</div><div class="l">Session accuracy</div></div><div class="sumcard"><div class="n">${readiness()}%</div><div class="l">Weighted readiness</div></div></div>
+  <b style="font-size:14px">Skills to work on</b>${ws.length?ws.map(w=>`<div class="wrow"><span>D${w.d} · ${esc(w.s)}</span><span class="mono" style="color:${w.acc===null?"var(--dim)":w.acc<.6?"var(--red)":"var(--amber)"}">${w.acc===null?"untested":Math.round(w.acc*100)+"%"}</span></div>`).join(""):`<div class="wrow">Every skill is at 80% or more.</div>`}
+  <div class="controls"><button class="btn" id="bw">Drill weak skills</button><button class="btn primary" id="bh">Back</button></div>`;
+  document.getElementById("bw").onclick=startWeak;document.getElementById("bh").onclick=renderIntro;P=null;renderHome();}
+function startWeak(){const ws=new Set(weakSkills().map(w=>w.s));startPractice(shuffle(Q.filter(q=>ws.has(q.s))),"Weak skills");}
+
+// ---------- exam simulation
+let E=null,timerH=null;
+function buildExam(){let picked=[];const seen=q=>(state.att[q.id]?state.att[q.id].n:0);DOMAINS.forEach(D=>{picked=picked.concat(shuffle(Q.filter(q=>q.d===D.id)).sort((x,y)=>seen(x)-seen(y)).slice(0,D.n));});
+  // keep case-study questions together at the end, like the real exam
+  const cs=picked.filter(q=>q.case),rest=shuffle(picked.filter(q=>!q.case));return rest.concat(cs);}
+function startExam(){if(!confirm("Start a 38-question exam simulation with a 45-minute timer? No feedback until you finish."))return;
+  const list=buildExam();E={list,ans:list.map(blankInit),flag:list.map(()=>false),i:0,end:Date.now()+EXAM_MIN*60000,over:false,touched:list.map(()=>false)};
+  clearInterval(timerH);timerH=setInterval(tick,1000);drawExam();}
+function tick(){if(!E||E.over)return;const left=E.end-Date.now();const t=document.getElementById("timer");if(left<=0){finishExam(true);return;}if(t){const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);t.textContent=`${m}:${String(s).padStart(2,"0")}`;t.className="timer"+(left<600000?" low":"");}}
+function drawExam(){const q=E.list[E.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const bar=document.createElement("div");bar.className="exambar";bar.innerHTML=`<span class="tag">Exam simulation · question ${E.i+1} of ${E.list.length}</span><label class="tag" style="cursor:pointer"><input type="checkbox" id="flg" ${E.flag[E.i]?"checked":""}> Flag for review</label><span class="timer" id="timer">--:--</span>`;panel.appendChild(bar);
+  bar.querySelector("#flg").onchange=e=>{E.flag[E.i]=e.target.checked;};
+  const body=document.createElement("div");panel.appendChild(body);
+  const redraw=()=>{body.innerHTML="";body.appendChild(renderQuestion(q,E.ans[E.i],"answer",(na,re)=>{E.ans[E.i]=na;E.touched[E.i]=true;if(re)redraw();}));};redraw();
+  const ctr=document.createElement("div");ctr.className="controls";ctr.innerHTML=`<button class="btn" id="prev" ${E.i===0?"disabled":""}>Previous</button><span style="display:flex;gap:10px"><button class="btn" id="rev">Review screen</button><button class="btn primary" id="next">${E.i+1<E.list.length?"Next":"Review screen"}</button></span>`;panel.appendChild(ctr);
+  ctr.querySelector("#prev").onclick=()=>{E.i--;drawExam();};
+  ctr.querySelector("#next").onclick=()=>{if(E.i+1<E.list.length){E.i++;drawExam();}else drawReview();};
+  ctr.querySelector("#rev").onclick=drawReview;tick();}
+function isAns(i){const q=E.list[i];return answered(q,E.ans[i]);}
+function drawReview(){const panel=document.getElementById("panel");const un=E.list.filter((_,i)=>!isAns(i)).length;
+  panel.innerHTML=`<div class="exambar"><span class="tag">Review screen · ${un} unanswered · ${E.flag.filter(Boolean).length} flagged</span><span class="timer" id="timer">--:--</span></div>
+  <div class="navgrid">${E.list.map((q,i)=>`<button data-go="${i}" class="${isAns(i)?"ans":""} ${E.flag[i]?"flag":""}">${i+1}${E.flag[i]?"⚑":""}</button>`).join("")}</div>
+  <p class="sub">Grey = answered. ⚑ = flagged. Click a number to go back to that question.</p>
+  <div class="controls"><button class="btn" id="back">Back to question ${E.i+1}</button><button class="btn primary" id="fin">Finish exam</button></div>`;
+  panel.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{E.i=+b.dataset.go;drawExam();});
+  panel.querySelector("#back").onclick=drawExam;panel.querySelector("#fin").onclick=()=>{if(confirm(un?`${un} questions are unanswered. Finish anyway?`:"Finish the exam?"))finishExam(false);};tick();}
+function finishExam(timeUp){E.over=true;clearInterval(timerH);
+  const dom={};let pts=0;E.list.forEach((q,i)=>{const sc=isAns(i)?score(q,E.ans[i]):0;pts+=sc;dom[q.d]=dom[q.d]||[0,0];dom[q.d][0]+=sc;dom[q.d][1]++;record(q,sc);E.sc=E.sc||[];E.sc[i]=sc;});
+  const scaled=Math.round(pts/E.list.length*1000);
+  state.exams.push({at:new Date().toISOString(),score:scaled,dom});persist();renderHome();
+  const pass=scaled>=700;
+  const panel=document.getElementById("panel");
+  panel.innerHTML=`<h2 style="margin:0 0 10px;font-size:18px">Exam simulation result${timeUp?" (time is up)":""}</h2>
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="score" style="color:${pass?"var(--green)":"var(--red)"}">${scaled}</span><span class="pill ${pass?"strong":"weak"}" style="font-size:13px">${pass?"PASS":"FAIL"} · 700 needed</span><span class="sub">${scaled>=800?"Real-exam ready on this attempt.":pass?"Passing, but aim for 800+ for a safety margin.":"Not ready yet: drill your weak domains, then retake."}</span></div>
+  <div class="sumgrid">${DOMAINS.map(D=>{const v=dom[D.id]||[0,0];const p=v[1]?Math.round(v[0]/v[1]*100):0;const[t]=tier(p/100,v[1]);return `<div class="sumcard"><div class="n">${p}%</div><div class="l">D${D.id} · ${v[1]} q</div><div class="bar" style="margin-top:6px"><span style="width:${p}%;background:${t==="strong"?"var(--green)":t==="dev"?"var(--amber)":"var(--red)"}"></span></div></div>`;}).join("")}</div>
+  <div class="controls"><button class="btn" id="home">Back</button><button class="btn primary" id="rv">Review every answer</button></div>`;
+  panel.querySelector("#home").onclick=()=>{E=null;renderIntro();};panel.querySelector("#rv").onclick=()=>{E.i=0;drawExamReview();};}
+function drawExamReview(){const q=E.list[E.i];const panel=document.getElementById("panel");panel.innerHTML="";
+  const bar=document.createElement("div");bar.className="meta";bar.innerHTML=`<span class="tag">Review · D${q.d} · ${esc(q.s)}</span><span class="tag">${E.i+1}/${E.list.length}</span>`;panel.appendChild(bar);
+  let a=E.ans[E.i];if(!isAns(E.i)&&q.t!=="order")a=blankInit(q);
+  panel.appendChild(renderQuestion(q,a,"review",()=>{}));panel.insertAdjacentHTML("beforeend",feedbackHTML(q,E.sc[E.i]));
+  const ctr=document.createElement("div");ctr.className="controls";ctr.innerHTML=`<button class="btn" id="p" ${E.i===0?"disabled":""}>Previous</button><span style="display:flex;gap:10px"><button class="btn" id="w">Next mistake</button><button class="btn primary" id="n">${E.i+1<E.list.length?"Next":"Done"}</button></span>`;panel.appendChild(ctr);
+  ctr.querySelector("#p").onclick=()=>{E.i--;drawExamReview();};
+  ctr.querySelector("#n").onclick=()=>{if(E.i+1<E.list.length){E.i++;drawExamReview();}else{E=null;renderIntro();}};
+  ctr.querySelector("#w").onclick=()=>{for(let j=E.i+1;j<E.list.length;j++){if(E.sc[j]<1){E.i=j;return drawExamReview();}}alert("No more mistakes after this question.");};}
+
+// ---------- wire up
+document.getElementById("mNew").onclick=()=>startPractice(shuffle(Q.filter(q=>q.set===2&&!state.att[q.id])).concat(shuffle(Q.filter(q=>q.set===2&&state.att[q.id]))),"New questions (set 2)");
+document.getElementById("mExam").onclick=startExam;
+document.getElementById("mWeak").onclick=startWeak;
+document.getElementById("mMissed").onclick=()=>startPractice(shuffle(Q.filter(q=>state.missed[q.id])),"Retry missed");
+document.getElementById("mAll").onclick=()=>startPractice(shuffle(Q),"All questions");
+document.getElementById("mReset").onclick=()=>{if(confirm("Reset all saved progress and exam history?")){state={att:{},missed:{},exams:[]};persist();renderHome();renderIntro();}};
+window.addEventListener("beforeunload",e=>{if(E&&!E.over){e.preventDefault();e.returnValue="";}});
+loadLocal();prune();renderHome();renderIntro();
+</script>
+
+</body></html>

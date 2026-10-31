@@ -1,0 +1,31 @@
+name: Outdated or wrong content
+description: A service was renamed, an exam changed, or an explanation is incorrect.
+labels: ["content-update"]
+body:
+  - type: dropdown
+    id: cert
+    attributes:
+      label: Certification
+      options: [AZ-900, AI-900 / AI-901, AI-103, Google Cloud Generative AI Leader, TensorFlow Developer, Other]
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where is it?
+      description: File and section, or the question text / question ID shown in the trainer (for example "h2-07").
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong and what should it say?
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Official source
+      description: Link to Microsoft Learn, Google Cloud or TensorFlow documentation that confirms the fix.
+    validations:
+      required: true
